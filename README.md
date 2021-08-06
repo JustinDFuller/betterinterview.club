@@ -47,6 +47,10 @@ Role:
   - Description
   - Team ID
   - Status (Open, Filled, Closed)
+  
+Link:
+  - URL
+  - Description (google hangout, coderpad)
 
 Interview:
   - StartTime
@@ -54,6 +58,7 @@ Interview:
   - Interview Type ID
   - Array of Interviewer IDs
   - Array of Feedback Question IDs
+  - Links IDs
 
 Schedule:
   - Candidate ID
@@ -72,3 +77,67 @@ Feedback Answer:
   - Feedback Question ID
   - Interviewer ID
 ```
+
+## Views
+
+### Recruiter
+
+- Interview Types
+    - List (a table that links to edit and delete, links to feedback questions for this interview type)
+    - Edit
+    - Create
+
+- Feedback Questions
+    - List (a table that links to edit and delete)
+    - Edit
+    - Create
+
+- Candidates
+    - List (a table that links to edit and delete, link to view candidate schedule)
+    - Edit
+    - Create
+
+- Schedules
+    - List (by all, by candidate ID, or by role ID) (links to edit and delete)
+    - Edit (should it be able to add interviews in-line? probably)
+    - Create
+
+- Interviews
+  - List by schedule ID (links to edit and delete)
+  - Create interview for schedule ID
+  - Edit interview
+
+- Interviewers
+  - List (links to edit and delete)
+  - Create (should this link to interviewers as well? not so sure)
+  - Edit
+
+### Manager
+
+- Teams
+    - List my teams (links to edit and delete, links to roles for this team)
+    - Edit
+    - Create
+
+- Role
+    - List my roles (or roles for a given team) (links to edit and delete, links to interviews for this role)
+    - Edit
+    - Create
+
+### Candidate
+
+- Schedule
+    - See schedule in timeline form
+        - Shows interview type, description, times, links
+        - Maybe shows interviewers
+        - Link to learn more about team(s), maybe show inline
+
+    - See my status (open, pending, etc.) Use nice langugage for this, not just "REJECTED".
+
+
+### Interviewer
+
+- Interviews
+    - List (show only future interviews by default, add view to see previous interviews)
+        - Links to take notes
+        - Links to answer feedback questions
