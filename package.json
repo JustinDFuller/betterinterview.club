@@ -1,0 +1,20 @@
+{
+  "name": "interviews",
+  "version": "1.0.0",
+  "description": "<img src=\"https://repository-images.githubusercontent.com/393375822/f196bfe1-d84f-4ede-9df9-1d33dc095b02\" />",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JustinDFuller/interviews.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JustinDFuller/interviews/issues"
+  },
+  "homepage": "https://github.com/JustinDFuller/interviews#readme"
+}
