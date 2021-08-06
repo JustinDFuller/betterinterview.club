@@ -4,6 +4,8 @@ Let's make it easy to manage interviews.
 
 ## How it works
 
+- A `recruiter` creates an `organization`. 
+
 - A `recruiter` creates an `interview type`. (ex. Software Engineer Technical Phone Screen)
 - A `recruiter` creates yes or no `feedback questions` for that interview type.
 
@@ -18,13 +20,24 @@ Let's make it easy to manage interviews.
 
 ## Data Types
 
+_Note:_ If a type has a many-to-many assocation, the parent type will contain an array of child IDs. If a type of a many-to-one or a one-to-one assocation, the child will contain the parent ID. 
+
+Example: 
+  - A `Company` will have many `Person` assocations, but a Person will only have one company. The Person will contain the Company ID. 
+  - An `Interview` will have many `Feedback Question` assocations, and `Feedback Question`s may belong to many `Interview`s. The `Interview` type will contain an array of `Feedback Question` IDs.
+
 ```
 All types have an UUIDv4 ID. All types have CreatedAt and UpdatedAt timestamps.
+
+Company:
+  - Name
+  - Email domain (@nytimes.com, @amazon.com)
 
 Person:
   - Name
   - Email
   - Type (manager, recruiter, candidate, interviewer)
+  - Company ID
   
 Candidate: Person
   - Status (interviewing, declined, rejected, offered, hired)
@@ -32,6 +45,7 @@ Candidate: Person
 Interview Type:
   - Name
   - Description
+  - Company ID
   
 Feedback Questions:
   - Interview Type ID
@@ -41,6 +55,7 @@ Team:
   - Title
   - Description
   - Parent Team ID
+  - Company ID
   
 Role:
   - Title
@@ -51,19 +66,19 @@ Role:
 Link:
   - URL
   - Description (google hangout, coderpad)
+  - Interview ID
 
 Interview:
   - StartTime
   - EndTime
   - Interview Type ID
+  - Schedule ID
   - Array of Interviewer IDs
   - Array of Feedback Question IDs
-  - Links IDs
 
 Schedule:
   - Candidate ID
   - Array of Role IDs
-  - Array of Interview IDs
   
 Notes:
   - Text
