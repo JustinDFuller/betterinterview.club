@@ -20,9 +20,11 @@ Let's make it easy to manage interviews.
 
 ## Data Types
 
-_Note:_ If a type has a many-to-many assocation, the parent type will contain an array of child IDs. If a type of a many-to-one or a one-to-one assocation, the child will contain the parent ID. 
+__Rules__
+1. If a type has a many-to-many assocation, the parent type will contain an array of child IDs. Otherwise, the child will contain the parent ID. 
+2. Each data-type must eventually connect to a Company ID.
 
-Example: 
+__Examples__
   - A `Company` will have many `Person` assocations, but a Person will only have one company. The Person will contain the Company ID. 
   - An `Interview` will have many `Feedback Question` assocations, and `Feedback Question`s may belong to many `Interview`s. The `Interview` type will contain an array of `Feedback Question` IDs.
 
