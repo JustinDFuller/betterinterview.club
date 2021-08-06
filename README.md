@@ -134,10 +134,38 @@ Feedback Answer:
 
     - See my status (open, pending, etc.) Use nice langugage for this, not just "REJECTED".
 
-
 ### Interviewer
 
 - Interviews
     - List (show only future interviews by default, add view to see previous interviews)
         - Links to take notes
         - Links to answer feedback questions
+
+## Components
+
+There are some clear patterns that can become components.
+
+1. Many of the datatypes have a LIST, a CREATE, and an EDIT view.
+2. The LIST view is a table.
+3. The CREATE and EDIT views are forms.
+4. The DELETE action is a button.
+5. It may also make sense to have a VIEW but I am not sure yet. LIST may suffice.
+6. The table will contain links to other data types. There can be a common `link` that links an ID to a URL and displays a TITLE.
+7. The interviewer should see a really nice vertical timeline component.
+8. The interviews list may make more sense as a set of cards than a table. It will give more details that way.
+
+## Client Considerations
+
+- All logged-in data, no huge SEO concerns here.
+    - SSR may not be necessary
+- Will likely need to be themed based on Company's theme (white label) 
+- Each company may want to have a landing page to onboard new candidates
+
+## Backend
+
+- Backend will mostly be a CRUD system
+- The backend will need to store and validate updates to this data.
+    - Will need to make sure candidates can't see all open roles or other people's schedules
+- Will need to support SSO for each company
+    - Not sure if Magic.link will be compliant? 
+    - Google SSO is another option that will probably hit a lot of companies.
