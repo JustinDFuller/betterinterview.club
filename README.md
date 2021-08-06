@@ -43,6 +43,7 @@ Person:
   
 Candidate: Person
   - Status (interviewing, declined, rejected, offered, hired)
+  - Candidate does not have a parent Company ID
   
 Interview Type:
   - Name
