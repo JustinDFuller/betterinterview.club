@@ -1,4 +1,4 @@
-import { entity } from 'entity';
+import { entity } from '@justindfuller/entity';
 
 const defaults = entity.defaults({
   Question: "",
@@ -10,4 +10,3 @@ export function New(input) {
 
   return entity.New(data, New)
 }
-

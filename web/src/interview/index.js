@@ -1,7 +1,7 @@
-import { note } from './note';
-import { type } from './type';
+import { note } from './note/index.js';
+import { type } from './type/index.js';
 
-import { New } from './new'
+import { New } from './new.js'
 
 export { 
   New,

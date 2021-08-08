@@ -1,4 +1,4 @@
-import { entity } from 'entity';
+import { entity } from '@justindfuller/entity';
 
 const defaults = entity.defaults({
   Name: "",

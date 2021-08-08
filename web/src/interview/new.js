@@ -1,9 +1,8 @@
-import { entity } from 'entity';
-import { time } from 'time';
+import { entity } from '@justindfuller/entity';
 
 const defaults = entity.defaults({
-  StartTime: time.New(),
-  EndTime: time.New(),
+  StartTime: entity.Time(),
+  EndTime: entity.Time(),
   InterviewTypeID: entity.ID(),
   ScheduleID: entity.ID(),
   InterviewerIDs: entity.IDs(),
@@ -15,4 +14,3 @@ export function New(input) {
 
   return entity.New(data, New)
 }
-

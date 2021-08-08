@@ -4,6 +4,7 @@
   "private": true,
   "entry": "main.js",
   "dependencies": {
+    "@justindfuller/entity": "github:JustinDFuller/entity#main",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
@@ -16,7 +17,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "entity test ./src",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -36,5 +37,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "type": "module"
 }

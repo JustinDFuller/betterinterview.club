@@ -1,4 +1,4 @@
-import { New } from "./new";
+import { New } from "./new.js";
 
 export const company = {
   New,
