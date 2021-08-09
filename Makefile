@@ -1,7 +1,7 @@
 init:
-	npm install;
-	mkdir src;
-	ln -s ./main.js ./src/index.js;
+	@cp ./scripts/* ./.git/hooks;
+	@(cd ./web && npm install);
+	@(cd ./backend && go mod download);
 
 run:
 	@(cd ./web && make run) & (cd ./backend && make run);

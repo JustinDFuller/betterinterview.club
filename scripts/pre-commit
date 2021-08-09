@@ -7,6 +7,7 @@
 #
 # To enable this hook, rename this file to "pre-commit".
 
+npx eslint --fix ./web/src
 npx prettier -w ./web/src
 go fmt ./backend/...
 
