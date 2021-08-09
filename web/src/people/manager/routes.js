@@ -1,3 +1,1 @@
-export const routes = {
-
-}
+export const routes = {};

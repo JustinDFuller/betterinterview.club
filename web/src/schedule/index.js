@@ -1,3 +1,1 @@
-export const schedule = {
-
-}
+export const schedule = {};

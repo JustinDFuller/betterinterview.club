@@ -7,7 +7,7 @@
 #
 # To enable this hook, rename this file to "pre-commit".
 
-npx prettier -w ./web/src ./mobile/src
+npx prettier -w ./web/src
 go fmt ./backend/.,,
 
 if git rev-parse --verify HEAD >/dev/null 2>&1

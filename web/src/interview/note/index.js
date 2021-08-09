@@ -1,5 +1,5 @@
-import { New } from './new.js';
+import { New } from "./new.js";
 
 export const note = {
   New,
-}
+};

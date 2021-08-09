@@ -1,3 +1,1 @@
-export const role = {
-
-}
+export const role = {};

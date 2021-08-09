@@ -1,4 +1,4 @@
-import { entity } from '@justindfuller/entity';
+import { entity } from "@justindfuller/entity";
 
 const defaults = entity.defaults({
   StartTime: entity.Time(),
@@ -7,10 +7,10 @@ const defaults = entity.defaults({
   ScheduleID: entity.ID(),
   InterviewerIDs: entity.IDs(),
   FeedbackQuestionIDs: entity.IDs(),
-})
+});
 
 export function New(input) {
-  const data = defaults(input)
+  const data = defaults(input);
 
-  return entity.New(data, New)
+  return entity.New(data, New);
 }
