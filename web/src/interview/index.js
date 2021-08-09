@@ -3,7 +3,7 @@ import { type } from './type/index.js';
 
 import { New } from './new.js'
 
-export { 
+export const interview = { 
   New,
   note,
   type,
