@@ -8,7 +8,7 @@
 # To enable this hook, rename this file to "pre-commit".
 
 npx prettier -w ./web/src
-go fmt ./backend/.,,
+go fmt ./backend/...
 
 if git rev-parse --verify HEAD >/dev/null 2>&1
 then
