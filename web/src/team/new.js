@@ -1,8 +1,10 @@
 import { entity } from "@justindfuller/entity";
 
 const defaults = entity.defaults({
-  Name: entity.String(),
-  EmailDomain: entity.String(),
+  Title: entity.String(),
+  Description: entity.String(),
+  ParentTeamID: entity.ID(),
+  CompanyID: entity.ID(),
 });
 
 export function New(input) {

@@ -5,3 +5,6 @@ init:
 
 run:
 	@(cd ./web && make run) & (cd ./backend && make run);
+
+test:
+	@(cd ./web && npm test);

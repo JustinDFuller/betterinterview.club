@@ -1,7 +1,7 @@
 import { entity } from "@justindfuller/entity";
 
 const defaults = entity.defaults({
-  Question: "",
+  Question: entity.String(),
   InterviewTypeID: entity.ID(),
 });
 

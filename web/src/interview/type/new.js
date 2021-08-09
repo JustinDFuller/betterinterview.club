@@ -1,8 +1,8 @@
 import { entity } from "@justindfuller/entity";
 
 const defaults = entity.defaults({
-  Name: "",
-  Description: "",
+  Name: entity.String(),
+  Description: entity.String(),
   CompanyID: entity.ID(),
 });
 

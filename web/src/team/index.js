@@ -1,1 +1,5 @@
-export const team = {};
+import { New } from './new.js';
+
+export const team = {
+  New,
+};
