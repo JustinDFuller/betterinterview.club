@@ -6,7 +6,7 @@ Let's make it easy to manage interviews.
 
 - A `recruiter` creates an `organization`. 
 
-- A `recruiter` creates an `interview type`. (ex. Software Engineer Technical Phone Screen)
+- ~~A `recruiter` creates an `interview type`. (ex. Software Engineer Technical Phone Screen)~~
 - A `recruiter` creates yes or no `feedback questions` for that interview type.
 
 - A `manager` creates their `team`.
