@@ -5,12 +5,13 @@ Let's make it easy to manage interviews.
 ## How it works
 
 - A `recruiter` creates an `organization`. 
+- A recruiter invires a manager.
 
 - ~~A `recruiter` creates an `interview type`. (ex. Software Engineer Technical Phone Screen)~~
-- A `recruiter` creates yes or no `feedback questions` for that interview type.
+- ~~A `recruiter` creates yes or no `feedback questions` for that interview type.~~
+- There are predefined interview types and questions.
 
-- A `manager` creates their `team`.
-- A `manager` opens a `role` for their `team`.
+- A `manager` opens a `role`.
 - A `recruiter` creates an interview `schedule` for a `candidate`. 
 - A `recruiter` adds one or more `interview`s to a `schedule`.
 - A `recruiter` adds one or more `interviewer`s to an `interview`.
