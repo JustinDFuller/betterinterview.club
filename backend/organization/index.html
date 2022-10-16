@@ -5,17 +5,9 @@
   </head>
   <body>
     <h1>Organization</h1>
-    <form action="/people" method="post">
+    <form action="/organization/member" method="post">
       <div>
         <label for="type">Invite someone to your organization.</label>
-      </div>
-      <div>
-        <select name="type" required>
-          <option value="" disabled selected>Select a role</option>
-          <option value="recruiter">Recruiter</option>
-          <option value="manager">Hiring Manager</option>
-          <option value="interviewer">Interviewer</option>
-        </select>
       </div>
       <div>
         <input name="email" type="email" placeholder="person@organization.com" required />
@@ -24,5 +16,15 @@
         <button type="submit">Invite</button>
       </div>
     </form>
+    <h2>
+      Members
+    </h2>
+    <ul>
+      {{ range .Users }}
+      <li>
+        {{ .Email }}
+      </li>
+      {{ end }}
+    </ul>
   </body>
 </html>

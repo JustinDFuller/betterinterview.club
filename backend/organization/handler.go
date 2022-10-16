@@ -1,67 +1,17 @@
 package organization
 
 import (
-	"errors"
+	"html/template"
 	"io"
 	"log"
 	"net/http"
 	"net/mail"
 	"net/url"
 	"strings"
-	"sync"
 	"time"
 
 	"github.com/google/uuid"
 )
-
-type User struct {
-	ID    uuid.UUID
-	Email string
-}
-
-type Organization struct {
-	ID     uuid.UUID
-	Domain string
-	Users  []User
-}
-
-type Organizations struct {
-	byDomain map[string]Organization
-	mutex    sync.Mutex
-}
-
-func (orgs *Organizations) Get(domain string) (Organization, error) {
-	orgs.mutex.Lock()
-	defer orgs.mutex.Unlock()
-
-	if orgs.byDomain == nil {
-		orgs.byDomain = map[string]Organization{}
-	}
-
-	org, found := orgs.byDomain[domain]
-	if !found {
-		return Organization{}, errors.New("organization not found")
-	}
-
-	return org, nil
-}
-
-func (orgs *Organizations) Add(org Organization) error {
-	orgs.mutex.Lock()
-	defer orgs.mutex.Unlock()
-
-	if orgs.byDomain == nil {
-		orgs.byDomain = map[string]Organization{}
-	}
-
-	if _, found := orgs.byDomain[org.Domain]; found {
-		return errors.New("organization already exists")
-	}
-
-	orgs.byDomain[org.Domain] = org
-
-	return nil
-}
 
 var organizations Organizations
 
@@ -136,5 +86,15 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	})
 
 	log.Printf("New Organization: %s %#v", org.Domain, org)
-	http.ServeFile(w, r, "./organization/index.html")
+
+	t, err := template.ParseFiles("./organization/index.html")
+	if err != nil {
+		log.Printf("Error parsing template for /organization: %s", err)
+		http.ServeFile(w, r, "./error/index.html")
+		return
+	}
+
+	if err := t.Execute(w, org); err != nil {
+		log.Printf("Error executing template for /organization: %s", err)
+	}
 }
