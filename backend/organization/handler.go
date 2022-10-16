@@ -9,10 +9,20 @@ import (
 	"net/url"
 	"strings"
 	"sync"
+	"time"
+
+	"github.com/google/uuid"
 )
 
+type User struct {
+	ID    uuid.UUID
+	Email string
+}
+
 type Organization struct {
+	ID     uuid.UUID
 	Domain string
+	Users  []User
 }
 
 type Organizations struct {
@@ -85,8 +95,29 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	orgID, err := uuid.NewRandom()
+	if err != nil {
+		log.Printf("Error creating org UUID in /organization: %s", err)
+		http.ServeFile(w, r, "./error/index.html")
+		return
+	}
+
+	userID, err := uuid.NewRandom()
+	if err != nil {
+		log.Printf("Error creating user UUID in /organization: %s", err)
+		http.ServeFile(w, r, "./error/index.html")
+		return
+	}
+
 	org := Organization{
+		ID:     orgID,
 		Domain: parts[1],
+		Users: []User{
+			{
+				ID:    userID,
+				Email: email.Address,
+			},
+		},
 	}
 	if err := organizations.Add(org); err != nil {
 		log.Printf("Error adding organization '%s' from /organization: %s", org.Domain, err)
@@ -94,6 +125,16 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	log.Printf("New Organization: %s", org.Domain)
+	http.SetCookie(w, &http.Cookie{
+		Name:     "__Host-UserUUID",
+		Value:    userID.String(),
+		Path:     "/",
+		Expires:  time.Now().Add(time.Hour * 24 * 31), // One month
+		Secure:   true,
+		HttpOnly: true,
+		SameSite: http.SameSiteStrictMode,
+	})
+
+	log.Printf("New Organization: %s %#v", org.Domain, org)
 	http.ServeFile(w, r, "./organization/index.html")
 }

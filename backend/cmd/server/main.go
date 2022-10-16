@@ -13,6 +13,6 @@ func main() {
 
 	http.HandleFunc("/organization", organization.Handler)
 
-	log.Print("Listening at http://localhost:8080/")
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	log.Print("Listening at http://localhost:8443/")
+	log.Fatal(http.ListenAndServeTLS(":8443", "server.crt", "server.key", nil))
 }
