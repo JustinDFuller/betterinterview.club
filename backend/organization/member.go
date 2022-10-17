@@ -1,7 +1,6 @@
 package organization
 
 import (
-	"html/template"
 	"io"
 	"log"
 	"net/http"
@@ -87,14 +86,5 @@ func MemberHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	t, err := template.ParseFiles("./organization/index.html")
-	if err != nil {
-		log.Printf("Error parsing template for /organization/member: %s", err)
-		http.ServeFile(w, r, "./error/index.html")
-		return
-	}
-
-	if err := t.Execute(w, org); err != nil {
-		log.Printf("Error executing template for /organization/member: %s", err)
-	}
+	http.Redirect(w, r, "/organization/", http.StatusSeeOther)
 }

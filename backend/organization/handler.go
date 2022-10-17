@@ -16,6 +16,41 @@ import (
 var organizations Organizations
 
 func Handler(w http.ResponseWriter, r *http.Request) {
+	if r.Method == http.MethodGet {
+		cookie, err := r.Cookie("__Host-UserUUID")
+		if err != nil {
+			log.Printf("Error parsing cookie for /organization/member: %s", err)
+			http.ServeFile(w, r, "./error/unauthenticated.html")
+			return
+		}
+
+		if cookie.Value == "" {
+			log.Printf("Error parsing cookie for /organization/member: %s", err)
+			http.ServeFile(w, r, "./error/unauthenticated.html")
+			return
+		}
+
+		org, err := organizations.FindByUserID(cookie.Value)
+		if err != nil {
+			log.Printf("Error finding organization for /organization/member: %s", err)
+			http.ServeFile(w, r, "./error/index.html")
+			return
+		}
+
+		t, err := template.ParseFiles("./organization/index.html")
+		if err != nil {
+			log.Printf("Error parsing template for /organization: %s", err)
+			http.ServeFile(w, r, "./error/index.html")
+			return
+		}
+
+		if err := t.Execute(w, org); err != nil {
+			log.Printf("Error executing template for /organization: %s", err)
+		}
+
+		return
+	}
+
 	body, err := io.ReadAll(r.Body)
 	if err != nil {
 		log.Printf("Error reading /organization body: %s", err)
@@ -87,14 +122,5 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 
 	log.Printf("New Organization: %s %#v", org.Domain, org)
 
-	t, err := template.ParseFiles("./organization/index.html")
-	if err != nil {
-		log.Printf("Error parsing template for /organization: %s", err)
-		http.ServeFile(w, r, "./error/index.html")
-		return
-	}
-
-	if err := t.Execute(w, org); err != nil {
-		log.Printf("Error executing template for /organization: %s", err)
-	}
+	http.Redirect(w, r, "/organization/", http.StatusSeeOther)
 }

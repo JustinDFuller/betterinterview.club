@@ -8,8 +8,8 @@ import (
 )
 
 func main() {
-	http.HandleFunc("/organization/member", organization.MemberHandler)
-	http.HandleFunc("/organization", organization.Handler)
+	http.HandleFunc("/organization/member/", organization.MemberHandler)
+	http.HandleFunc("/organization/", organization.Handler)
 	http.Handle("/", http.FileServer(http.Dir("./")))
 
 	log.Print("Listening at http://localhost:8443/")
