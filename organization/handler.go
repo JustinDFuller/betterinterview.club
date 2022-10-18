@@ -19,20 +19,20 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodGet {
 		cookie, err := r.Cookie("__Host-UserUUID")
 		if err != nil {
-			log.Printf("Error parsing cookie for /organization/member: %s", err)
+			log.Printf("Error parsing cookie for /organization: %s", err)
 			http.ServeFile(w, r, "./error/unauthenticated.html")
 			return
 		}
 
 		if cookie.Value == "" {
-			log.Printf("Error parsing cookie for /organization/member: %s", err)
+			log.Printf("Error parsing cookie for /organization: %s", err)
 			http.ServeFile(w, r, "./error/unauthenticated.html")
 			return
 		}
 
 		org, err := organizations.FindByUserID(cookie.Value)
 		if err != nil {
-			log.Printf("Error finding organization for /organization/member: %s", err)
+			log.Printf("Error finding organization for /organization: %s", err)
 			http.ServeFile(w, r, "./error/index.html")
 			return
 		}

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Better Interviews | Feedback</title>
+  </head>
+  <body>
+    <h1>Feedback</h1>
+    <p>You may add up to five questions. The only answer choices will be "yes" or "no".</p>
+    <form action="/feedback/" method="post">
+      <div>
+        <label for="candidateName">Candidate Name</label>
+      </div>
+      <div>
+        <input name="candidateName" type="text" required />
+      </div>
+
+      <div>
+        <label for="candidateEmail">Candidate Email</label>
+      </div>
+      <div>
+        <input name="candidateEmail" type="email" placeholder="person@example.com" required />
+      </div>
+
+      <div>
+        <label for="question1">Question One</label>
+      </div>
+      <div>
+        <input name="question1" type="text" required />
+      </div>
+
+      <div>
+        <label for="question2">Question Two</label>
+      </div>
+      <div>
+        <input name="question2" type="text" required />
+      </div>
+
+      <div>
+        <label for="question3">Question Three</label>
+      </div>
+      <div>
+        <input name="question3" type="text" required />
+      </div>
+
+      <div>
+        <label for="question4">Question Four</label>
+      </div>
+      <div>
+        <input name="question4" type="text" required />
+      </div>
+
+      <div>
+        <label for="question5">Question Five</label>
+      </div>
+      <div>
+        <input name="question5" type="text" required />
+      </div>
+
+      <div>
+        <button type="submit">Save Questions</button>
+      </div>
+    </form>
+  </body>
+</html>

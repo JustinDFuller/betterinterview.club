@@ -79,8 +79,7 @@ func MemberHandler(w http.ResponseWriter, r *http.Request) {
 		ID:    userID,
 		Email: email.Address,
 	}
-	org, err = organizations.AddUser(org, u)
-	if err != nil {
+	if _, err = organizations.AddUser(org, u); err != nil {
 		log.Printf("Error adding user to organization in /organization/member: %s", err)
 		http.ServeFile(w, r, "./error/index.html")
 		return

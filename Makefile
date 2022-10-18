@@ -1,5 +1,5 @@
 server-watch: ## Run the Go server and restart on changes.
-	@reflex -g "*.go" -s $(MAKE) server;
+	@reflex -G "*.html" -s $(MAKE) server;
 
 server:  ## Run the Go server.
 	@go run ./cmd/server/main.go;
