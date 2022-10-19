@@ -9,12 +9,21 @@ import (
 )
 
 func main() {
-	http.HandleFunc("/feedback/", feedback.Handler)
-	http.HandleFunc("/organization/member/", organization.MemberHandler)
-	http.HandleFunc("/organization/", organization.Handler)
+	var organizations organization.Organizations
+
+	http.HandleFunc("/feedback/", feedback.Handler(&organizations))
+	http.HandleFunc("/organization/member/", organization.MemberHandler(&organizations))
+	http.HandleFunc("/organization/", organization.Handler(&organizations))
+
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		cookie, err := r.Cookie("__Host-UserUUID")
 		if err != nil || cookie == nil || cookie.Value == "" {
+			http.ServeFile(w, r, "./index.html")
+			return
+		}
+
+		if _, err := organizations.FindByUserID(cookie.Value); err != nil {
+			log.Printf("Error finding organization for /: %s", err)
 			http.ServeFile(w, r, "./index.html")
 			return
 		}
