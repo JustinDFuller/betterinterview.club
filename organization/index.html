@@ -5,7 +5,6 @@
   </head>
   <body>
     <h1>Organization</h1>
-    <a href="/feedback/">Gather Interview Feedback</a>
     <form action="/organization/member/" method="post">
       <div>
         <h2>Invite</h2>
@@ -23,6 +22,15 @@
       {{ range .Users }}
       <li>
         {{ .Email }}
+      </li>
+      {{ end }}
+    </ul>
+    <h2>Feedback</h2>
+    <a href="/feedback/">Gather Interview Feedback</a>
+    <ul>
+      {{ range .Feedback }}
+      <li>
+        Role: <a href="/feedback/give/{{ .ID }}">{{ .Role }}</a>
       </li>
       {{ end }}
     </ul>

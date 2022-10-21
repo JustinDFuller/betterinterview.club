@@ -11,6 +11,7 @@ import (
 func main() {
 	var organizations organization.Organizations
 
+	http.HandleFunc("/feedback/give/", feedback.GiveHandler(&organizations))
 	http.HandleFunc("/feedback/", feedback.Handler(&organizations))
 	http.HandleFunc("/organization/member/", organization.MemberHandler(&organizations))
 	http.HandleFunc("/organization/", organization.Handler(&organizations))

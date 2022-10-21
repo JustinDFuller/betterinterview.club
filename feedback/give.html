@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Better Interviews | Feedback</title>
+  </head>
+  <body>
+    <h1>Give Feedback</h1>
+    <strong>Role:</strong> {{ .Role }}
+    <form action="/feedback/give/{{ .ID }}" method="post">
+
+      {{ range .Questions }}
+        <div>
+          <label for="{{ .ID }}">{{ .Text }}</label>
+        </div>
+        <div>
+          Yes
+          <input name="{{ .ID }}" type="radio" value="true" required />
+        </div>
+        <div>
+          No
+          <input name="{{ .ID }}" type="radio" value="false" required />
+        </div>
+
+      {{ end }}
+
+      <div>
+        <button type="submit">Save Questions</button>
+      </div>
+    </form>
+  </body>
+</html>
