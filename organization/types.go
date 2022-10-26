@@ -12,6 +12,47 @@ type User struct {
 	Email string
 }
 
+func NewAnswer(questionID string, response bool) (Answer, error) {
+	id, err := uuid.NewRandom()
+	if err != nil {
+		return Answer{}, errors.Wrap(err, "error creating ID for Answer")
+	}
+
+	qID, err := uuid.Parse(questionID)
+	if err != nil {
+		return Answer{}, errors.Wrap(err, "error creating QuestionID for Answer")
+	}
+
+	return Answer{
+		ID:         id,
+		QuestionID: qID,
+		Response:   response,
+	}, nil
+}
+
+type Answer struct {
+	ID         uuid.UUID
+	QuestionID uuid.UUID
+	Response   bool
+}
+
+func NewFeedbackResponse(answers []Answer) (FeedbackResponse, error) {
+	id, err := uuid.NewRandom()
+	if err != nil {
+		return FeedbackResponse{}, errors.Wrap(err, "error creating ID for FeedbackResponse")
+	}
+
+	return FeedbackResponse{
+		ID:      id,
+		Answers: answers,
+	}, nil
+}
+
+type FeedbackResponse struct {
+	ID      uuid.UUID
+	Answers []Answer
+}
+
 func NewQuestion(text string) (Question, error) {
 	id, err := uuid.NewRandom()
 	if err != nil {
@@ -46,6 +87,17 @@ type Feedback struct {
 	ID        uuid.UUID
 	Role      string
 	Questions []Question
+	Responses []FeedbackResponse
+}
+
+func (f *Feedback) QuestionByID(id string) (Question, error) {
+	for _, question := range f.Questions {
+		if question.ID.String() == id {
+			return question, nil
+		}
+	}
+
+	return Question{}, errors.Errorf("question not found: %s", id)
 }
 
 type Organization struct {
@@ -148,6 +200,30 @@ func (orgs *Organizations) AddFeedback(org Organization, f Feedback) error {
 	}
 
 	org.Feedback = append(org.Feedback, f)
+	orgs.byDomain[org.Domain] = org
+
+	return nil
+}
+
+func (orgs *Organizations) AddFeedbackResponse(org Organization, f Feedback, fr FeedbackResponse) error {
+	orgs.mutex.Lock()
+	defer orgs.mutex.Unlock()
+
+	if orgs.byDomain == nil {
+		orgs.byDomain = map[string]Organization{}
+	}
+
+	org, found := orgs.byDomain[org.Domain]
+	if !found {
+		return errors.New("organization does not exist")
+	}
+
+	for i, feedback := range org.Feedback {
+		if feedback.ID == f.ID {
+			org.Feedback[i].Responses = append(feedback.Responses, fr)
+		}
+	}
+
 	orgs.byDomain[org.Domain] = org
 
 	return nil
