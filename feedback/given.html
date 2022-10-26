@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Better Interviews | Feedback Given</title>
+  </head>
+  <body>
+    <h1>Feedback Given</h1>
+    <h2>{{ .Role }}</h2> 
+    <form action="/feedback/give/{{ .ID }}" method="post">
+      {{ $feedback := . }}
+
+      {{ range .Responses }}
+        {{ range .Answers }}
+          <div>
+            {{ $id := .QuestionID }}
+            {{ range $feedback.Questions }}
+              {{ if eq .ID $id }}
+                <strong>{{ .Text }}</strong>
+              {{ end }}
+            {{ end }}
+            {{ if .Response }}  Yes {{ else }} No {{ end }}
+          </div>
+        {{ end }}
+      {{ end }}
+    </form>
+  </body>
+</html>

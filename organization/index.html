@@ -30,7 +30,7 @@
     <ul>
       {{ range .Feedback }}
       <li>
-        Role: <a href="/feedback/give/{{ .ID }}">{{ .Role }}</a>
+        Role: {{ .Role }} <a href="/feedback/give/{{ .ID }}">Give Feedback</a> or <a href="/feedback/given/{{ .ID }}">View Feedback</a>
       </li>
       {{ end }}
     </ul>
