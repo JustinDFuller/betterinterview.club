@@ -2,6 +2,7 @@ package organization
 
 import (
 	"sync"
+	"time"
 
 	"github.com/google/uuid"
 	"github.com/pkg/errors"
@@ -36,21 +37,25 @@ type Answer struct {
 	Response   bool
 }
 
-func NewFeedbackResponse(answers []Answer) (FeedbackResponse, error) {
+func NewFeedbackResponse(creatorID uuid.UUID, answers []Answer) (FeedbackResponse, error) {
 	id, err := uuid.NewRandom()
 	if err != nil {
 		return FeedbackResponse{}, errors.Wrap(err, "error creating ID for FeedbackResponse")
 	}
 
 	return FeedbackResponse{
-		ID:      id,
-		Answers: answers,
+		ID:        id,
+		CreatorID: creatorID,
+		CreatedAt: time.Now(),
+		Answers:   answers,
 	}, nil
 }
 
 type FeedbackResponse struct {
-	ID      uuid.UUID
-	Answers []Answer
+	ID        uuid.UUID
+	CreatorID uuid.UUID
+	CreatedAt time.Time
+	Answers   []Answer
 }
 
 func NewQuestion(text string) (Question, error) {
@@ -70,7 +75,7 @@ type Question struct {
 	Text string
 }
 
-func NewFeedback(role string, questions []Question) (Feedback, error) {
+func NewFeedback(creatorID uuid.UUID, role string, questions []Question) (Feedback, error) {
 	id, err := uuid.NewRandom()
 	if err != nil {
 		return Feedback{}, errors.Wrap(err, "error creating ID for Feedback")
@@ -78,6 +83,8 @@ func NewFeedback(role string, questions []Question) (Feedback, error) {
 
 	return Feedback{
 		ID:        id,
+		CreatorID: creatorID,
+		CreatedAt: time.Now(),
 		Role:      role,
 		Questions: questions,
 	}, nil
@@ -85,6 +92,8 @@ func NewFeedback(role string, questions []Question) (Feedback, error) {
 
 type Feedback struct {
 	ID        uuid.UUID
+	CreatorID uuid.UUID
+	CreatedAt time.Time
 	Role      string
 	Questions []Question
 	Responses []FeedbackResponse
@@ -115,6 +124,16 @@ func (o Organization) FeedbackByID(id uuid.UUID) (Feedback, error) {
 	}
 
 	return Feedback{}, errors.New("feedback not found")
+}
+
+func (org *Organization) FindUserByID(id string) (User, error) {
+	for _, user := range org.Users {
+		if user.ID.String() == id {
+			return user, nil
+		}
+	}
+
+	return User{}, errors.Errorf("organization not found for user ID: %s", id)
 }
 
 type Organizations struct {
@@ -174,16 +193,13 @@ func (orgs *Organizations) FindByUserID(id string) (Organization, error) {
 	orgs.mutex.Lock()
 	defer orgs.mutex.Unlock()
 
-	var org Organization
 	for _, organization := range orgs.byDomain {
-		for _, user := range organization.Users {
-			if user.ID.String() == id {
-				return organization, nil
-			}
+		if _, err := organization.FindUserByID(id); err == nil {
+			return organization, nil
 		}
 	}
 
-	return org, errors.Errorf("organization not found for user ID: %s", id)
+	return Organization{}, errors.Errorf("organization not found for user ID: %s", id)
 }
 
 func (orgs *Organizations) AddFeedback(org Organization, f Feedback) error {

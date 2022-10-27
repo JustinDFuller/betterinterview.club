@@ -8,8 +8,11 @@
     <h2>{{ .Role }}</h2> 
     <form action="/feedback/give/{{ .ID }}" method="post">
       {{ $feedback := . }}
+      {{ $creatorID := print .CreatorID }}
+      {{ $user := UserEmail $creatorID }}
 
       {{ range .Responses }}
+        <h3>From: {{ $user.Email }}</h3>
         {{ range .Answers }}
           <div>
             {{ $id := .QuestionID }}

@@ -28,6 +28,13 @@ func GiveHandler(organizations *organization.Organizations) http.HandlerFunc {
 			return
 		}
 
+		userID, err := uuid.Parse(cookie.Value)
+		if err != nil {
+			log.Printf("Error parsing cookie for /feedback/give: %s", err)
+			http.ServeFile(w, r, "./error/unauthenticated.html")
+			return
+		}
+
 		org, err := organizations.FindByUserID(cookie.Value)
 		if err != nil {
 			log.Printf("Error finding organization for /feedback/give: %s", err)
@@ -108,7 +115,7 @@ func GiveHandler(organizations *organization.Organizations) http.HandlerFunc {
 				answers = append(answers, a)
 			}
 
-			given, err := organization.NewFeedbackResponse(answers)
+			given, err := organization.NewFeedbackResponse(userID, answers)
 			if err != nil {
 				log.Printf("Error creating FeedbackResponse in /feedback/give: %s", err)
 				http.ServeFile(w, r, "./error/index.html")
