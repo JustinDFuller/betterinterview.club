@@ -7,29 +7,52 @@
     <h1>Feedback Given</h1>
     <h2>{{ .Role }}</h2> 
     <form action="/feedback/give/{{ .ID }}" method="post">
-      {{ $feedback := . }}
       {{ $creatorID := print .CreatorID }}
       {{ $user := UserEmail $creatorID }}
+      <div>
+        Requested By: {{ $user.Email }}
+      </div>
+      <div>
+        On: {{ .CreatedAt.Format "January 2 2006" }}
+      </div>
 
-      {{ range .Responses }}
-        <div>
-          From: {{ $user.Email }}
-        </div>
-        <div>
-          On: {{ .CreatedAt.Format "January 2 2006" }}
-        </div>
-        {{ range .Answers }}
-          <div>
-            {{ $id := .QuestionID }}
-            {{ range $feedback.Questions }}
-              {{ if eq .ID $id }}
-                <strong>{{ .Text }}</strong>
-              {{ end }}
+
+      <table>
+        <thead>
+          <tr>
+            <th>
+              Submitted By 
+            </th>
+            <th>
+              Submitted On 
+            </th>
+            {{ range .Questions }} 
+              <th>
+                {{ .Text }} 
+              </th> 
             {{ end }}
-            {{ if .Response }}  Yes {{ else }} No {{ end }}
-          </div>
-        {{ end }}
-      {{ end }}
+          </tr> 
+        </thead>
+        <tbody>
+          {{ range .Responses }}
+            <tr>
+              <td>
+                {{ $creatorID := print .CreatorID }}
+                {{ $user := UserEmail $creatorID }}
+                {{ $user.Email }}
+              </td>
+              <td>
+                {{ .CreatedAt.Format "January 2 2006" }}
+              </td>
+              {{ range .Answers }}
+                <td>
+                  {{ if .Response }}  Yes {{ else }} No {{ end }}
+                </td>
+              {{ end }}
+            </tr>
+          {{ end }}
+        </tbody> 
+      </table>
     </form>
   </body>
 </html>
