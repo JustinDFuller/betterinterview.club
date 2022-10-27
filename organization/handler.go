@@ -36,7 +36,12 @@ func Handler(organizations *Organizations) http.HandlerFunc {
 				return
 			}
 
-			t, err := template.ParseFiles("./organization/index.html")
+			funcs := template.FuncMap{
+				"UserEmail": func(id uuid.UUID) (User, error) {
+					return org.FindUserByID(id.String())
+				},
+			}
+			t, err := template.New("index.html").Funcs(funcs).ParseFiles("./organization/index.html")
 			if err != nil {
 				log.Printf("Error parsing template for /organization: %s", err)
 				http.ServeFile(w, r, "./error/index.html")

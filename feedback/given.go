@@ -56,8 +56,8 @@ func GivenHandler(organizations *organization.Organizations) http.HandlerFunc {
 
 		if r.Method == http.MethodGet {
 			funcs := template.FuncMap{
-				"UserEmail": func(id string) (organization.User, error) {
-					return org.FindUserByID(id)
+				"UserEmail": func(id uuid.UUID) (organization.User, error) {
+					return org.FindUserByID(id.String())
 				},
 			}
 

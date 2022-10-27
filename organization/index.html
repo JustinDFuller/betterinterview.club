@@ -15,6 +15,54 @@
         <button type="submit">Invite</button>
       </div>
     </form>
+    
+    <h2>Feedback</h2>
+    <a href="/feedback/">Open a New Role</a>
+    <table>
+      <thead>
+        <tr>
+          <th>
+            Role
+          </th>
+          <th>
+            Opened By
+          </th>
+          <th>
+            Opened On
+          </th>
+          <th>
+            <!-- Give feedback -->
+          </th>
+          <th>
+            <!-- View Feedback -->
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+         {{ range .Feedback }}
+        <tr>
+          <td>
+            {{ .Role }}
+          </td>
+          <td>
+            {{ $user := UserEmail .CreatorID }}
+            {{ $user.Email }}
+          </td>
+          <td>
+            {{ .CreatedAt.Format "January 2 2006" }}
+          </td>
+          <td>
+            <a href="/feedback/give/{{ .ID }}">Give Feedback</a>
+          </td>
+          <td>
+            <a href="/feedback/given/{{ .ID }}">View Feedback</a>
+          </td>
+
+        </tr>
+        {{ end }}
+      </tbody>
+    </table>
+
     <h2>
       Members
     </h2>
@@ -22,15 +70,6 @@
       {{ range .Users }}
       <li>
         {{ .Email }}
-      </li>
-      {{ end }}
-    </ul>
-    <h2>Feedback</h2>
-    <a href="/feedback/">Gather Interview Feedback</a>
-    <ul>
-      {{ range .Feedback }}
-      <li>
-        Role: {{ .Role }} <a href="/feedback/give/{{ .ID }}">Give Feedback</a> or <a href="/feedback/given/{{ .ID }}">View Feedback</a>
       </li>
       {{ end }}
     </ul>

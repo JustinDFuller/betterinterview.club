@@ -7,8 +7,7 @@
     <h1>Feedback Given</h1>
     <h2>{{ .Role }}</h2> 
     <form action="/feedback/give/{{ .ID }}" method="post">
-      {{ $creatorID := print .CreatorID }}
-      {{ $user := UserEmail $creatorID }}
+      {{ $user := UserEmail .CreatorID }}
       <div>
         Requested By: {{ $user.Email }}
       </div>
@@ -37,8 +36,7 @@
           {{ range .Responses }}
             <tr>
               <td>
-                {{ $creatorID := print .CreatorID }}
-                {{ $user := UserEmail $creatorID }}
+                {{ $user := UserEmail .CreatorID }}
                 {{ $user.Email }}
               </td>
               <td>
