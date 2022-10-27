@@ -12,7 +12,12 @@
       {{ $user := UserEmail $creatorID }}
 
       {{ range .Responses }}
-        <h3>From: {{ $user.Email }}</h3>
+        <div>
+          From: {{ $user.Email }}
+        </div>
+        <div>
+          On: {{ .CreatedAt.Format "January 2 2006" }}
+        </div>
         {{ range .Answers }}
           <div>
             {{ $id := .QuestionID }}
