@@ -17,6 +17,20 @@ func main() {
 	http.HandleFunc("/organization/member/", organization.MemberHandler(&organizations))
 	http.HandleFunc("/organization/", organization.Handler(&organizations))
 
+	http.HandleFunc("/auth/logout/", func(w http.ResponseWriter, r *http.Request) {
+		http.SetCookie(w, &http.Cookie{
+			Name:     "__Host-UserUUID",
+			Value:    "",
+			Path:     "/",
+			MaxAge:   -1,
+			Secure:   true,
+			HttpOnly: true,
+			SameSite: http.SameSiteStrictMode,
+		})
+
+		http.Redirect(w, r, "/", http.StatusSeeOther)
+	})
+
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		cookie, err := r.Cookie("__Host-UserUUID")
 		if err != nil || cookie == nil || cookie.Value == "" {
