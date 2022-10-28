@@ -17,9 +17,9 @@ Let's make it easy to manage interviews.
 
 ## TODO
 
-* Send email after invite.
-* Send email to request feedback.
-* Log in from home page.
-* Log out.
-* Send email to creator after feedback received.
-* Close a role once feedback is complete.
+* [ ] Send email after invite.
+* [ ] Send email to request feedback.
+* [ ] Log in from home page.
+* [x] Log out.
+* [ ] Send email to creator after feedback received.
+* [ ] Close a role once feedback is complete.

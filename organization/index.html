@@ -7,7 +7,61 @@
     <nav>
       <a href="/auth/logout/">Log Out</a>
     </nav>
+
     <h1>Organization</h1>
+    
+    <h2>Feedback</h2>
+    <p>
+      <a href="/feedback/">Open a New Role</a>
+    </p>
+
+    {{ if len .Feedback }}
+      <table>
+        <thead>
+          <tr>
+            <th>
+              Role
+            </th>
+            <th>
+              Opened By
+            </th>
+            <th>
+              Opened On
+            </th>
+            <th>
+              <!-- Give feedback -->
+            </th>
+            <th>
+              <!-- View Feedback -->
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+           {{ range .Feedback }}
+          <tr>
+            <td>
+              {{ .Role }}
+            </td>
+            <td>
+              {{ $user := UserEmail .CreatorID }}
+              {{ $user.Email }}
+            </td>
+            <td>
+              {{ .CreatedAt.Format "January 2 2006" }}
+            </td>
+            <td>
+              <a href="/feedback/give/{{ .ID }}">Give Feedback</a>
+            </td>
+            <td>
+              <a href="/feedback/given/{{ .ID }}">View Feedback</a>
+            </td>
+
+          </tr>
+          {{ end }}
+        </tbody>
+      </table>
+    {{ end }}
+
     <form action="/organization/member/" method="post">
       <div>
         <h2>Invite</h2>
@@ -18,63 +72,18 @@
         <button type="submit">Invite</button>
       </div>
     </form>
-    
-    <h2>Feedback</h2>
-    <a href="/feedback/">Open a New Role</a>
-    <table>
-      <thead>
-        <tr>
-          <th>
-            Role
-          </th>
-          <th>
-            Opened By
-          </th>
-          <th>
-            Opened On
-          </th>
-          <th>
-            <!-- Give feedback -->
-          </th>
-          <th>
-            <!-- View Feedback -->
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-         {{ range .Feedback }}
-        <tr>
-          <td>
-            {{ .Role }}
-          </td>
-          <td>
-            {{ $user := UserEmail .CreatorID }}
-            {{ $user.Email }}
-          </td>
-          <td>
-            {{ .CreatedAt.Format "January 2 2006" }}
-          </td>
-          <td>
-            <a href="/feedback/give/{{ .ID }}">Give Feedback</a>
-          </td>
-          <td>
-            <a href="/feedback/given/{{ .ID }}">View Feedback</a>
-          </td>
 
-        </tr>
+    {{ if gt (len .Users) 1 }}
+      <h2>
+        Members
+      </h2>
+      <ul>
+        {{ range .Users }}
+        <li>
+          {{ .Email }}
+        </li>
         {{ end }}
-      </tbody>
-    </table>
-
-    <h2>
-      Members
-    </h2>
-    <ul>
-      {{ range .Users }}
-      <li>
-        {{ .Email }}
-      </li>
-      {{ end }}
-    </ul>
+      </ul>
+    {{ end }}
   </body>
 </html>

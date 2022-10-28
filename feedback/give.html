@@ -4,8 +4,15 @@
     <title>Better Interviews | Feedback</title>
   </head>
   <body>
+    <nav>
+      <a href="/organization/">My Organization</a>
+      <a href="/auth/logout/">Log Out</a>
+    </nav>
+
     <h1>Give Feedback</h1>
-    <strong>Role:</strong> {{ .Role }}
+    <p>
+      <strong>Role:</strong> {{ .Role }}
+    </p>
     <form action="/feedback/give/{{ .ID }}" method="post">
 
       {{ range .Questions }}
