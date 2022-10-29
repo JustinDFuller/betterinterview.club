@@ -1,12 +1,25 @@
 package organization
 
 import (
+	"strings"
 	"sync"
 	"time"
 
 	"github.com/google/uuid"
 	"github.com/pkg/errors"
 )
+
+func NewUser(email string) (User, error) {
+	id, err := uuid.NewRandom()
+	if err != nil {
+		return User{}, errors.Wrap(err, "error creating ID for User")
+	}
+
+	return User{
+		ID:    id,
+		Email: email,
+	}, nil
+}
 
 type User struct {
 	ID    uuid.UUID
@@ -192,7 +205,17 @@ func (orgs *Organizations) AddUser(org Organization, u User) (Organization, erro
 		orgs.byDomain = map[string]Organization{}
 	}
 
-	o := orgs.byDomain[org.Domain]
+	o, found := orgs.byDomain[org.Domain]
+	if !found {
+		return o, errors.New("organization does not exist")
+	}
+
+	for _, user := range o.Users {
+		if user.Email == u.Email {
+			return o, errors.New("user already exists")
+		}
+	}
+
 	o.Users = append(o.Users, u)
 	orgs.byDomain[o.Domain] = o
 
@@ -223,6 +246,24 @@ func (orgs *Organizations) FindByUserID(id string) (Organization, error) {
 	}
 
 	return Organization{}, errors.Errorf("organization not found for user ID: %s", id)
+}
+
+func (orgs *Organizations) FindByDomain(email string) (Organization, error) {
+	orgs.mutex.Lock()
+	defer orgs.mutex.Unlock()
+
+	parts := strings.Split(email, "@")
+	if len(parts) < 2 {
+		return Organization{}, errors.Errorf("invalid email address: %s", email)
+	}
+
+	for _, organization := range orgs.byDomain {
+		if organization.Domain == parts[1] {
+			return organization, nil
+		}
+	}
+
+	return Organization{}, errors.Errorf("organization not found for domain: %s", parts[1])
 }
 
 func (orgs *Organizations) AddFeedback(org Organization, f Feedback) error {

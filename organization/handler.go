@@ -92,32 +92,35 @@ func Handler(organizations *Organizations) http.HandlerFunc {
 				return
 			}
 
-			userID, err := uuid.NewRandom()
+			user, err := NewUser(email.Address)
 			if err != nil {
 				log.Printf("Error creating user UUID in /organization: %s", err)
 				http.ServeFile(w, r, "./error/index.html")
 				return
 			}
 
-			org := Organization{
-				ID:     orgID,
-				Domain: parts[1],
-				Users: []User{
-					{
-						ID:    userID,
-						Email: email.Address,
-					},
-				},
+			org, err := organizations.FindByDomain(email.Address)
+			if err != nil {
+				org = Organization{
+					ID:     orgID,
+					Domain: parts[1],
+				}
+				if err := organizations.Add(org); err != nil {
+					log.Printf("Error adding organization '%s' from /organization: %s", org.Domain, err)
+					http.ServeFile(w, r, "./organization/exists.html")
+					return
+				}
 			}
-			if err := organizations.Add(org); err != nil {
-				log.Printf("Error adding organization '%s' from /organization: %s", org.Domain, err)
-				http.ServeFile(w, r, "./organization/exists.html")
+
+			if _, err := organizations.AddUser(org, user); err != nil {
+				log.Printf("Error adding user in /organization: %s", err)
+				http.ServeFile(w, r, "./error/index.html")
 				return
 			}
 
 			http.SetCookie(w, &http.Cookie{
 				Name:     "__Host-UserUUID",
-				Value:    userID.String(),
+				Value:    user.ID.String(),
 				Path:     "/",
 				Expires:  time.Now().Add(time.Hour * 24 * 31), // One month
 				Secure:   true,

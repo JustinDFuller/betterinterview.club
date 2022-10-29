@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"net/mail"
 	"net/url"
+	"time"
 
 	"github.com/justindfuller/interviews/organization"
 )
@@ -48,7 +49,25 @@ func LoginHandler(organizations *organization.Organizations) http.HandlerFunc {
 				return
 			}
 
-			log.Printf("%s", org)
+			user, err := org.FindUserByEmail(email.Address)
+			if err != nil {
+				log.Printf("Unable to find user /auth/login: %s", err)
+				w.WriteHeader(http.StatusNotFound)
+				http.ServeFile(w, r, "./organization/notfound.html")
+				return
+			}
+
+			http.SetCookie(w, &http.Cookie{
+				Name:     "__Host-UserUUID",
+				Value:    user.ID.String(),
+				Path:     "/",
+				Expires:  time.Now().Add(time.Hour * 24 * 31), // One month
+				Secure:   true,
+				HttpOnly: true,
+				SameSite: http.SameSiteStrictMode,
+			})
+
+			http.Redirect(w, r, "/organization/", http.StatusSeeOther)
 			return
 		}
 
