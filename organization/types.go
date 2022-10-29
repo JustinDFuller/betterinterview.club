@@ -126,6 +126,16 @@ func (o Organization) FeedbackByID(id uuid.UUID) (Feedback, error) {
 	return Feedback{}, errors.New("feedback not found")
 }
 
+func (org *Organization) FindUserByEmail(email string) (User, error) {
+	for _, user := range org.Users {
+		if user.Email == email {
+			return user, nil
+		}
+	}
+
+	return User{}, errors.Errorf("User not found for user email: %s", email)
+}
+
 func (org *Organization) FindUserByID(id string) (User, error) {
 	for _, user := range org.Users {
 		if user.ID.String() == id {
@@ -133,7 +143,7 @@ func (org *Organization) FindUserByID(id string) (User, error) {
 		}
 	}
 
-	return User{}, errors.Errorf("organization not found for user ID: %s", id)
+	return User{}, errors.Errorf("User not found for user ID: %s", id)
 }
 
 type Organizations struct {
@@ -187,6 +197,19 @@ func (orgs *Organizations) AddUser(org Organization, u User) (Organization, erro
 	orgs.byDomain[o.Domain] = o
 
 	return o, nil
+}
+
+func (orgs *Organizations) FindByUserEmail(email string) (Organization, error) {
+	orgs.mutex.Lock()
+	defer orgs.mutex.Unlock()
+
+	for _, organization := range orgs.byDomain {
+		if _, err := organization.FindUserByEmail(email); err == nil {
+			return organization, nil
+		}
+	}
+
+	return Organization{}, errors.Errorf("organization not found for user email: %s", email)
 }
 
 func (orgs *Organizations) FindByUserID(id string) (Organization, error) {

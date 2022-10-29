@@ -4,6 +4,7 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/justindfuller/interviews/auth"
 	"github.com/justindfuller/interviews/feedback"
 	"github.com/justindfuller/interviews/organization"
 )
@@ -11,25 +12,14 @@ import (
 func main() {
 	var organizations organization.Organizations
 
+	http.HandleFunc("/auth/login/", auth.LoginHandler(&organizations))
+	http.HandleFunc("/auth/logout/", auth.LogoutHandler)
 	http.HandleFunc("/feedback/given/", feedback.GivenHandler(&organizations))
 	http.HandleFunc("/feedback/give/", feedback.GiveHandler(&organizations))
 	http.HandleFunc("/feedback/", feedback.Handler(&organizations))
+	http.HandleFunc("/organization/notfound/", organization.NotFoundHandler)
 	http.HandleFunc("/organization/member/", organization.MemberHandler(&organizations))
 	http.HandleFunc("/organization/", organization.Handler(&organizations))
-
-	http.HandleFunc("/auth/logout/", func(w http.ResponseWriter, r *http.Request) {
-		http.SetCookie(w, &http.Cookie{
-			Name:     "__Host-UserUUID",
-			Value:    "",
-			Path:     "/",
-			MaxAge:   -1,
-			Secure:   true,
-			HttpOnly: true,
-			SameSite: http.SameSiteStrictMode,
-		})
-
-		http.Redirect(w, r, "/", http.StatusSeeOther)
-	})
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		cookie, err := r.Cookie("__Host-UserUUID")
