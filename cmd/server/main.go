@@ -26,7 +26,16 @@ func main() {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		cookie, err := r.Cookie("__Host-UserUUID")
 		if err != nil || cookie == nil || cookie.Value == "" {
-			http.ServeFile(w, r, "./index.html")
+			t, err := template.New("index.html").ParseFiles("index.html", "index.css")
+			if err != nil {
+				log.Printf("Error parsing template for /: %s", err)
+				http.ServeFile(w, r, "./error/index.html")
+				return
+			}
+
+			if err := t.Execute(w, nil); err != nil {
+				log.Printf("Error executing template for /organization: %s", err)
+			}
 			return
 		}
 

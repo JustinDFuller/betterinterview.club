@@ -42,7 +42,7 @@ th, td {
 
 input[type="text"], input[type="email"] {
   padding: 8px;
-  min-width: 300px;
+  width: 100%;
 }
 
 button {
@@ -52,6 +52,8 @@ button {
   border-radius: 4px;
   border: 1px solid black;
   font-weight: bold;
+  width: 100%;
+  margin-top: 8px;
 }
 
 a {
@@ -65,4 +67,29 @@ a {
 .form-group label {
   display: block;
   margin-bottom: 4px;
+}
+
+main h2 {
+  display: inline;
+}
+
+.table-container {
+  width: 100%;
+  overflow-x: scroll;
+}
+
+.table-container > table {
+  min-width: 900px;
+}
+
+@media (screen and min-width: 400px) {
+  input[type="text"], input[type="email"] {
+    padding: 8px;
+    min-width: 300px;
+    width: auto;
+  }
+
+  button {
+    width: auto;
+  }
 }

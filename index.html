@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>Better Interviews</title>
     <style>
       {{ template "index.css" }}
     </style>
+    <link rel="prefetch" href="/auth/login/">
   </head>
   <body>
     <h1>Better Interviews</h1>
     <form action="/organization/" method="post">
-      <div>
+      <div class="form-group">
         <label for="email">Sign up with your company email</label>
-      </div>
-      <div>
         <input id="email" name="email" type="email" placeholder="me@betterinterviews.com" required />
         <button type="submit">Sign Up</button>
       </div>

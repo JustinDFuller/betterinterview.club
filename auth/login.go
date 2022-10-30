@@ -1,6 +1,7 @@
 package auth
 
 import (
+	"html/template"
 	"io"
 	"log"
 	"net/http"
@@ -14,7 +15,16 @@ import (
 func LoginHandler(organizations *interview.Organizations) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == http.MethodGet {
-			http.ServeFile(w, r, "./auth/login.html")
+			t, err := template.New("login.html").ParseFiles("./auth/login.html", "index.css")
+			if err != nil {
+				log.Printf("Error parsing template for /auth/login/: %s", err)
+				http.ServeFile(w, r, "./error/index.html")
+				return
+			}
+
+			if err := t.Execute(w, nil); err != nil {
+				log.Printf("Error executing template for /auth/login: %s", err)
+			}
 			return
 		}
 

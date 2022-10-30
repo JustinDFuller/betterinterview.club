@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>Better Interviews | Organization</title>
     <style>
       {{ template "index.css" }}
@@ -22,58 +23,60 @@
     </p>
 
     {{ if len .Feedback }}
-      <table>
-        <thead>
-          <tr>
-            <th>
-              Role
-            </th>
-            <th>
-              Opened By
-            </th>
-            <th>
-              Opened On
-            </th>
-            <th>
-              <!-- Give feedback -->
-            </th>
-            <th>
-              <!-- View Feedback -->
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-           {{ range .Feedback }}
-          <tr>
-            <td>
-              {{ .Role }}
-            </td>
-            <td>
-              {{ $user := UserEmail .CreatorID }}
-              {{ $user.Email }}
-            </td>
-            <td>
-              {{ .CreatedAt.Format "January 2 2006" }}
-            </td>
-            <td>
-              <a href="/feedback/give/{{ .ID }}">Give Feedback</a>
-            </td>
-            <td>
-              <a href="/feedback/given/{{ .ID }}">View Feedback</a>
-            </td>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>
+                Role
+              </th>
+              <th>
+                Opened By
+              </th>
+              <th>
+                Opened On
+              </th>
+              <th>
+                <!-- Give feedback -->
+              </th>
+              <th>
+                <!-- View Feedback -->
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+             {{ range .Feedback }}
+            <tr>
+              <td>
+                {{ .Role }}
+              </td>
+              <td>
+                {{ $user := UserEmail .CreatorID }}
+                {{ $user.Email }}
+              </td>
+              <td>
+                {{ .CreatedAt.Format "January 2 2006" }}
+              </td>
+              <td>
+                <a href="/feedback/give/{{ .ID }}">Give Feedback</a>
+              </td>
+              <td>
+                <a href="/feedback/given/{{ .ID }}">View Feedback</a>
+              </td>
 
-          </tr>
-          {{ end }}
-        </tbody>
-      </table>
+            </tr>
+            {{ end }}
+          </tbody>
+        </table>
+      </div>
     {{ end }}
 
     <form action="/organization/member/" method="post">
       <div>
         <h2>Invite</h2>
-        <label for="type">Type the email of the person you want to invite.</label>
       </div>
-      <div>
+      <div class="form-group">
+        <label for="type">Type the email of the person you want to invite.</label>
         <input name="email" type="email" placeholder="person@{{ .Domain }}" required />
         <button type="submit">Invite</button>
       </div>
