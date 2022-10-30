@@ -7,10 +7,10 @@ import (
 	"net/url"
 
 	"github.com/google/uuid"
-	"github.com/justindfuller/interviews/organization"
+	interview "github.com/justindfuller/interviews"
 )
 
-func Handler(organizations *organization.Organizations) http.HandlerFunc {
+func Handler(organizations *interview.Organizations) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		cookie, err := r.Cookie("__Host-UserUUID")
 		if err != nil {
@@ -60,42 +60,42 @@ func Handler(organizations *organization.Organizations) http.HandlerFunc {
 				return
 			}
 
-			q1, err := organization.NewQuestion(query.Get("question1"))
+			q1, err := interview.NewQuestion(query.Get("question1"))
 			if err != nil {
 				log.Printf("Error creating question from /feedback body: %s", err)
 				http.ServeFile(w, r, "./error/index.html")
 				return
 			}
 
-			q2, err := organization.NewQuestion(query.Get("question2"))
+			q2, err := interview.NewQuestion(query.Get("question2"))
 			if err != nil {
 				log.Printf("Error creating question from /feedback body: %s", err)
 				http.ServeFile(w, r, "./error/index.html")
 				return
 			}
 
-			q3, err := organization.NewQuestion(query.Get("question3"))
+			q3, err := interview.NewQuestion(query.Get("question3"))
 			if err != nil {
 				log.Printf("Error creating question from /feedback body: %s", err)
 				http.ServeFile(w, r, "./error/index.html")
 				return
 			}
 
-			q4, err := organization.NewQuestion(query.Get("question4"))
+			q4, err := interview.NewQuestion(query.Get("question4"))
 			if err != nil {
 				log.Printf("Error creating question from /feedback body: %s", err)
 				http.ServeFile(w, r, "./error/index.html")
 				return
 			}
 
-			q5, err := organization.NewQuestion(query.Get("question5"))
+			q5, err := interview.NewQuestion(query.Get("question5"))
 			if err != nil {
 				log.Printf("Error creating question from /feedback body: %s", err)
 				http.ServeFile(w, r, "./error/index.html")
 				return
 			}
 
-			f, err := organization.NewFeedback(userID, query.Get("role"), []organization.Question{q1, q2, q3, q4, q5})
+			f, err := interview.NewFeedback(userID, query.Get("role"), []interview.Question{q1, q2, q3, q4, q5})
 			if err != nil {
 				log.Printf("Error creating feedback from /feedback body: %s", err)
 				http.ServeFile(w, r, "./error/index.html")

@@ -9,9 +9,10 @@ import (
 	"strings"
 
 	"github.com/google/uuid"
+	interview "github.com/justindfuller/interviews"
 )
 
-func MemberHandler(organizations *Organizations) http.HandlerFunc {
+func MemberHandler(organizations *interview.Organizations) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		cookie, err := r.Cookie("__Host-UserUUID")
 		if err != nil {
@@ -76,7 +77,7 @@ func MemberHandler(organizations *Organizations) http.HandlerFunc {
 			return
 		}
 
-		u := User{
+		u := interview.User{
 			ID:    userID,
 			Email: email.Address,
 		}

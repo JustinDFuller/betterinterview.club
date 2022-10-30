@@ -11,9 +11,10 @@ import (
 	"time"
 
 	"github.com/google/uuid"
+	interview "github.com/justindfuller/interviews"
 )
 
-func Handler(organizations *Organizations) http.HandlerFunc {
+func Handler(organizations *interview.Organizations) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == http.MethodGet {
 			cookie, err := r.Cookie("__Host-UserUUID")
@@ -37,7 +38,7 @@ func Handler(organizations *Organizations) http.HandlerFunc {
 			}
 
 			funcs := template.FuncMap{
-				"UserEmail": func(id uuid.UUID) (User, error) {
+				"UserEmail": func(id uuid.UUID) (interview.User, error) {
 					return org.FindUserByID(id.String())
 				},
 			}
@@ -92,7 +93,7 @@ func Handler(organizations *Organizations) http.HandlerFunc {
 				return
 			}
 
-			user, err := NewUser(email.Address)
+			user, err := interview.NewUser(email.Address)
 			if err != nil {
 				log.Printf("Error creating user UUID in /organization: %s", err)
 				http.ServeFile(w, r, "./error/index.html")
@@ -101,7 +102,7 @@ func Handler(organizations *Organizations) http.HandlerFunc {
 
 			org, err := organizations.FindByDomain(email.Address)
 			if err != nil {
-				org = Organization{
+				org = interview.Organization{
 					ID:     orgID,
 					Domain: parts[1],
 				}

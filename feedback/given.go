@@ -7,10 +7,10 @@ import (
 	"text/template"
 
 	"github.com/google/uuid"
-	"github.com/justindfuller/interviews/organization"
+	interview "github.com/justindfuller/interviews"
 )
 
-func GivenHandler(organizations *organization.Organizations) http.HandlerFunc {
+func GivenHandler(organizations *interview.Organizations) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		cookie, err := r.Cookie("__Host-UserUUID")
 		if err != nil {
@@ -56,7 +56,7 @@ func GivenHandler(organizations *organization.Organizations) http.HandlerFunc {
 
 		if r.Method == http.MethodGet {
 			funcs := template.FuncMap{
-				"UserEmail": func(id uuid.UUID) (organization.User, error) {
+				"UserEmail": func(id uuid.UUID) (interview.User, error) {
 					return org.FindUserByID(id.String())
 				},
 			}

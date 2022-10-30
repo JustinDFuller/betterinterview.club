@@ -4,13 +4,14 @@ import (
 	"log"
 	"net/http"
 
+	interview "github.com/justindfuller/interviews"
 	"github.com/justindfuller/interviews/auth"
 	"github.com/justindfuller/interviews/feedback"
 	"github.com/justindfuller/interviews/organization"
 )
 
 func main() {
-	var organizations organization.Organizations
+	var organizations interview.Organizations
 
 	http.HandleFunc("/auth/login/", auth.LoginHandler(&organizations))
 	http.HandleFunc("/auth/logout/", auth.LogoutHandler)

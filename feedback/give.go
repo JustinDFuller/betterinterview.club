@@ -10,10 +10,10 @@ import (
 	"text/template"
 
 	"github.com/google/uuid"
-	"github.com/justindfuller/interviews/organization"
+	interview "github.com/justindfuller/interviews"
 )
 
-func GiveHandler(organizations *organization.Organizations) http.HandlerFunc {
+func GiveHandler(organizations *interview.Organizations) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		cookie, err := r.Cookie("__Host-UserUUID")
 		if err != nil {
@@ -95,7 +95,7 @@ func GiveHandler(organizations *organization.Organizations) http.HandlerFunc {
 				return
 			}
 
-			var answers []organization.Answer
+			var answers []interview.Answer
 
 			for key := range query {
 				b, err := strconv.ParseBool(query.Get(key))
@@ -105,7 +105,7 @@ func GiveHandler(organizations *organization.Organizations) http.HandlerFunc {
 					return
 				}
 
-				a, err := organization.NewAnswer(key, b)
+				a, err := interview.NewAnswer(key, b)
 				if err != nil {
 					log.Printf("Error creating Answer in /feedback/give: %s", err)
 					http.ServeFile(w, r, "./error/index.html")
@@ -115,7 +115,7 @@ func GiveHandler(organizations *organization.Organizations) http.HandlerFunc {
 				answers = append(answers, a)
 			}
 
-			given, err := organization.NewFeedbackResponse(userID, answers)
+			given, err := interview.NewFeedbackResponse(userID, answers)
 			if err != nil {
 				log.Printf("Error creating FeedbackResponse in /feedback/give: %s", err)
 				http.ServeFile(w, r, "./error/index.html")

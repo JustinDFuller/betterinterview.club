@@ -8,10 +8,10 @@ import (
 	"net/url"
 	"time"
 
-	"github.com/justindfuller/interviews/organization"
+	interview "github.com/justindfuller/interviews"
 )
 
-func LoginHandler(organizations *organization.Organizations) http.HandlerFunc {
+func LoginHandler(organizations *interview.Organizations) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == http.MethodGet {
 			http.ServeFile(w, r, "./auth/login.html")
