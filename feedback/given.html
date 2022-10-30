@@ -2,19 +2,24 @@
 <html>
   <head>
     <title>Better Interviews | Feedback Given</title>
+    <style>
+      {{ template "index.css" }}
+    </style>
   </head>
   <body>
-    <nav>
-      <a href="/organization/">My Organization</a>
-      <a href="/auth/logout/">Log Out</a>
-    </nav>
+    <header>
+      <h1>Feedback Given</h1>
+      <nav>
+        <a href="/organization/">My Organization</a>
+        <a href="/auth/logout/">Log Out</a>
+      </nav>
+    </header>
 
-    <h1>Feedback Given</h1>
     <h2>{{ .Role }}</h2> 
     <form action="/feedback/give/{{ .ID }}" method="post">
-      {{ $user := UserEmail .CreatorID }}
+      {{ $email := UserEmail .CreatorID }}
       <p>
-        Requested By: {{ $user.Email }}
+        Requested By: {{ $email }}
       </p>
       <p>
         On: {{ .CreatedAt.Format "January 2 2006" }}

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"html/template"
 	"log"
 	"net/http"
 
@@ -18,7 +19,7 @@ func main() {
 	http.HandleFunc("/feedback/given/", feedback.GivenHandler(&organizations))
 	http.HandleFunc("/feedback/give/", feedback.GiveHandler(&organizations))
 	http.HandleFunc("/feedback/", feedback.Handler(&organizations))
-	http.HandleFunc("/organization/notfound/", organization.NotFoundHandler)
+	// http.HandleFunc("/organization/notfound/", organization.NotFoundHandler)
 	http.HandleFunc("/organization/member/", organization.MemberHandler(&organizations))
 	http.HandleFunc("/organization/", organization.Handler(&organizations))
 
@@ -31,7 +32,17 @@ func main() {
 
 		if _, err := organizations.FindByUserID(cookie.Value); err != nil {
 			log.Printf("Error finding organization for /: %s", err)
-			http.ServeFile(w, r, "./index.html")
+
+			t, err := template.New("index.html").ParseFiles("index.html", "index.css")
+			if err != nil {
+				log.Printf("Error parsing template for /: %s", err)
+				http.ServeFile(w, r, "./error/index.html")
+				return
+			}
+
+			if err := t.Execute(w, nil); err != nil {
+				log.Printf("Error executing template for /organization: %s", err)
+			}
 			return
 		}
 

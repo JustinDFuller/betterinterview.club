@@ -2,31 +2,47 @@
 <html>
   <head>
     <title>Better Interviews | Feedback</title>
+    <style>
+      {{ template "index.css" }}
+    </style>
   </head>
   <body>
-    <nav>
-      <a href="/organization/">My Organization</a>
-      <a href="/auth/logout/">Log Out</a>
-    </nav>
+    <header>
+      <h1>Give Feedback</h1>
+      <nav>
+        <a href="/organization/">My Organization</a>
+        <a href="/auth/logout/">Log Out</a>
+      </nav>
+    </header>
 
-    <h1>Give Feedback</h1>
     <p>
       <strong>Role:</strong> {{ .Role }}
     </p>
+    {{ $email := UserEmail .CreatorID }}
+    <p>
+      Requested By: {{ $email }}
+    </p>
+    <p>
+      On: {{ .CreatedAt.Format "January 2 2006" }}
+    </p>
+
     <form action="/feedback/give/{{ .ID }}" method="post">
 
       {{ range .Questions }}
+      <div class="form-group">
         <div>
           <label for="{{ .ID }}">{{ .Text }}</label>
         </div>
         <div>
-          Yes
           <input name="{{ .ID }}" type="radio" value="true" required />
+          Yes
         </div>
         <div>
-          No
           <input name="{{ .ID }}" type="radio" value="false" required />
+          No
         </div>
+      </div>
+        
 
       {{ end }}
 

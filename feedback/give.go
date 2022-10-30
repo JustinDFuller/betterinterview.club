@@ -65,7 +65,16 @@ func GiveHandler(organizations *interview.Organizations) http.HandlerFunc {
 		}
 
 		if r.Method == http.MethodGet {
-			t, err := template.ParseFiles("./feedback/give.html")
+			funcs := template.FuncMap{
+				"UserEmail": func(id uuid.UUID) (string, error) {
+					user, err := org.FindUserByID(id.String())
+					if err != nil {
+						return "", err
+					}
+					return user.Email, nil
+				},
+			}
+			t, err := template.New("give.html").Funcs(funcs).ParseFiles("./feedback/give.html", "index.css")
 			if err != nil {
 				log.Printf("Error parsing template for /feedback/give/%s: %s", id, err)
 				http.ServeFile(w, r, "./error/index.html")

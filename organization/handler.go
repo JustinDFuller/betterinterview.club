@@ -42,7 +42,7 @@ func Handler(organizations *interview.Organizations) http.HandlerFunc {
 					return org.FindUserByID(id.String())
 				},
 			}
-			t, err := template.New("index.html").Funcs(funcs).ParseFiles("./organization/index.html")
+			t, err := template.New("index.html").Funcs(funcs).ParseFiles("./organization/index.html", "index.css")
 			if err != nil {
 				log.Printf("Error parsing template for /organization: %s", err)
 				http.ServeFile(w, r, "./error/index.html")

@@ -4,13 +4,25 @@
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif;
+  font-size: 18px;
   max-width: 900px;
   margin: auto;
   padding: 20px;
 }
 
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 nav {
   text-align: right;
+}
+
+nav > a {
+  margin-left: 8px;
+  text-decoration: none;
 }
 
 table {
@@ -28,8 +40,7 @@ th, td {
   margin: 0;
 }
 
-input {
-  margin-top: 8px;
+input[type="text"], input[type="email"] {
   padding: 8px;
   min-width: 300px;
 }
@@ -45,4 +56,13 @@ button {
 
 a {
   text-decoration-style: dotted;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 4px;
 }

@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"net/url"
+	"text/template"
 
 	"github.com/google/uuid"
 	interview "github.com/justindfuller/interviews"
@@ -40,7 +41,17 @@ func Handler(organizations *interview.Organizations) http.HandlerFunc {
 		}
 
 		if r.Method == http.MethodGet {
-			http.ServeFile(w, r, "./feedback/index.html")
+			t, err := template.New("index.html").ParseFiles("feedback/index.html", "index.css")
+			if err != nil {
+				log.Printf("Error parsing template for /: %s", err)
+				http.ServeFile(w, r, "./error/index.html")
+				return
+			}
+
+			if err := t.Execute(w, nil); err != nil {
+				log.Printf("Error executing template for /organization: %s", err)
+			}
+
 			return
 		}
 

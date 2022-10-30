@@ -2,55 +2,48 @@
 <html>
   <head>
     <title>Better Interviews | Feedback</title>
+    <style>
+      {{ template "index.css" }}
+    </style>
   </head>
   <body>
-    <nav>
-      <a href="/organization/">My Organization</a>
-      <a href="/auth/logout/">Log Out</a>
-    </nav>
+    <header>
+      <h1>Feedback</h1>
+      <nav>
+        <a href="/organization/">My Organization</a>
+        <a href="/auth/logout/">Log Out</a>
+      </nav>
+    </header>
 
-    <h1>Feedback</h1>
     <p>You may add up to five questions. The only answer choices will be "yes" or "no".</p>
     <form action="/feedback/" method="post">
-      <div>
+      <div class="form-group">
         <label for="role">What role is this feedback for?</label>
-      </div>
-      <div>
         <input name="role" type="text" placeholder="Senior Software Engineer - Auth Team" required />
       </div>
 
-      <div>
+      <div class="form-group">
         <label for="question1">Question One</label>
-      </div>
-      <div>
         <input name="question1" type="text" placeholder="Did the candidate arrive at a working solution?" required />
       </div>
 
-      <div>
+      <div class="form-group">
         <label for="question2">Question Two</label>
-      </div>
-      <div>
         <input name="question2" type="text" required />
       </div>
 
-      <div>
+      <div class="form-group">
         <label for="question3">Question Three</label>
-      </div>
-      <div>
         <input name="question3" type="text" required />
       </div>
 
-      <div>
+      <div class="form-group">
         <label for="question4">Question Four</label>
-      </div>
-      <div>
         <input name="question4" type="text" required />
       </div>
 
-      <div>
+      <div class="form-group">
         <label for="question5">Question Five</label>
-      </div>
-      <div>
         <input name="question5" type="text" required />
       </div>
 
