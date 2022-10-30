@@ -16,14 +16,10 @@
     </header>
 
     <p>
-      <strong>Role:</strong> {{ .Role }}
-    </p>
-    {{ $email := UserEmail .CreatorID }}
-    <p>
-      Requested By: {{ $email }}
-    </p>
-    <p>
-      On: {{ .CreatedAt.Format "January 2 2006" }}
+      {{ $email := UserEmail .CreatorID }}
+      You are leaving feedback for the role, <strong>{{ .Role }}</strong>. 
+      <br />
+      Your feedback was requested by <a href="mailto:{{ $email }}">{{ $email }}</a> on {{ .CreatedAt.Format "January 2 2006" }}.
     </p>
 
     <form action="/feedback/give/{{ .ID }}" method="post">

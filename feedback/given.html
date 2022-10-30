@@ -47,8 +47,8 @@
             {{ range .Responses }}
               <tr>
                 <td>
-                  {{ $user := UserEmail .CreatorID }}
-                  {{ $user.Email }}
+                  {{ $email := UserEmail .CreatorID }}
+                  {{ $email }}
                 </td>
                 <td>
                   {{ .CreatedAt.Format "January 2 2006" }}
