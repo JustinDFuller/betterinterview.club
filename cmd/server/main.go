@@ -39,5 +39,5 @@ func main() {
 	})
 
 	log.Print("Listening at http://localhost:8443/")
-	log.Fatal(http.ListenAndServeTLS(":8443", "server.crt", "server.key", nil))
+	log.Fatal(http.ListenAndServeTLS(":8443", "./cmd/server/server.crt", "./cmd/server/server.key", nil))
 }
