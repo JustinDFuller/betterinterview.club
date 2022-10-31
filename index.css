@@ -14,15 +14,18 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-direction: column;
 }
 
 nav {
-  text-align: right;
+  text-align: center;
 }
 
 nav > a {
-  margin-left: 8px;
+  margin-bottom: 8px;
   text-decoration: none;
+  width: 100%;
+  display: block;
 }
 
 table {
@@ -82,7 +85,17 @@ main h2 {
   min-width: 900px;
 }
 
-@media (screen and min-width: 400px) {
+h1, h2, h3 {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+h4, h5, h6 {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+@media only screen and (min-width: 400px) {
   input[type="text"], input[type="email"] {
     padding: 8px;
     min-width: 300px;
@@ -91,5 +104,15 @@ main h2 {
 
   button {
     width: auto;
+  }
+
+  header {
+    flex-direction: row;
+  }
+  
+  nav > a {
+    width: auto;
+    display: inline-block;
+    margin-left: 8px;
   }
 }

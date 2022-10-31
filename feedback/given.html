@@ -28,41 +28,43 @@
 
 
       {{ if len .Responses }}
-        <table>
-          <thead>
-            <tr>
-              <th>
-                Submitted By 
-              </th>
-              <th>
-                Submitted On 
-              </th>
-              {{ range .Questions }} 
-                <th>
-                  {{ .Text }} 
-                </th> 
-              {{ end }}
-            </tr> 
-          </thead>
-          <tbody>
-            {{ range .Responses }}
+        <div class="table-container">
+          <table>
+            <thead>
               <tr>
-                <td>
-                  {{ $email := UserEmail .CreatorID }}
-                  {{ $email }}
-                </td>
-                <td>
-                  {{ .CreatedAt.Format "January 2 2006" }}
-                </td>
-                {{ range .Answers }}
-                  <td>
-                    {{ if .Response }}  Yes {{ else }} No {{ end }}
-                  </td>
+                <th>
+                  Submitted By 
+                </th>
+                <th>
+                  Submitted On 
+                </th>
+                {{ range .Questions }} 
+                  <th>
+                    {{ .Text }} 
+                  </th> 
                 {{ end }}
-              </tr>
-            {{ end }}
-          </tbody> 
-        </table>
+              </tr> 
+            </thead>
+            <tbody>
+              {{ range .Responses }}
+                <tr>
+                  <td>
+                    {{ $email := UserEmail .CreatorID }}
+                    {{ $email }}
+                  </td>
+                  <td>
+                    {{ .CreatedAt.Format "January 2 2006" }}
+                  </td>
+                  {{ range .Answers }}
+                    <td>
+                      {{ if .Response }}  Yes {{ else }} No {{ end }}
+                    </td>
+                  {{ end }}
+                </tr>
+              {{ end }}
+            </tbody> 
+          </table>
+        </div>
       {{ else }}
         <p>
           This role has not received any feedback yet.
