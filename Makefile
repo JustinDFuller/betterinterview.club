@@ -1,5 +1,5 @@
 server-watch: ## Run the Go server and restart on changes.
-	@reflex -r '\.go' -s $(MAKE) server;
+	@reflex -s -r '\.go' -- sh -c 'clear && $(MAKE) server';
 
 server:  ## Run the Go server.
 	@go run ./cmd/server/main.go;
