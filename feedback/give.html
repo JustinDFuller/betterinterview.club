@@ -27,16 +27,14 @@
 
       {{ range .Questions }}
       <div class="form-group">
+        {{ .Text }}
         <div>
-          <label for="{{ .ID }}">{{ .Text }}</label>
+          <input name="{{ .ID }}" id="{{ .ID }}-yes" type="radio" value="true" required />
+          <label for="{{ .ID }}-yes">Yes</label>
         </div>
         <div>
-          <input name="{{ .ID }}" type="radio" value="true" required />
-          Yes
-        </div>
-        <div>
-          <input name="{{ .ID }}" type="radio" value="false" required />
-          No
+          <input name="{{ .ID }}" id="{{ .ID }}-no" type="radio" value="false" required />
+          <label for="{{ .ID }}-no">No</label>
         </div>
       </div>
         
