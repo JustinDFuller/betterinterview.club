@@ -1,0 +1,14 @@
+runtime: go116
+service: interviews
+
+automatic_scaling:
+  max_instances: 1
+  max_idle_instances: 1
+
+handlers:
+  - url: /.*
+    script: auto
+    secure: always
+
+error_handlers:
+  - file: error/index.html
