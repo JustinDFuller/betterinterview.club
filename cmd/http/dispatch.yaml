@@ -1,0 +1,6 @@
+dispatch:
+  - url: "interviews-dot-justindfuller.uc.r.appspot.com/"
+    service: interviews
+
+  - url: "interviews.justindfuller.com/*"
+    service: interviews

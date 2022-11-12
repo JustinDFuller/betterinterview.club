@@ -13,5 +13,8 @@ certificates: ## Generate SSL certificates for the HTTPS server.
 deploy: ## Build and deploy for app engine
 	@cd ./cmd/http; gcloud app deploy;
 
+dispatch: ## Deploy routing rules for app engine
+	@cd ./cmd/http; gcloud app deploy dispatch.yaml;
+
 email: ## Send a test email
 	@source .secrets.env; go run ./cmd/mail;
