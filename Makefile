@@ -1,5 +1,7 @@
 SHELL := /bin/bash
 
+export HOST=https://localhost:8443/
+
 server-watch: ## Run the Go server and restart on changes.
 	@reflex -s -r '\.go' -- sh -c 'clear && $(MAKE) server';
 

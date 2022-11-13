@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"net/mail"
 	"net/url"
+	"os"
 
 	interview "github.com/justindfuller/interviews"
 )
@@ -68,7 +69,7 @@ func LoginHandler(organizations *interview.Organizations) http.HandlerFunc {
 			opts := interview.EmailOptions{
 				To:      email.Address,
 				Subject: "Log in to Better Interviews",
-				HTML:    fmt.Sprintf(`<h1>Better Interviews</h1><a href="https://localhost:8443/auth/callback?id=%s">Log In</a>`, cbID),
+				HTML:    fmt.Sprintf(`<h1>Better Interviews</h1><a href="%sauth/callback?id=%s">Log In</a>`, os.Getenv("HOST"), cbID),
 			}
 			if err := interview.Email(opts); err != nil {
 				log.Printf("Error sending email from /auth/login: %s", err)

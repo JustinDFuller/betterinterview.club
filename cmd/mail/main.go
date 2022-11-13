@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
 	"strings"
@@ -29,7 +30,7 @@ func main() {
 
 	to := "justindanielfuller@gmail.com"
 	subject := "Log in to Better Interviews"
-	html := "<h1>Better Interviews</h1><a href=\"https://localhost:8443\">Log In</a>"
+	html := fmt.Sprintf("<h1>Better Interviews</h1><a href=\"%s\">Log In</a>", os.Getenv("HOST"))
 
 	if err := interview.Email(interview.EmailOptions{to, subject, html}); err != nil {
 		log.Fatal(err)

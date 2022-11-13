@@ -1,6 +1,9 @@
 runtime: go116
 service: interviews
 
+env_variables:
+  HOST: https://interviews.justindfuller.com
+
 automatic_scaling:
   max_instances: 1
   max_idle_instances: 1
