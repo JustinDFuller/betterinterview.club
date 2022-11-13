@@ -15,6 +15,7 @@ func Handlers() {
 	var organizations interview.Organizations
 
 	http.HandleFunc("/auth/login/", auth.LoginHandler(&organizations))
+	http.HandleFunc("/auth/callback/", auth.CallbackHandler(&organizations))
 	http.HandleFunc("/auth/logout/", auth.LogoutHandler)
 	http.HandleFunc("/auth/email/", auth.EmailHandler)
 	http.HandleFunc("/feedback/given/", feedback.GivenHandler(&organizations))
@@ -27,7 +28,7 @@ func Handlers() {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		cookie, err := r.Cookie("__Host-UserUUID")
 		if err != nil || cookie == nil || cookie.Value == "" {
-			t, err := template.New("index.html").ParseFiles("index.html", "index.css")
+			t, err := template.New("login.html").ParseFiles("auth/login.html", "index.css")
 			if err != nil {
 				log.Printf("Error parsing template for /: %s", err)
 				http.ServeFile(w, r, "./error/index.html")
@@ -40,6 +41,11 @@ func Handlers() {
 			return
 		}
 
-		auth.LoginHandler(&organizations)(w, r)
+		if _, err := organizations.FindByUserID(cookie.Value); err != nil {
+			auth.LoginHandler(&organizations)(w, r)
+			return
+		}
+
+		http.Redirect(w, r, "/organization/", http.StatusSeeOther)
 	})
 }

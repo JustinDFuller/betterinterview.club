@@ -41,3 +41,15 @@ func (org *Organization) FindUserByID(id string) (User, error) {
 
 	return User{}, errors.Errorf("User not found for user ID: %s", id)
 }
+
+func NewOrganization(domain string) (Organization, error) {
+	id, err := uuid.NewRandom()
+	if err != nil {
+		return Organization{}, errors.Wrap(err, "error creating ID for Organization")
+	}
+
+	return Organization{
+		ID:     id,
+		Domain: domain,
+	}, nil
+}

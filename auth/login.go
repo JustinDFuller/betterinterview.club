@@ -9,7 +9,6 @@ import (
 	"net/mail"
 	"net/url"
 
-	"github.com/google/uuid"
 	interview "github.com/justindfuller/interviews"
 )
 
@@ -52,9 +51,16 @@ func LoginHandler(organizations *interview.Organizations) http.HandlerFunc {
 				return
 			}
 
-			cbID, err := uuid.NewRandom()
+			org, user, err := organizations.FindOrCreateByEmail(email.Address)
 			if err != nil {
-				log.Printf("Error creating callback ID in /auth/login: %s", err)
+				log.Printf("Error finding or creating org for user in /auth/login: %s", err)
+				http.ServeFile(w, r, "./error/index.html")
+				return
+			}
+
+			cbID, err := organizations.AddEmailLoginCallback(org, user)
+			if err != nil {
+				log.Printf("Error adding email login callback in /auth/login: %s", err)
 				http.ServeFile(w, r, "./error/index.html")
 				return
 			}
@@ -62,7 +68,7 @@ func LoginHandler(organizations *interview.Organizations) http.HandlerFunc {
 			opts := interview.EmailOptions{
 				To:      email.Address,
 				Subject: "Log in to Better Interviews",
-				HTML:    fmt.Sprintf(`<h1>Better Interviews</h1><a href="https://localhost:8443/auth/callback?id=%s">Log In</a>`, cbID.String()),
+				HTML:    fmt.Sprintf(`<h1>Better Interviews</h1><a href="https://localhost:8443/auth/callback?id=%s">Log In</a>`, cbID),
 			}
 			if err := interview.Email(opts); err != nil {
 				log.Printf("Error sending email from /auth/login: %s", err)
@@ -78,33 +84,3 @@ func LoginHandler(organizations *interview.Organizations) http.HandlerFunc {
 		http.ServeFile(w, r, "./error/index.html")
 	}
 }
-
-/*
-org, err := organizations.FindByUserEmail(email.Address)
-			if err != nil {
-				log.Printf("Unable to find organization /auth/login: %s", err)
-				w.WriteHeader(http.StatusNotFound)
-				http.ServeFile(w, r, "./organization/notfound.html")
-				return
-			}
-
-			user, err := org.FindUserByEmail(email.Address)
-			if err != nil {
-				log.Printf("Unable to find user /auth/login: %s", err)
-				w.WriteHeader(http.StatusNotFound)
-				http.ServeFile(w, r, "./organization/notfound.html")
-				return
-			}
-
-			http.SetCookie(w, &http.Cookie{
-				Name:     "__Host-UserUUID",
-				Value:    user.ID.String(),
-				Path:     "/",
-				Expires:  time.Now().Add(time.Hour * 24 * 31), // One month
-				Secure:   true,
-				HttpOnly: true,
-				SameSite: http.SameSiteStrictMode,
-			})
-
-			http.Redirect(w, r, "/organization/", http.StatusSeeOther)
-*/

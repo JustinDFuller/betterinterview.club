@@ -20,4 +20,6 @@ func NewUser(email string) (User, error) {
 type User struct {
 	ID    uuid.UUID
 	Email string
+	// CallbackID is the authentication ID for a user to log in with
+	CallbackID uuid.UUID
 }

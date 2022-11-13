@@ -4,10 +4,12 @@ import (
 	"strings"
 	"sync"
 
+	"github.com/google/uuid"
 	"github.com/pkg/errors"
 )
 
-var OrgNotFound = errors.New("organization not found")
+var ErrOrgNotFound = errors.New("organization not found")
+var ErrUserNotFound = errors.New("user not found")
 
 type Organizations struct {
 	byDomain map[string]Organization
@@ -24,7 +26,7 @@ func (orgs *Organizations) Get(domain string) (Organization, error) {
 
 	org, found := orgs.byDomain[domain]
 	if !found {
-		return Organization{}, OrgNotFound
+		return Organization{}, ErrOrgNotFound
 	}
 
 	return org, nil
@@ -113,7 +115,7 @@ func (orgs *Organizations) FindByDomain(email string) (Organization, error) {
 		}
 	}
 
-	return Organization{}, errors.Errorf("organization not found for domain: %s", parts[1])
+	return Organization{}, ErrOrgNotFound
 }
 
 func (orgs *Organizations) AddFeedback(org Organization, f Feedback) error {
@@ -157,4 +159,100 @@ func (orgs *Organizations) AddFeedbackResponse(org Organization, f Feedback, fr 
 	orgs.byDomain[org.Domain] = org
 
 	return nil
+}
+
+func (orgs *Organizations) AddEmailLoginCallback(org Organization, u User) (string, error) {
+	orgs.mutex.Lock()
+	defer orgs.mutex.Unlock()
+
+	// For this one, we must assume it exists
+	if orgs.byDomain == nil {
+		return "", ErrOrgNotFound
+	}
+
+	org, ok := orgs.byDomain[org.Domain]
+	if !ok {
+		return "", ErrOrgNotFound
+	}
+
+	cbID, err := uuid.NewRandom()
+	if err != nil {
+		return "", errors.Wrap(err, "error creating callback ID")
+	}
+
+	var found bool
+	for index := range org.Users {
+		user := org.Users[index]
+
+		if u.ID == user.ID {
+			org.Users[index].CallbackID = cbID
+			found = true
+		}
+	}
+
+	if !found {
+		return "", errors.New("user not found")
+	}
+
+	orgs.byDomain[org.Domain] = org
+
+	return cbID.String(), nil
+}
+
+func (orgs *Organizations) FindOrCreateByEmail(email string) (Organization, User, error) {
+	orgs.mutex.Lock()
+	defer orgs.mutex.Unlock()
+
+	if orgs.byDomain == nil {
+		orgs.byDomain = map[string]Organization{}
+	}
+
+	parts := strings.Split(email, "@")
+	if len(parts) < 2 {
+		return Organization{}, User{}, errors.Errorf("invalid email address: %s", email)
+	}
+
+	org, ok := orgs.byDomain[parts[1]]
+	if !ok {
+		o, err := NewOrganization(parts[1])
+		if err != nil {
+			return Organization{}, User{}, errors.Wrap(err, "error creating new organization")
+		}
+
+		org = o
+	}
+
+	user, err := NewUser(email)
+	if err != nil {
+		return Organization{}, User{}, errors.Wrap(err, "error creating new user")
+	}
+
+	org.Users = append(org.Users, user)
+	orgs.byDomain[parts[1]] = org
+
+	return org, user, nil
+}
+
+func (orgs *Organizations) FindEmailLoginCallback(id string) (User, error) {
+	orgs.mutex.Lock()
+	defer orgs.mutex.Unlock()
+
+	if orgs.byDomain == nil {
+		return User{}, ErrOrgNotFound
+	}
+
+	for _, org := range orgs.byDomain {
+		for userI := range org.Users {
+			user := org.Users[userI]
+
+			if user.CallbackID.String() == id {
+				org.Users[userI].CallbackID = uuid.UUID{}
+				orgs.byDomain[org.Domain] = org
+
+				return user, nil
+			}
+		}
+	}
+
+	return User{}, ErrUserNotFound
 }
