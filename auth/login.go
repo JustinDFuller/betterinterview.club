@@ -1,7 +1,6 @@
 package auth
 
 import (
-	"fmt"
 	"html/template"
 	"io"
 	"log"
@@ -9,6 +8,7 @@ import (
 	"net/mail"
 	"net/url"
 	"os"
+	"strings"
 
 	interview "github.com/justindfuller/interviews"
 )
@@ -26,6 +26,7 @@ func LoginHandler(organizations *interview.Organizations) http.HandlerFunc {
 			if err := t.Execute(w, nil); err != nil {
 				log.Printf("Error executing template for /auth/login: %s", err)
 			}
+
 			return
 		}
 
@@ -66,10 +67,22 @@ func LoginHandler(organizations *interview.Organizations) http.HandlerFunc {
 				return
 			}
 
+			t, err := template.New("login-email.html").ParseFiles("./auth/login-email.html", "index.css")
+			if err != nil {
+				log.Printf("Error parsing template for /auth/login/: %s", err)
+				http.ServeFile(w, r, "./error/index.html")
+				return
+			}
+
+			var html strings.Builder
+			if err := t.Execute(&html, map[string]string{"ID": cbID, "Host": os.Getenv("HOST")}); err != nil {
+				log.Printf("Error executing template for /auth/login: %s", err)
+			}
+
 			opts := interview.EmailOptions{
 				To:      email.Address,
 				Subject: "Log in to Better Interviews",
-				HTML:    fmt.Sprintf(`<h1>Better Interviews</h1><a href="%sauth/callback?id=%s">Log In</a>`, os.Getenv("HOST"), cbID),
+				HTML:    html.String(),
 			}
 			if err := interview.Email(opts); err != nil {
 				log.Printf("Error sending email from /auth/login: %s", err)

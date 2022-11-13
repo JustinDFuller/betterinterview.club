@@ -1,9 +1,10 @@
 package interview
 
 import (
-	"fmt"
+	"bytes"
 	"net/smtp"
 	"os"
+	"text/template"
 
 	"github.com/pkg/errors"
 )
@@ -20,17 +21,17 @@ func Email(opts EmailOptions) error {
 
 	auth := smtp.PlainAuth("", email, password, "smtp.gmail.com")
 
-	// Connect to the server, authenticate, set the sender and recipient,
-	// and send the email all in one step.
-	msg := []byte(fmt.Sprintf("To: %s\r\n", opts.To) +
-		fmt.Sprintf("Subject: %s\r\n", opts.Subject) +
-		"MIME-version: 1.0;\nContent-Type: text/html; charset=\"UTF-8\";\n\n" +
-		"\r\n" +
-		"<!DOCTYPE html><html><body>\r\n" +
-		opts.HTML +
-		"</body></html>")
-	err := smtp.SendMail("smtp.gmail.com:587", auth, email, []string{opts.To}, msg)
+	t, err := template.New("email.template").ParseFiles("./email.template")
 	if err != nil {
+		return errors.Wrap(err, "error parsing emplate.template")
+	}
+
+	var b bytes.Buffer
+	if err := t.Execute(&b, opts); err != nil {
+		return errors.Wrap(err, "error executing email.template")
+	}
+
+	if err := smtp.SendMail("smtp.gmail.com:587", auth, email, []string{opts.To}, b.Bytes()); err != nil {
 		return errors.Wrap(err, "error sending email")
 	}
 

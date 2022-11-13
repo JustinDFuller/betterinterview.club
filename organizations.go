@@ -222,12 +222,15 @@ func (orgs *Organizations) FindOrCreateByEmail(email string) (Organization, User
 		org = o
 	}
 
-	user, err := NewUser(email)
+	user, err := org.FindUserByEmail(email)
 	if err != nil {
-		return Organization{}, User{}, errors.Wrap(err, "error creating new user")
+		user, err = NewUser(email)
+		if err != nil {
+			return Organization{}, User{}, errors.Wrap(err, "error creating new user")
+		}
+		org.Users = append(org.Users, user)
 	}
 
-	org.Users = append(org.Users, user)
 	orgs.byDomain[parts[1]] = org
 
 	return org, user, nil
