@@ -7,6 +7,8 @@ import (
 	"github.com/pkg/errors"
 )
 
+var OrgNotFound = errors.New("organization not found")
+
 type Organizations struct {
 	byDomain map[string]Organization
 	mutex    sync.Mutex
@@ -22,7 +24,7 @@ func (orgs *Organizations) Get(domain string) (Organization, error) {
 
 	org, found := orgs.byDomain[domain]
 	if !found {
-		return Organization{}, errors.New("organization not found")
+		return Organization{}, OrgNotFound
 	}
 
 	return org, nil

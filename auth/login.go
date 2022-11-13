@@ -1,14 +1,15 @@
 package auth
 
 import (
+	"fmt"
 	"html/template"
 	"io"
 	"log"
 	"net/http"
 	"net/mail"
 	"net/url"
-	"time"
 
+	"github.com/google/uuid"
 	interview "github.com/justindfuller/interviews"
 )
 
@@ -51,7 +52,35 @@ func LoginHandler(organizations *interview.Organizations) http.HandlerFunc {
 				return
 			}
 
-			org, err := organizations.FindByUserEmail(email.Address)
+			cbID, err := uuid.NewRandom()
+			if err != nil {
+				log.Printf("Error creating callback ID in /auth/login: %s", err)
+				http.ServeFile(w, r, "./error/index.html")
+				return
+			}
+
+			opts := interview.EmailOptions{
+				To:      email.Address,
+				Subject: "Log in to Better Interviews",
+				HTML:    fmt.Sprintf(`<h1>Better Interviews</h1><a href="https://localhost:8443/auth/callback?id=%s">Log In</a>`, cbID.String()),
+			}
+			if err := interview.Email(opts); err != nil {
+				log.Printf("Error sending email from /auth/login: %s", err)
+				http.ServeFile(w, r, "./error/index.html")
+				return
+			}
+
+			http.Redirect(w, r, "/auth/email/", http.StatusSeeOther)
+			return
+		}
+
+		log.Printf("Unexpected http Method '%s' for /auth/login", r.Method)
+		http.ServeFile(w, r, "./error/index.html")
+	}
+}
+
+/*
+org, err := organizations.FindByUserEmail(email.Address)
 			if err != nil {
 				log.Printf("Unable to find organization /auth/login: %s", err)
 				w.WriteHeader(http.StatusNotFound)
@@ -78,10 +107,4 @@ func LoginHandler(organizations *interview.Organizations) http.HandlerFunc {
 			})
 
 			http.Redirect(w, r, "/organization/", http.StatusSeeOther)
-			return
-		}
-
-		log.Printf("Unexpected http Method '%s' for /auth/login", r.Method)
-		http.ServeFile(w, r, "./error/index.html")
-	}
-}
+*/

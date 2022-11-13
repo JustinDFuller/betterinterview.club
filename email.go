@@ -8,7 +8,13 @@ import (
 	"github.com/pkg/errors"
 )
 
-func Email(to, subject, html string) error {
+type EmailOptions struct {
+	To      string
+	Subject string
+	HTML    string
+}
+
+func Email(opts EmailOptions) error {
 	email := os.Getenv("EMAIL")
 	password := os.Getenv("PASSWORD")
 
@@ -16,14 +22,14 @@ func Email(to, subject, html string) error {
 
 	// Connect to the server, authenticate, set the sender and recipient,
 	// and send the email all in one step.
-	msg := []byte(fmt.Sprintf("To: %s\r\n", to) +
-		fmt.Sprintf("Subject: %s\r\n", subject) +
+	msg := []byte(fmt.Sprintf("To: %s\r\n", opts.To) +
+		fmt.Sprintf("Subject: %s\r\n", opts.Subject) +
 		"MIME-version: 1.0;\nContent-Type: text/html; charset=\"UTF-8\";\n\n" +
 		"\r\n" +
 		"<!DOCTYPE html><html><body>\r\n" +
-		html +
+		opts.HTML +
 		"</body></html>")
-	err := smtp.SendMail("smtp.gmail.com:587", auth, email, []string{to}, msg)
+	err := smtp.SendMail("smtp.gmail.com:587", auth, email, []string{opts.To}, msg)
 	if err != nil {
 		return errors.Wrap(err, "error sending email")
 	}
