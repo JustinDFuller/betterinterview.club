@@ -1,14 +1,15 @@
 package organization
 
 import (
+	"html/template"
 	"io"
 	"log"
 	"net/http"
 	"net/mail"
 	"net/url"
+	"os"
 	"strings"
 
-	"github.com/google/uuid"
 	interview "github.com/justindfuller/interviews"
 )
 
@@ -56,33 +57,39 @@ func MemberHandler(organizations *interview.Organizations) http.HandlerFunc {
 			return
 		}
 
-		parts := strings.Split(email.Address, "@")
-		if len(parts) < 2 {
-			log.Printf("Error parsing email from /organization/member email parameter: %s", err)
-			http.ServeFile(w, r, "./error/index.html")
-			return
-		}
-
-		if parts[1] != org.Domain {
-			// TODO: This is needs a better error for the user.
-			log.Printf("Invalid email in /organization/member email parameter: %s", err)
-			http.ServeFile(w, r, "./error/index.html")
-			return
-		}
-
-		userID, err := uuid.NewRandom()
+		org, user, err := organizations.FindOrCreateByEmail(email.Address)
 		if err != nil {
-			log.Printf("Error creating user UUID in /organization/member: %s", err)
+			log.Printf("Error finding or creating org for user in /auth/login: %s", err)
 			http.ServeFile(w, r, "./error/index.html")
 			return
 		}
 
-		u := interview.User{
-			ID:    userID,
-			Email: email.Address,
+		cbID, err := organizations.AddEmailLoginCallback(org, user)
+		if err != nil {
+			log.Printf("Error adding email login callback in /auth/login: %s", err)
+			http.ServeFile(w, r, "./error/index.html")
+			return
 		}
-		if _, err = organizations.AddUser(org, u); err != nil {
-			log.Printf("Error adding user to organization in /organization/member: %s", err)
+
+		t, err := template.New("invite.html").ParseFiles("./organization/invite.html", "index.css")
+		if err != nil {
+			log.Printf("Error parsing invite template for /organization/member/: %s", err)
+			http.ServeFile(w, r, "./error/index.html")
+			return
+		}
+
+		var html strings.Builder
+		if err := t.Execute(&html, map[string]string{"ID": cbID, "Host": os.Getenv("HOST")}); err != nil {
+			log.Printf("Error executing invite template for /organization/member/: %s", err)
+		}
+
+		opts := interview.EmailOptions{
+			To:      email.Address,
+			Subject: "Your invite to Better Interviews",
+			HTML:    html.String(),
+		}
+		if err := interview.Email(opts); err != nil {
+			log.Printf("Error sending email from /auth/login: %s", err)
 			http.ServeFile(w, r, "./error/index.html")
 			return
 		}
