@@ -17,7 +17,7 @@ func Handlers() {
 	http.HandleFunc("/auth/login/", auth.LoginHandler(&organizations))
 	http.HandleFunc("/auth/callback/", auth.CallbackHandler(&organizations))
 	http.HandleFunc("/auth/logout/", auth.LogoutHandler)
-	http.HandleFunc("/auth/email/", auth.EmailHandler)
+	http.HandleFunc("/auth/email/", auth.EmailHandler(&organizations))
 	http.HandleFunc("/feedback/given/", feedback.GivenHandler(&organizations))
 	http.HandleFunc("/feedback/give/", feedback.GiveHandler(&organizations))
 	http.HandleFunc("/feedback/", feedback.Handler(&organizations))
