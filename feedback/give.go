@@ -35,7 +35,7 @@ func GiveHandler(organizations *interview.Organizations) http.HandlerFunc {
 			return
 		}
 
-		org, err := organizations.FindByUserID(cookie.Value)
+		org, _, err := organizations.FindByUserID(cookie.Value)
 		if err != nil {
 			log.Printf("Error finding organization for /feedback/give: %s", err)
 			http.ServeFile(w, r, "./error/index.html")
@@ -137,17 +137,14 @@ func GiveHandler(organizations *interview.Organizations) http.HandlerFunc {
 				return
 			}
 
-			org, err = organizations.FindByUserID(cookie.Value)
+			org, _, err = organizations.FindByUserID(cookie.Value)
 			if err != nil {
 				log.Printf("Error finding organization for /feedback/give: %s", err)
 				http.ServeFile(w, r, "./error/index.html")
 				return
 			}
 
-			log.Printf("Updated Organization with Feedback Response: %s", org)
-
 			http.Redirect(w, r, "/organization/", http.StatusSeeOther)
-
 			return
 		}
 

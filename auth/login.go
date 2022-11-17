@@ -80,7 +80,7 @@ func LoginHandler(organizations *interview.Organizations) http.HandlerFunc {
 			}
 
 			opts := interview.EmailOptions{
-				To:      email.Address,
+				To:      []string{email.Address},
 				Subject: "Log in to Better Interviews",
 				HTML:    html.String(),
 			}

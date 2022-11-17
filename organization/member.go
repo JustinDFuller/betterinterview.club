@@ -28,7 +28,7 @@ func MemberHandler(organizations *interview.Organizations) http.HandlerFunc {
 			return
 		}
 
-		org, err := organizations.FindByUserID(cookie.Value)
+		org, _, err := organizations.FindByUserID(cookie.Value)
 		if err != nil {
 			log.Printf("Error finding organization for /organization/member: %s", err)
 			http.ServeFile(w, r, "./error/index.html")
@@ -84,7 +84,7 @@ func MemberHandler(organizations *interview.Organizations) http.HandlerFunc {
 		}
 
 		opts := interview.EmailOptions{
-			To:      email.Address,
+			To:      []string{email.Address},
 			Subject: "Your invite to Better Interviews",
 			HTML:    html.String(),
 		}

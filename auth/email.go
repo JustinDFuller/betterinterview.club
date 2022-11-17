@@ -12,7 +12,7 @@ func EmailHandler(organizations *interview.Organizations) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		cookie, err := r.Cookie("__Host-UserUUID")
 		if err == nil {
-			if _, err := organizations.FindByUserID(cookie.Value); err == nil {
+			if _, _, err := organizations.FindByUserID(cookie.Value); err == nil {
 				http.Redirect(w, r, "/organization/", http.StatusSeeOther)
 				return
 			}

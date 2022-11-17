@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Better Interviews | Log In</title>
+    <style>
+      {{ template "index.css" }}
+    </style>
+  </head>
+  <body>
+    <h1>Your feedback is requested.</h1>
+    Your feedback is requested for the role {{ .Role }} on team {{ .Team }} by <a href="mailto:{{ .RequestedBy }}">{{ .RequestedBy }}</a>.
+    <a href="{{ .Host }}auth/callback?id={{ .ID }}&redirect=/feedback/give/{{ .FeedbackID }}">Click here to give feedback.</a>
+    <p>This link will automatically open Better Interviews and log you in. No password is required.</p>
+  </body>
+</html>

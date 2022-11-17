@@ -87,17 +87,17 @@ func (orgs *Organizations) FindByUserEmail(email string) (Organization, error) {
 	return Organization{}, errors.Errorf("organization not found for user email: %s", email)
 }
 
-func (orgs *Organizations) FindByUserID(id string) (Organization, error) {
+func (orgs *Organizations) FindByUserID(id string) (Organization, User, error) {
 	orgs.mutex.Lock()
 	defer orgs.mutex.Unlock()
 
 	for _, organization := range orgs.byDomain {
-		if _, err := organization.FindUserByID(id); err == nil {
-			return organization, nil
+		if user, err := organization.FindUserByID(id); err == nil {
+			return organization, user, nil
 		}
 	}
 
-	return Organization{}, errors.Errorf("organization not found for user ID: %s", id)
+	return Organization{}, User{}, errors.Errorf("organization not found for user ID: %s", id)
 }
 
 func (orgs *Organizations) FindByDomain(email string) (Organization, error) {

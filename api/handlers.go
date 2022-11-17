@@ -41,7 +41,7 @@ func Handlers() {
 			return
 		}
 
-		if _, err := organizations.FindByUserID(cookie.Value); err != nil {
+		if _, _, err := organizations.FindByUserID(cookie.Value); err != nil {
 			auth.LoginHandler(&organizations)(w, r)
 			return
 		}

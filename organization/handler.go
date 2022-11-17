@@ -24,7 +24,7 @@ func Handler(organizations *interview.Organizations) http.HandlerFunc {
 			return
 		}
 
-		org, err := organizations.FindByUserID(cookie.Value)
+		org, _, err := organizations.FindByUserID(cookie.Value)
 		if err != nil {
 			log.Printf("Error finding organization for /organization: %s", err)
 			http.ServeFile(w, r, "./error/index.html")

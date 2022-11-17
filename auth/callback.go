@@ -27,6 +27,11 @@ func CallbackHandler(organizations *interview.Organizations) http.HandlerFunc {
 			SameSite: http.SameSiteLaxMode,
 		})
 
+		if redirect := r.URL.Query().Get("redirect"); redirect != "" {
+			http.Redirect(w, r, redirect, http.StatusSeeOther)
+			return
+		}
+
 		http.Redirect(w, r, "/organization/", http.StatusSeeOther)
 	}
 }

@@ -16,13 +16,18 @@
       </nav>
     </header>
 
-    <p>You may add up to five questions. The only answer choices will be "yes" or "no".</p>
     <form action="/feedback/" method="post">
       <div class="form-group">
-        <label for="role">What role is this feedback for?</label>
-        <input name="role" type="text" placeholder="Senior Software Engineer - Auth Team" required />
+        <label for="team">What team is this role for?</label>
+        <input autofocus name="team" type="text" placeholder="Authentication Platforms" required />
       </div>
 
+      <div class="form-group">
+        <label for="role">What role is this feedback for?</label>
+        <input name="role" type="text" placeholder="Senior Software Engineer" required />
+      </div>
+
+      <p>You may add up to five questions. The only answer choices will be "yes" or "no".</p>
       <div class="form-group">
         <label for="question1">Question One</label>
         <input name="question1" type="text" placeholder="Did the candidate arrive at a working solution?" required />
@@ -46,6 +51,17 @@
       <div class="form-group">
         <label for="question5">Question Five</label>
         <input name="question5" type="text" required />
+      </div>
+
+      <p>You may request feedback from one or two people. They will receive an email with a link to answer the questions you created above..</p>
+      <div class="form-group">
+        <label for="email1">Request Feedback From Email (Required)</label>
+        <input name="email1" type="email" placeholder="interviewer1@{{ .Domain }}" required />
+      </div>
+
+      <div class="form-group">
+        <label for="email2">Request Feedback From Email (Optional)</label>
+        <input name="email2" type="email" />
       </div>
 
       <div>
