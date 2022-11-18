@@ -27,42 +27,50 @@
       </p>
 
 
+      {{ $responses := .Responses }}
       {{ if len .Responses }}
         <div class="table-container">
           <table>
-            <thead>
+            <tbody>
               <tr>
                 <th>
                   Submitted By 
                 </th>
-                <th>
-                  Submitted On 
-                </th>
-                {{ range .Questions }} 
-                  <th>
-                    {{ .Text }} 
-                  </th> 
-                {{ end }}
-              </tr> 
-            </thead>
-            <tbody>
-              {{ range .Responses }}
-                <tr>
+                {{ range .Responses }}
                   <td>
                     {{ $email := UserEmail .CreatorID }}
                     {{ $email }}
                   </td>
+                {{ end }}
+              </tr> 
+              <tr>
+                <th>
+                  Submitted On 
+                </th>
+                {{ range .Responses }}
                   <td>
                     {{ .CreatedAt.Format "January 2 2006" }}
                   </td>
-                  {{ range .Answers }}
-                    <td>
-                      {{ if .Response }}  Yes {{ else }} No {{ end }}
-                    </td>
-                  {{ end }}
-                </tr>
-              {{ end }}
-            </tbody> 
+                {{ end }}
+              </tr>
+                {{ range .Questions }} 
+                  <tr>
+                    <th>
+                      {{ .Text }} 
+                    </th> 
+                    {{ $questionID := .ID }}
+                    {{ range $responses }}
+                      {{ range .Answers }}
+                        {{ if eq .QuestionID $questionID }}
+                          <td>
+                            {{ if .Response }}  Yes {{ else }} No {{ end }}
+                          </td>
+                        {{ end }}
+                      {{ end }}
+                    {{ end }}
+                  </tr>
+                {{ end }}
+            </tbody>
           </table>
         </div>
       {{ else }}

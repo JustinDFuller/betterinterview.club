@@ -8,6 +8,7 @@ body {
   max-width: 900px;
   margin: auto;
   padding: 20px;
+  line-height: 26px;
 }
 
 header {
@@ -30,16 +31,22 @@ nav > a {
 }
 
 table {
+  border: 2px solid #E8E9EB;
   width: 100%;
   text-align: left;
+  border-collapse: collapse;
 }
 
-thead, th {
-  background: #eee;
+tr {
+  border-top: 3px solid #E8E9EB;
+}
+
+th {
+  background: #E8E9EB;
 }
 
 th, td {
-  padding: 8px;
+  padding: 16px 8px;
   border: 0;
   margin: 0;
 }
@@ -91,6 +98,7 @@ main h2 {
 }
 
 .table-container {
+  border-radius: 4px;
   width: 100%;
   overflow-x: scroll;
 }

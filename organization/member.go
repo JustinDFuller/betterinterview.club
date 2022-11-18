@@ -28,7 +28,7 @@ func MemberHandler(organizations *interview.Organizations) http.HandlerFunc {
 			return
 		}
 
-		org, _, err := organizations.FindByUserID(cookie.Value)
+		org, inviter, err := organizations.FindByUserID(cookie.Value)
 		if err != nil {
 			log.Printf("Error finding organization for /organization/member: %s", err)
 			http.ServeFile(w, r, "./error/index.html")
@@ -79,7 +79,12 @@ func MemberHandler(organizations *interview.Organizations) http.HandlerFunc {
 		}
 
 		var html strings.Builder
-		if err := t.Execute(&html, map[string]string{"ID": cbID, "Host": os.Getenv("HOST")}); err != nil {
+		vars := map[string]string{
+			"ID":      cbID,
+			"Host":    os.Getenv("HOST"),
+			"Inviter": inviter.Email,
+		}
+		if err := t.Execute(&html, vars); err != nil {
 			log.Printf("Error executing invite template for /organization/member/: %s", err)
 		}
 
