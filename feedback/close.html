@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Better Interviews | Feedback</title>
+    <style>
+      {{ template "index.css" }}
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Close Role</h1>
+      <nav>
+        <a href="/organization/">My Organization</a>
+        <a href="/auth/logout/">Log Out</a>
+      </nav>
+    </header>
+
+    <p>
+      You are about to close the role "<strong>{{ .Role }}</strong>" for team "<strong>{{ .Team }}</strong>". 
+      <br />
+      This role was opened by by <a href="mailto:{{ .Email }}">{{ .Email }}</a> on {{ .CreatedAt }}.
+    </p>
+
+    <form action="/feedback/close/{{ .ID }}" method="post">
+
+      <div class="form-group">
+        <label for="reason">Why are you closing this role?</label>
+        <select name="reason" id="reason" required>
+          <option selected disabled value="">Please select a reason.</option>
+          <option value="filled">We hired a candidate for this position.</option>
+          <option value="canceled">We no longer need to hire for this position.</option>
+        </select>
+      </div>
+        
+      <div>
+        <button type="submit">Close Role</button>
+      </div>
+    </form>
+  </body>
+</html>

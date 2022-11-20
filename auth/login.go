@@ -79,16 +79,16 @@ func LoginHandler(organizations *interview.Organizations) http.HandlerFunc {
 				log.Printf("Error executing template for /auth/login: %s", err)
 			}
 
-			opts := interview.EmailOptions{
-				To:      []string{email.Address},
-				Subject: "Log in to Better Interviews",
-				HTML:    html.String(),
-			}
-			if err := interview.Email(opts); err != nil {
-				log.Printf("Error sending email from /auth/login: %s", err)
-				http.ServeFile(w, r, "./error/index.html")
-				return
-			}
+			go func() {
+				opts := interview.EmailOptions{
+					To:      []string{email.Address},
+					Subject: "Log in to Better Interviews",
+					HTML:    html.String(),
+				}
+				if err := interview.Email(opts); err != nil {
+					log.Printf("Error sending email from /auth/login: %s", err)
+				}
+			}()
 
 			http.Redirect(w, r, "/auth/email/", http.StatusSeeOther)
 			return

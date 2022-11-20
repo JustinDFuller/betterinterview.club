@@ -20,6 +20,7 @@ func Handlers() {
 	http.HandleFunc("/auth/email/", auth.EmailHandler(&organizations))
 	http.HandleFunc("/feedback/given/", feedback.GivenHandler(&organizations))
 	http.HandleFunc("/feedback/give/", feedback.GiveHandler(&organizations))
+	http.HandleFunc("/feedback/close/", feedback.CloseHandler(&organizations))
 	http.HandleFunc("/feedback/", feedback.Handler(&organizations))
 	// http.HandleFunc("/organization/notfound/", organization.NotFoundHandler)
 	http.HandleFunc("/organization/member/", organization.MemberHandler(&organizations))

@@ -125,50 +125,51 @@ func Handler(organizations *interview.Organizations) http.HandlerFunc {
 			}
 
 			for _, email := range emails {
-				org, user, err := organizations.FindOrCreateByEmail(email)
-				if err != nil {
-					log.Printf("Error finding or creating org for invited user in /feedback/: %s", err)
-					http.ServeFile(w, r, "./error/index.html")
-					return
-				}
+				email := email
 
-				cbID, err := organizations.AddEmailLoginCallback(org, user)
-				if err != nil {
-					log.Printf("Error adding email login callback in /feedback/: %s", err)
-					http.ServeFile(w, r, "./error/index.html")
-					return
-				}
+				go func() {
+					org, user, err := organizations.FindOrCreateByEmail(email)
+					if err != nil {
+						log.Printf("Error finding or creating org for invited user in /feedback/: %s", err)
+						http.ServeFile(w, r, "./error/index.html")
+						return
+					}
 
-				t, err := template.New("invite.html").ParseFiles("./feedback/invite.html", "index.css")
-				if err != nil {
-					log.Printf("Error parsing invite template for /feedback/: %s", err)
-					http.ServeFile(w, r, "./error/index.html")
-					return
-				}
+					cbID, err := organizations.AddEmailLoginCallback(org, user)
+					if err != nil {
+						log.Printf("Error adding email login callback in /feedback/: %s", err)
+						http.ServeFile(w, r, "./error/index.html")
+						return
+					}
 
-				var html strings.Builder
-				vars := map[string]string{
-					"ID":          cbID,
-					"FeedbackID":  f.ID.String(),
-					"Host":        os.Getenv("HOST"),
-					"Role":        query.Get("role"),
-					"Team":        query.Get("team"),
-					"RequestedBy": creator.Email,
-				}
-				if err := t.Execute(&html, vars); err != nil {
-					log.Printf("Error executing invite template for /feedback/: %s", err)
-				}
+					t, err := template.New("invite.html").ParseFiles("./feedback/invite.html", "index.css")
+					if err != nil {
+						log.Printf("Error parsing invite template for /feedback/: %s", err)
+						return
+					}
 
-				opts := interview.EmailOptions{
-					To:      []string{email},
-					Subject: fmt.Sprintf("Your feedback is requested for the role %s on team %s", query.Get("role"), query.Get("team")),
-					HTML:    html.String(),
-				}
-				if err := interview.Email(opts); err != nil {
-					log.Printf("Error sending email from /auth/login: %s", err)
-					http.ServeFile(w, r, "./error/index.html")
-					return
-				}
+					var html strings.Builder
+					vars := map[string]string{
+						"ID":          cbID,
+						"FeedbackID":  f.ID.String(),
+						"Host":        os.Getenv("HOST"),
+						"Role":        query.Get("role"),
+						"Team":        query.Get("team"),
+						"RequestedBy": creator.Email,
+					}
+					if err := t.Execute(&html, vars); err != nil {
+						log.Printf("Error executing invite template for /feedback/: %s", err)
+					}
+
+					opts := interview.EmailOptions{
+						To:      []string{email},
+						Subject: fmt.Sprintf("Your feedback is requested for the role %s on team %s", query.Get("role"), query.Get("team")),
+						HTML:    html.String(),
+					}
+					if err := interview.Email(opts); err != nil {
+						log.Printf("Error sending email from /auth/login: %s", err)
+					}
+				}()
 			}
 
 			if err := organizations.AddFeedback(org, f); err != nil {

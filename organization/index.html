@@ -22,18 +22,23 @@
       <a href="/feedback/">Open a New Role</a>
     </p>
 
+    {{ $userID := .UserID }}
+
     {{ if len .Feedback }}
       <div class="table-container">
         <table>
           <thead>
             <tr>
               <th>
+                Team
+              </th>
+              <th>
                 Role
               </th>
               <th>
                 Opened By
               </th>
-              <th>
+              <th style="min-width: 200px;">
                 Opened On
               </th>
               <th>
@@ -42,29 +47,42 @@
               <th>
                 <!-- View Feedback -->
               </th>
+              <th>
+                <!-- Close Role -->
+              </th>
             </tr>
           </thead>
           <tbody>
              {{ range .Feedback }}
-            <tr>
-              <td>
-                {{ .Role }}
-              </td>
-              <td>
-                {{ $user := UserEmail .CreatorID }}
-                {{ $user.Email }}
-              </td>
-              <td>
-                {{ .CreatedAt.Format "January 2 2006" }}
-              </td>
-              <td>
-                <a href="/feedback/give/{{ .ID }}">Give Feedback</a>
-              </td>
-              <td>
-                <a href="/feedback/given/{{ .ID }}">View Feedback</a>
-              </td>
-
-            </tr>
+              <tr>
+                <td style="min-width: 150px;">
+                  {{ .Team }}
+                </td>
+                <td style="min-width: 250px;">
+                  {{ .Role }}
+                </td>
+                <td>
+                  {{ $user := UserEmail .CreatorID }}
+                  {{ $user.Email }}
+                </td>
+                <td>
+                  {{ .CreatedAt.Format "January 2 2006" }}
+                </td>
+                <td style="min-width: 150px;">
+                  <a href="/feedback/give/{{ .ID }}">Give Feedback</a>
+                </td>
+                <td style="min-width: 150px;">
+                  <a href="/feedback/given/{{ .ID }}">View Feedback</a>
+                </td>
+                  {{ $creatorID := .CreatorID.String }}
+                  {{ if eq $userID $creatorID }}
+                    <td style="min-width: 150px;">
+                      <a href="/feedback/close/{{ .ID }}">Close Role</a>
+                    </td>
+                  {{ else }}
+                    <td></td>
+                  {{ end }}
+              </tr>
             {{ end }}
           </tbody>
         </table>

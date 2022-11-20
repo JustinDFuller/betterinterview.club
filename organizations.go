@@ -161,6 +161,30 @@ func (orgs *Organizations) AddFeedbackResponse(org Organization, f Feedback, fr 
 	return nil
 }
 
+func (orgs *Organizations) SetFeedback(org Organization, f Feedback) error {
+	orgs.mutex.Lock()
+	defer orgs.mutex.Unlock()
+
+	if orgs.byDomain == nil {
+		orgs.byDomain = map[string]Organization{}
+	}
+
+	org, found := orgs.byDomain[org.Domain]
+	if !found {
+		return errors.New("organization does not exist")
+	}
+
+	for i, feedback := range org.Feedback {
+		if feedback.ID == f.ID {
+			org.Feedback[i] = f
+		}
+	}
+
+	orgs.byDomain[org.Domain] = org
+
+	return nil
+}
+
 func (orgs *Organizations) AddEmailLoginCallback(org Organization, u User) (string, error) {
 	orgs.mutex.Lock()
 	defer orgs.mutex.Unlock()

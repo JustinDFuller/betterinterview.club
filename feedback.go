@@ -25,14 +25,16 @@ func NewFeedback(creatorID uuid.UUID, team, role string, emails []string, questi
 }
 
 type Feedback struct {
-	ID        uuid.UUID
-	CreatorID uuid.UUID
-	CreatedAt time.Time
-	Team      string
-	Role      string
-	Emails    []string
-	Questions []Question
-	Responses []FeedbackResponse
+	ID          uuid.UUID
+	CreatorID   uuid.UUID
+	CreatedAt   time.Time
+	Team        string
+	Role        string
+	Emails      []string
+	Questions   []Question
+	Responses   []FeedbackResponse
+	Closed      bool
+	CloseReason string
 }
 
 func (f *Feedback) QuestionByID(id string) (Question, error) {

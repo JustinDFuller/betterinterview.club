@@ -24,7 +24,7 @@ func Handler(organizations *interview.Organizations) http.HandlerFunc {
 			return
 		}
 
-		org, _, err := organizations.FindByUserID(cookie.Value)
+		org, user, err := organizations.FindByUserID(cookie.Value)
 		if err != nil {
 			log.Printf("Error finding organization for /organization: %s", err)
 			http.ServeFile(w, r, "./error/index.html")
@@ -43,7 +43,20 @@ func Handler(organizations *interview.Organizations) http.HandlerFunc {
 			return
 		}
 
-		if err := t.Execute(w, org); err != nil {
+		var feedback []interview.Feedback
+		for _, f := range org.Feedback {
+			if !f.Closed {
+				feedback = append(feedback, f)
+			}
+		}
+
+		vars := map[string]interface{}{
+			"UserID":   user.ID.String(),
+			"Feedback": feedback,
+			"Users":    org.Users,
+			"Domain":   org.Domain,
+		}
+		if err := t.Execute(w, vars); err != nil {
 			log.Printf("Error executing template for /organization: %s", err)
 		}
 

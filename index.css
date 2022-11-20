@@ -51,7 +51,7 @@ th, td {
   margin: 0;
 }
 
-input[type="text"], input[type="email"] {
+select, input[type="text"], input[type="email"] {
   padding: 8px;
   width: 100%;
 }
@@ -118,7 +118,7 @@ h4, h5, h6 {
 }
 
 @media only screen and (min-width: 400px) {
-  input[type="text"], input[type="email"] {
+  select, input[type="text"], input[type="email"] {
     padding: 8px;
     min-width: 300px;
     width: auto;
