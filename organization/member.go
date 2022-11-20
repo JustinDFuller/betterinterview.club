@@ -71,33 +71,33 @@ func MemberHandler(organizations *interview.Organizations) http.HandlerFunc {
 			return
 		}
 
-		t, err := template.New("invite.html").ParseFiles("./organization/invite.html", "index.css")
-		if err != nil {
-			log.Printf("Error parsing invite template for /organization/member/: %s", err)
-			http.ServeFile(w, r, "./error/index.html")
-			return
-		}
+		go func() {
+			t, err := template.New("invite.html").ParseFiles("./organization/invite.html", "index.css")
+			if err != nil {
+				log.Printf("Error parsing invite template for /organization/member/: %s", err)
+				return
+			}
 
-		var html strings.Builder
-		vars := map[string]string{
-			"ID":      cbID,
-			"Host":    os.Getenv("HOST"),
-			"Inviter": inviter.Email,
-		}
-		if err := t.Execute(&html, vars); err != nil {
-			log.Printf("Error executing invite template for /organization/member/: %s", err)
-		}
+			var html strings.Builder
+			vars := map[string]string{
+				"ID":      cbID,
+				"Host":    os.Getenv("HOST"),
+				"Inviter": inviter.Email,
+			}
+			if err := t.Execute(&html, vars); err != nil {
+				log.Printf("Error executing invite template for /organization/member/: %s", err)
+			}
 
-		opts := interview.EmailOptions{
-			To:      []string{email.Address},
-			Subject: "Your invite to Better Interviews",
-			HTML:    html.String(),
-		}
-		if err := interview.Email(opts); err != nil {
-			log.Printf("Error sending email from /auth/login: %s", err)
-			http.ServeFile(w, r, "./error/index.html")
-			return
-		}
+			opts := interview.EmailOptions{
+				To:      []string{email.Address},
+				Subject: "Your invite to Better Interviews",
+				HTML:    html.String(),
+			}
+			if err := interview.Email(opts); err != nil {
+				log.Printf("Error sending email from /auth/login: %s", err)
+				return
+			}
+		}()
 
 		http.Redirect(w, r, "/organization/", http.StatusSeeOther)
 	}
