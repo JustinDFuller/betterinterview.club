@@ -1,6 +1,7 @@
 package feedback
 
 import (
+	"fmt"
 	"html/template"
 	"io"
 	"log"
@@ -8,6 +9,7 @@ import (
 	"net/url"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/google/uuid"
 	interview "github.com/justindfuller/interviews"
@@ -137,12 +139,50 @@ func GiveHandler(organizations *interview.Organizations) http.HandlerFunc {
 				return
 			}
 
-			org, _, err = organizations.FindByUserID(cookie.Value)
-			if err != nil {
-				log.Printf("Error finding organization for /feedback/give: %s", err)
-				http.ServeFile(w, r, "./error/index.html")
-				return
-			}
+			go func() {
+				funcs := template.FuncMap{
+					"UserEmail": func(id uuid.UUID) (string, error) {
+						user, err := org.FindUserByID(id.String())
+						if err != nil {
+							return "", err
+						}
+						return user.Email, nil
+					},
+				}
+				t, err := template.New("given-email.template.html").Funcs(funcs).ParseFiles("./feedback/given-email.template.html", "index.css")
+				if err != nil {
+					log.Printf("Error parsing invite template for /feedback/: %s", err)
+					return
+				}
+
+				var html strings.Builder
+				vars := map[string]interface{}{
+					"GiverID":   userID,
+					"Team":      f.Team,
+					"Role":      f.Role,
+					"Questions": f.Questions,
+					"Date":      time.Now(),
+					"Responses": []interview.FeedbackResponse{given},
+				}
+				if err := t.Execute(&html, vars); err != nil {
+					log.Printf("Error executing invite template for /feedback/: %s", err)
+				}
+
+				user, err := org.FindUserByID(f.CreatorID.String())
+				if err != nil {
+					log.Printf("Error finding user for /feedback/: %s", err)
+					return
+				}
+
+				opts := interview.EmailOptions{
+					To:      []string{user.Email},
+					Subject: fmt.Sprintf("Feedback received for the role %s on team %s", f.Role, f.Team),
+					HTML:    html.String(),
+				}
+				if err := interview.Email(opts); err != nil {
+					log.Printf("Error sending email from /feedback/give: %s", err)
+				}
+			}()
 
 			http.Redirect(w, r, "/organization/", http.StatusSeeOther)
 			return

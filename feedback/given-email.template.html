@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Better Interviews | Feedback Given</title>
+    <style>
+      {{ template "index.css" }}
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Feedback Given</h1>
+    </header>
+
+    {{ $email := UserEmail .GiverID }}
+    You received feedback for the role "<strong>{{ .Role }}</strong>" on team "<strong>{{ .Team }}</strong>"
+    <br />
+    from <a href="mailto:{{ $email }}">{{ $email }}</a> on {{ .Date.Format "January 2 2006" }}.
+
+    {{ $responses := .Responses }}
+    <table style="margin-top: 16px; width: auto; table-layout: fixed;">
+      <tbody>
+          {{ range .Questions }} 
+            <tr>
+              <th style="max-width: 50%; min-width: 200px;">
+                {{ .Text }} 
+              </th> 
+              {{ $questionID := .ID }}
+              {{ range $responses }}
+                {{ range .Answers }}
+                  {{ if eq .QuestionID $questionID }}
+                    <td style="max-width: 50%; min-width: 100px;">
+                      {{ if .Response }}  Yes {{ else }} No {{ end }}
+                    </td>
+                  {{ end }}
+                {{ end }}
+              {{ end }}
+            </tr>
+          {{ end }}
+      </tbody>
+    </table>
+  </body>
+</html>
