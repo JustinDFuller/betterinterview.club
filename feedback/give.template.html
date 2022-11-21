@@ -37,9 +37,19 @@
           <label for="{{ .ID }}-no">No</label>
         </div>
       </div>
-        
-
       {{ end }}
+
+      <div class="form-group">
+        <strong>Do you recommend this candidate for this position?</strong>
+        <div>
+          <input name="recommend" id="recommend-yes" type="radio" value="true" required />
+          <label for="recommend-yes">Yes</label>
+        </div>
+        <div>
+          <input name="recommend" id="recommend-no" type="radio" value="false" required />
+          <label for="recommend-no">No</label>
+        </div>
+      </div>
 
       <div>
         <button type="submit">Save Questions</button>

@@ -39,5 +39,18 @@
           {{ end }}
       </tbody>
     </table>
+
+    <p>
+      They
+      <strong>
+      {{ if .Recommend }} 
+        do
+      {{ else }}
+        do not
+      {{ end }}
+      </strong>
+      recommend this candidate for this position.
+    </p>
+
   </body>
 </html>

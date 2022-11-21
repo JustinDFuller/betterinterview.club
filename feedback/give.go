@@ -109,6 +109,10 @@ func GiveHandler(organizations *interview.Organizations) http.HandlerFunc {
 			var answers []interview.Answer
 
 			for key := range query {
+				if key == "recommend" {
+					continue
+				}
+
 				b, err := strconv.ParseBool(query.Get(key))
 				if err != nil {
 					log.Printf("Error parsing Answer boolean in /feedback/give: %s", err)
@@ -126,7 +130,14 @@ func GiveHandler(organizations *interview.Organizations) http.HandlerFunc {
 				answers = append(answers, a)
 			}
 
-			given, err := interview.NewFeedbackResponse(userID, answers)
+			recommend, err := strconv.ParseBool(query.Get("recommend"))
+			if err != nil {
+				log.Printf("Error parsing recommend boolean in /feedback/give: %s", err)
+				http.ServeFile(w, r, "./error/index.html")
+				return
+			}
+
+			given, err := interview.NewFeedbackResponse(userID, answers, recommend)
 			if err != nil {
 				log.Printf("Error creating FeedbackResponse in /feedback/give: %s", err)
 				http.ServeFile(w, r, "./error/index.html")
@@ -163,6 +174,7 @@ func GiveHandler(organizations *interview.Organizations) http.HandlerFunc {
 					"Questions": f.Questions,
 					"Date":      time.Now(),
 					"Responses": []interview.FeedbackResponse{given},
+					"Recommend": given.Recommend,
 				}
 				if err := t.Execute(&html, vars); err != nil {
 					log.Printf("Error executing invite template for /feedback/: %s", err)

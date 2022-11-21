@@ -70,6 +70,21 @@
                     {{ end }}
                   </tr>
                 {{ end }}
+              <tr>
+                <th>
+                  Do you recommend this candidate for this position?
+                </th>
+                {{ range .Responses }}
+                  <td>
+                    {{ if .Recommend }}
+                      Yes
+                    {{ else }}
+                      No
+                    {{ end }}
+                  </td>
+                {{ end }}
+              </tr> 
+
             </tbody>
           </table>
         </div>
