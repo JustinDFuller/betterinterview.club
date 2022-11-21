@@ -71,17 +71,22 @@
                 <td style="min-width: 150px;">
                   <a href="/feedback/give/{{ .ID }}">Give Feedback</a>
                 </td>
-                <td style="min-width: 150px;">
-                  <a href="/feedback/given/{{ .ID }}">View Feedback</a>
-                </td>
-                  {{ $creatorID := .CreatorID.String }}
-                  {{ if eq $userID $creatorID }}
-                    <td style="min-width: 150px;">
-                      <a href="/feedback/close/{{ .ID }}">Close Role</a>
-                    </td>
-                  {{ else }}
-                    <td></td>
-                  {{ end }}
+                {{ $creatorID := .CreatorID.String }}
+                {{ if eq $userID $creatorID }}
+                  <td style="min-width: 150px;">
+                    <a href="/feedback/given/{{ .ID }}">View Feedback</a>
+                  </td>
+                {{ else }}
+                  <td></td>
+                {{ end }}
+                {{ $creatorID := .CreatorID.String }}
+                {{ if eq $userID $creatorID }}
+                  <td style="min-width: 150px;">
+                    <a href="/feedback/close/{{ .ID }}">Close Role</a>
+                  </td>
+                {{ else }}
+                  <td></td>
+                {{ end }}
               </tr>
             {{ end }}
           </tbody>

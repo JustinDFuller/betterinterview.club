@@ -1,13 +1,13 @@
 package feedback
 
 import (
+	"html/template"
 	"io"
 	"log"
 	"net/http"
 	"net/url"
 	"strconv"
 	"strings"
-	"text/template"
 
 	"github.com/google/uuid"
 	interview "github.com/justindfuller/interviews"
@@ -74,7 +74,7 @@ func GiveHandler(organizations *interview.Organizations) http.HandlerFunc {
 					return user.Email, nil
 				},
 			}
-			t, err := template.New("give.html").Funcs(funcs).ParseFiles("./feedback/give.html", "index.css")
+			t, err := template.New("give.template.html").Funcs(funcs).ParseFiles("./feedback/give.template.html", "index.css")
 			if err != nil {
 				log.Printf("Error parsing template for /feedback/give/%s: %s", id, err)
 				http.ServeFile(w, r, "./error/index.html")

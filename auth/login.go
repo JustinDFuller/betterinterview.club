@@ -16,7 +16,7 @@ import (
 func LoginHandler(organizations *interview.Organizations) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == http.MethodGet {
-			t, err := template.New("login.html").ParseFiles("./auth/login.html", "index.css")
+			t, err := template.New("login.template.html").ParseFiles("./auth/login.template.html", "index.css")
 			if err != nil {
 				log.Printf("Error parsing template for /auth/login/: %s", err)
 				http.ServeFile(w, r, "./error/index.html")
@@ -67,7 +67,7 @@ func LoginHandler(organizations *interview.Organizations) http.HandlerFunc {
 				return
 			}
 
-			t, err := template.New("login-email.html").ParseFiles("./auth/login-email.html", "index.css")
+			t, err := template.New("login-email.template.html").ParseFiles("./auth/login-email.template.html", "index.css")
 			if err != nil {
 				log.Printf("Error parsing template for /auth/login/: %s", err)
 				http.ServeFile(w, r, "./error/index.html")

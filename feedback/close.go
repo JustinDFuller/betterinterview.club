@@ -1,12 +1,12 @@
 package feedback
 
 import (
+	"html/template"
 	"io"
 	"log"
 	"net/http"
 	"net/url"
 	"strings"
-	"text/template"
 
 	"github.com/google/uuid"
 	interview "github.com/justindfuller/interviews"
@@ -69,7 +69,7 @@ func CloseHandler(organizations *interview.Organizations) http.HandlerFunc {
 		}
 
 		if r.Method == http.MethodGet {
-			t, err := template.New("close.html").ParseFiles("./feedback/close.html", "index.css")
+			t, err := template.New("close.template.html").ParseFiles("./feedback/close.template.html", "index.css")
 			if err != nil {
 				log.Printf("Error parsing template for /feedback/close/%s: %s", id, err)
 				http.ServeFile(w, r, "./error/index.html")

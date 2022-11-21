@@ -2,13 +2,13 @@ package feedback
 
 import (
 	"fmt"
+	"html/template"
 	"io"
 	"log"
 	"net/http"
 	"net/url"
 	"os"
 	"strings"
-	"text/template"
 
 	"github.com/google/uuid"
 	interview "github.com/justindfuller/interviews"
@@ -44,7 +44,7 @@ func Handler(organizations *interview.Organizations) http.HandlerFunc {
 		}
 
 		if r.Method == http.MethodGet {
-			t, err := template.New("index.html").ParseFiles("feedback/index.html", "index.css")
+			t, err := template.New("index.template.html").ParseFiles("feedback/index.template.html", "index.css")
 			if err != nil {
 				log.Printf("Error parsing template for /: %s", err)
 				http.ServeFile(w, r, "./error/index.html")
@@ -142,7 +142,7 @@ func Handler(organizations *interview.Organizations) http.HandlerFunc {
 						return
 					}
 
-					t, err := template.New("invite.html").ParseFiles("./feedback/invite.html", "index.css")
+					t, err := template.New("invite.template.html").ParseFiles("./feedback/invite.template.html", "index.css")
 					if err != nil {
 						log.Printf("Error parsing invite template for /feedback/: %s", err)
 						return

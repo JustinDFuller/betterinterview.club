@@ -72,7 +72,7 @@ func MemberHandler(organizations *interview.Organizations) http.HandlerFunc {
 		}
 
 		go func() {
-			t, err := template.New("invite.html").ParseFiles("./organization/invite.html", "index.css")
+			t, err := template.New("invite.template.html").ParseFiles("./organization/invite.template.html", "index.css")
 			if err != nil {
 				log.Printf("Error parsing invite template for /organization/member/: %s", err)
 				return

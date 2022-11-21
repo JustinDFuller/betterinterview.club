@@ -23,3 +23,4 @@ Let's make it easy to manage interviews.
 * [x] Log out.
 * [ ] Send email to creator after feedback received.
 * [x] Close a role once feedback is complete.
+* [x] Send all emails async (don't wait to render page)

@@ -18,7 +18,7 @@ func EmailHandler(organizations *interview.Organizations) http.HandlerFunc {
 			}
 		}
 
-		t, err := template.New("email.html").ParseFiles("./auth/email.html", "index.css")
+		t, err := template.New("email.template.html").ParseFiles("./auth/email.template.html", "index.css")
 		if err != nil {
 			log.Printf("Error parsing template for /auth/email/: %s", err)
 			http.ServeFile(w, r, "./error/index.html")

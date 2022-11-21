@@ -1,9 +1,9 @@
 package api
 
 import (
+	"html/template"
 	"log"
 	"net/http"
-	"text/template"
 
 	interview "github.com/justindfuller/interviews"
 	"github.com/justindfuller/interviews/auth"
@@ -29,7 +29,7 @@ func Handlers() {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		cookie, err := r.Cookie("__Host-UserUUID")
 		if err != nil || cookie == nil || cookie.Value == "" {
-			t, err := template.New("login.html").ParseFiles("auth/login.html", "index.css")
+			t, err := template.New("login.template.html").ParseFiles("auth/login.template.html", "index.css")
 			if err != nil {
 				log.Printf("Error parsing template for /: %s", err)
 				http.ServeFile(w, r, "./error/index.html")

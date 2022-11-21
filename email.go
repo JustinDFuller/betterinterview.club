@@ -21,7 +21,7 @@ func Email(opts EmailOptions) error {
 
 	auth := smtp.PlainAuth("", email, password, "smtp.gmail.com")
 
-	t, err := template.New("email.template").ParseFiles("./email.template")
+	t, err := template.New("email.template.txt").ParseFiles("./email.template.txt")
 	if err != nil {
 		return errors.Wrap(err, "error parsing emplate.template")
 	}
