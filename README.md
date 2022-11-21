@@ -24,3 +24,5 @@ Let's make it easy to manage interviews.
 * [x] Send email to creator after feedback received.
 * [x] Close a role once feedback is complete.
 * [x] Send all emails async (don't wait to render page)
+* [ ] Submit yes/no to recommend candidate.
+* [ ] Open role and request feedback separately.
