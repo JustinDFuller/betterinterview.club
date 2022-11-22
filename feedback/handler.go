@@ -14,7 +14,9 @@ import (
 	interview "github.com/justindfuller/interviews"
 )
 
-func Handler(organizations *interview.Organizations) http.HandlerFunc {
+const OpenPath = "/feedback/"
+
+func OpenHandler(organizations *interview.Organizations) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		cookie, err := r.Cookie("__Host-UserUUID")
 		if err != nil {

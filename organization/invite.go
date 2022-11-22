@@ -13,7 +13,9 @@ import (
 	interview "github.com/justindfuller/interviews"
 )
 
-func MemberHandler(organizations *interview.Organizations) http.HandlerFunc {
+const InvitePath = "/organization/invite/"
+
+func InviteHandler(organizations *interview.Organizations) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		cookie, err := r.Cookie("__Host-UserUUID")
 		if err != nil {

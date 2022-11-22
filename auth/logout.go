@@ -2,6 +2,8 @@ package auth
 
 import "net/http"
 
+const LogoutPath = "/auth/logout/"
+
 func LogoutHandler(w http.ResponseWriter, r *http.Request) {
 	http.SetCookie(w, &http.Cookie{
 		Name:     "__Host-UserUUID",

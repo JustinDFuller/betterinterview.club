@@ -17,6 +17,8 @@ Let's make it easy to manage interviews.
 
 ## TODO
 
+### Features
+
 * [x] Send email after invite.
 * [x] Send email to request feedback.
 * [x] Log in from home page.
@@ -26,6 +28,18 @@ Let's make it easy to manage interviews.
 * [x] Send all emails async (don't wait to render page)
 * [x] Submit yes/no to recommend candidate.
 * [ ] Open role and request feedback separately.
-* [ ] Use correct time zones instead of UTC.
+* [ ] Section for interviewers, "My Requested Feedback"
+* [ ] Section for interviewers, "My Given Feedback"
+* [ ] Section for managers, "My Open Roles"
+* [ ] Section for managers, "My Closed Roles"
+* [ ] Section for Admins, "All Open Roles"
+
+### Marketing
+
+* [ ] Add explanation to landing page
+
+### Technical
+
 * [x] Gzip responses
+* [ ] Use correct time zones instead of UTC.
 * [ ] Minify responses

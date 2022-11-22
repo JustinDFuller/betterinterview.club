@@ -10,6 +10,8 @@ import (
 	interview "github.com/justindfuller/interviews"
 )
 
+const GivenPath = "/feedback/given/"
+
 func GivenHandler(organizations *interview.Organizations) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		cookie, err := r.Cookie("__Host-UserUUID")

@@ -8,6 +8,8 @@ import (
 	interview "github.com/justindfuller/interviews"
 )
 
+const EmailPath = "/auth/email/"
+
 func EmailHandler(organizations *interview.Organizations) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		cookie, err := r.Cookie("__Host-UserUUID")

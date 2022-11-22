@@ -13,6 +13,8 @@ import (
 	interview "github.com/justindfuller/interviews"
 )
 
+const LoginPath = "/auth/login/"
+
 func LoginHandler(organizations *interview.Organizations) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == http.MethodGet {

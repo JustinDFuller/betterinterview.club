@@ -9,6 +9,8 @@ import (
 	interview "github.com/justindfuller/interviews"
 )
 
+const Path = "/organization/"
+
 func Handler(organizations *interview.Organizations) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		cookie, err := r.Cookie("__Host-UserUUID")

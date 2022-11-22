@@ -8,6 +8,8 @@ import (
 	interview "github.com/justindfuller/interviews"
 )
 
+const CallbackPath = "/auth/callback/"
+
 func CallbackHandler(organizations *interview.Organizations) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		user, err := organizations.FindEmailLoginCallback(r.URL.Query().Get("id"))
