@@ -27,7 +27,8 @@ Let's make it easy to manage interviews.
 * [x] Close a role once feedback is complete.
 * [x] Send all emails async (don't wait to render page)
 * [x] Submit yes/no to recommend candidate.
-* [ ] Open role and request feedback separately.
+* [x] Open role and request feedback separately.
+* [ ] Do not allow double feedback responses.
 * [ ] Section for interviewers, "My Requested Feedback"
 * [ ] Section for interviewers, "My Given Feedback"
 * [ ] Section for managers, "My Open Roles"
@@ -37,6 +38,10 @@ Let's make it easy to manage interviews.
 ### Marketing
 
 * [ ] Add explanation to landing page
+  * What problem am I solving?
+  * Why would someone want to use this tool?
+  * Why only yes/no questions?
+  * Why the additional recommend yes/no?
 
 ### Technical
 

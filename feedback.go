@@ -7,7 +7,7 @@ import (
 	"github.com/pkg/errors"
 )
 
-func NewFeedback(creatorID uuid.UUID, team, role string, emails []string, questions []Question) (Feedback, error) {
+func NewFeedback(creatorID uuid.UUID, team, role string, questions []Question) (Feedback, error) {
 	id, err := uuid.NewRandom()
 	if err != nil {
 		return Feedback{}, errors.Wrap(err, "error creating ID for Feedback")
@@ -19,7 +19,6 @@ func NewFeedback(creatorID uuid.UUID, team, role string, emails []string, questi
 		CreatedAt: time.Now(),
 		Team:      team,
 		Role:      role,
-		Emails:    emails,
 		Questions: questions,
 	}, nil
 }
@@ -30,8 +29,8 @@ type Feedback struct {
 	CreatedAt   time.Time
 	Team        string
 	Role        string
-	Emails      []string
 	Questions   []Question
+	Requests    []FeedbackRequest
 	Responses   []FeedbackResponse
 	Closed      bool
 	CloseReason string

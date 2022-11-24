@@ -3,10 +3,86 @@ package interview
 import (
 	"strings"
 	"sync"
+	"time"
 
 	"github.com/google/uuid"
 	"github.com/pkg/errors"
 )
+
+var DefaultOrganizations = Organizations{
+	byDomain: map[string]Organization{
+		"gmail.com": Organization{
+			ID:     uuid.Must(uuid.Parse("36e2979c-b302-4085-9311-df1f647ec302")),
+			Domain: "gmail.com",
+			Users: []User{
+				{
+					ID:    uuid.Must(uuid.Parse("429bf3a3-5904-4d51-ac11-ffb3134f60d1")),
+					Email: "justindanielfuller@gmail.com",
+				},
+			},
+			Feedback: []Feedback{
+				{
+					ID:        uuid.Must(uuid.Parse("8c71b49c-5628-4aa0-9163-9067d416cbf3")),
+					CreatorID: uuid.Must(uuid.Parse("429bf3a3-5904-4d51-ac11-ffb3134f60d1")),
+					CreatedAt: time.Date(2022, time.November, 13, 9, 15, 0, 0, time.UTC),
+					Team:      "Authentication Platforms",
+					Role:      "Senior Software Engineer",
+					Questions: []Question{
+						{
+							ID:   uuid.Must(uuid.Parse("a03a484f-ae7a-421c-9a4a-8fee10c25ef1")),
+							Text: "Did they ask clarifying questions?",
+						},
+						{
+							ID:   uuid.Must(uuid.Parse("a03a484f-ae7a-421c-9a4a-8fee10c25ef2")),
+							Text: "Did they get a working solution?",
+						},
+						{
+							ID:   uuid.Must(uuid.Parse("a03a484f-ae7a-421c-9a4a-8fee10c25ef3")),
+							Text: "Did they add tests?",
+						},
+						{
+							ID:   uuid.Must(uuid.Parse("a03a484f-ae7a-421c-9a4a-8fee10c25ef4")),
+							Text: "Did they handle edge cases?",
+						},
+						{
+							ID:   uuid.Must(uuid.Parse("a03a484f-ae7a-421c-9a4a-8fee10c25ef5")),
+							Text: "Was their solution optimal space time complexity?",
+						},
+					},
+				},
+				{
+					ID:        uuid.Must(uuid.Parse("8c71b49c-5628-4aa0-9163-9067d416cbf3")),
+					CreatorID: uuid.Must(uuid.Parse("429bf3a3-5904-4d51-ac11-ffb3134f60d2")),
+					CreatedAt: time.Date(2022, time.November, 13, 9, 15, 0, 0, time.UTC),
+					Team:      "Web Platforms",
+					Role:      "Staff Software Engineer",
+					Questions: []Question{
+						{
+							ID:   uuid.Must(uuid.Parse("a03a484f-ae7a-421c-9a4a-8fee10c25ef1")),
+							Text: "Did they ask clarifying questions?",
+						},
+						{
+							ID:   uuid.Must(uuid.Parse("a03a484f-ae7a-421c-9a4a-8fee10c25ef1")),
+							Text: "Did they get a working solution?",
+						},
+						{
+							ID:   uuid.Must(uuid.Parse("a03a484f-ae7a-421c-9a4a-8fee10c25ef1")),
+							Text: "Did they add tests?",
+						},
+						{
+							ID:   uuid.Must(uuid.Parse("a03a484f-ae7a-421c-9a4a-8fee10c25ef1")),
+							Text: "Did they handle edge cases?",
+						},
+						{
+							ID:   uuid.Must(uuid.Parse("a03a484f-ae7a-421c-9a4a-8fee10c25ef1")),
+							Text: "Was their solution optimal space time complexity?",
+						},
+					},
+				},
+			},
+		},
+	},
+}
 
 var ErrOrgNotFound = errors.New("organization not found")
 var ErrUserNotFound = errors.New("user not found")
@@ -132,6 +208,30 @@ func (orgs *Organizations) AddFeedback(org Organization, f Feedback) error {
 	}
 
 	org.Feedback = append(org.Feedback, f)
+	orgs.byDomain[org.Domain] = org
+
+	return nil
+}
+
+func (orgs *Organizations) AddFeedbackRequest(org Organization, f Feedback, request FeedbackRequest) error {
+	orgs.mutex.Lock()
+	defer orgs.mutex.Unlock()
+
+	if orgs.byDomain == nil {
+		orgs.byDomain = map[string]Organization{}
+	}
+
+	org, found := orgs.byDomain[org.Domain]
+	if !found {
+		return errors.New("organization does not exist")
+	}
+
+	for i, feedback := range org.Feedback {
+		if feedback.ID == f.ID {
+			org.Feedback[i].Requests = append(feedback.Requests, request)
+		}
+	}
+
 	orgs.byDomain[org.Domain] = org
 
 	return nil

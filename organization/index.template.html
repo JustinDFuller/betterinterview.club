@@ -17,10 +17,8 @@
     
 
     
-    <h2>Collect Feedback</h2>
-    <p>
-      <a href="/feedback/">Open a New Role</a>
-    </p>
+    <h2>My Open Roles</h2>
+    
 
     {{ $userID := .UserID }}
 
@@ -68,8 +66,8 @@
                 <td>
                   {{ .CreatedAt.Format "January 2 2006" }}
                 </td>
-                <td style="min-width: 150px;">
-                  <a href="/feedback/give/{{ .ID }}">Give Feedback</a>
+                <td style="min-width: 180px;">
+                  <a href="/feedback/request/{{ .ID }}">Request Feedback</a>
                 </td>
                 {{ $creatorID := .CreatorID.String }}
                 {{ if eq $userID $creatorID }}
@@ -93,6 +91,10 @@
         </table>
       </div>
     {{ end }}
+
+    <p>
+      <a href="/feedback/">Open a New Role</a>
+    </p>
 
     <form action="/organization/invite/" method="post">
       <div>

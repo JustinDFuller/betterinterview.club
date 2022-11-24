@@ -61,7 +61,7 @@ func GiveHandler(organizations *interview.Organizations) http.HandlerFunc {
 			return
 		}
 
-		f, err := org.FeedbackByID(id)
+		f, request, err := org.FeedbackByRequestID(id)
 		if err != nil {
 			log.Printf("Error finding feedback for  /feedback/give/%s: %s", id, err)
 			http.ServeFile(w, r, "./error/index.html")
@@ -85,7 +85,16 @@ func GiveHandler(organizations *interview.Organizations) http.HandlerFunc {
 				return
 			}
 
-			if err := t.Execute(w, f); err != nil {
+			vars := map[string]interface{}{
+				"FeedbackRequestID": request.ID,
+				"Candidate":         request.CandidateName,
+				"CreatorID":         f.CreatorID,
+				"CreatedAt":         f.CreatedAt,
+				"Role":              f.Role,
+				"Team":              f.Team,
+				"Questions":         f.Questions,
+			}
+			if err := t.Execute(w, vars); err != nil {
 				log.Printf("Error executing template for /feedback/give/%s: %s", id, err)
 			}
 

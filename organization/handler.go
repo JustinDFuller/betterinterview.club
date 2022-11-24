@@ -34,8 +34,9 @@ func Handler(organizations *interview.Organizations) http.HandlerFunc {
 		}
 
 		funcs := template.FuncMap{
-			"UserEmail": func(id uuid.UUID) (interview.User, error) {
-				return org.FindUserByID(id.String())
+			"UserEmail": func(id uuid.UUID) interview.User {
+				user, _ := org.FindUserByID(id.String())
+				return user
 			},
 		}
 		t, err := template.New("index.template.html").Funcs(funcs).ParseFiles("./organization/index.template.html", "index.css")
@@ -47,7 +48,7 @@ func Handler(organizations *interview.Organizations) http.HandlerFunc {
 
 		var feedback []interview.Feedback
 		for _, f := range org.Feedback {
-			if !f.Closed {
+			if !f.Closed && f.CreatorID == user.ID {
 				feedback = append(feedback, f)
 			}
 		}

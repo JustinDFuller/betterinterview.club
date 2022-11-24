@@ -10,12 +10,13 @@ import (
 )
 
 func Handlers() {
-	var organizations interview.Organizations
+	organizations := interview.DefaultOrganizations
 
 	http.HandleFunc(auth.LoginPath, withGzip(auth.LoginHandler(&organizations)))
 	http.HandleFunc(auth.CallbackPath, withGzip(auth.CallbackHandler(&organizations)))
 	http.HandleFunc(auth.LogoutPath, withGzip(auth.LogoutHandler))
 	http.HandleFunc(auth.EmailPath, withGzip(auth.EmailHandler(&organizations)))
+	http.HandleFunc(feedback.RequestPath, withGzip(feedback.RequestHandler(&organizations)))
 	http.HandleFunc(feedback.GivenPath, withGzip(feedback.GivenHandler(&organizations)))
 	http.HandleFunc(feedback.GivePath, withGzip(feedback.GiveHandler(&organizations)))
 	http.HandleFunc(feedback.ClosePath, withGzip(feedback.CloseHandler(&organizations)))

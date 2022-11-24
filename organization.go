@@ -22,6 +22,18 @@ func (o Organization) FeedbackByID(id uuid.UUID) (Feedback, error) {
 	return Feedback{}, errors.New("feedback not found")
 }
 
+func (o Organization) FeedbackByRequestID(id uuid.UUID) (Feedback, FeedbackRequest, error) {
+	for _, feedback := range o.Feedback {
+		for _, request := range feedback.Requests {
+			if request.ID == id {
+				return feedback, request, nil
+			}
+		}
+	}
+
+	return Feedback{}, FeedbackRequest{}, errors.New("feedback request not found")
+}
+
 func (org *Organization) FindUserByEmail(email string) (User, error) {
 	for _, user := range org.Users {
 		if user.Email == email {
