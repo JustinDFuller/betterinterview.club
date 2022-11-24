@@ -37,7 +37,7 @@ Let's make it easy to manage interviews.
 
 ### Marketing
 
-* [ ] Add explanation to landing page
+* [x] Add explanation to landing page
   * What problem am I solving?
   * Why would someone want to use this tool?
   * Why only yes/no questions?
