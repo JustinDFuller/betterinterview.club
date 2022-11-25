@@ -9,30 +9,32 @@
   </head>
   <body>
     <header>
-      <h1>Feedback Given</h1>
+      <h1>Better Interviews</h1>
       <nav>
         <a href="/organization/">My Organization</a>
         <a href="/auth/logout/">Log Out</a>
       </nav>
     </header>
 
-    <h2>{{ .Team }} - {{ .Role }}</h2> 
+    <p>
+      Viewing feedback for role <strong>{{ .Role }}</strong> on team <strong>{{ .Team }}</strong>.
+    </p>
+
+    {{ $email := UserEmail .CreatorID }}
+    <p>
+      Opened by <a href="mailto:{{ $email }}">{{ $email }}</a> on {{ .CreatedAt.Format "January 2 2006" }}.
+    </p>
+
     <form action="/feedback/give/{{ .ID }}" method="post">
-      {{ $email := UserEmail .CreatorID }}
-      <p>
-        Requested By: {{ $email }}
-      </p>
-      <p>
-        On: {{ .CreatedAt.Format "January 2 2006" }}
-      </p>
-
-
       {{ $questions := .Questions }}
 
       {{ range .Requests }}
         {{ $responses := .Responses }}
-        <hr />
-        <strong>Candidate:</strong> {{ .CandidateName }}
+        <hr style="margin-bottom: 18px; display: block;" />
+        <p>
+          <strong>Candidate:</strong> {{ .CandidateName }} <br />
+          Requested on {{ .CreatedAt.Format "January 2 2006" }}.
+        </p>
         {{ if len .Responses }}
           <div class="table-container" style="margin-top: 16px;">
             <table>
@@ -92,7 +94,7 @@
               </tbody>
             </table>
           </div>
-          {{ if len .Responses 1 }}
+          {{ if lt (len .Responses) (len .InterviewerEmails) }}
             <p>
               Still waiting on feedback from 
               {{ range .InterviewerEmails }}  
@@ -112,12 +114,9 @@
           {{ end }}
         {{ else }}
           <p>
-            This candidate has not received feedback yet.
+            This candidate has not received feedback yet. Still waiting on:
           </p>
-          <p>
-           Waiting on feedback from:
-          </p>
-          <ul>
+          <ul style="margin-top: -8px;">
             {{ range .InterviewerEmails }} 
             <li><a href="mailto:{{ . }}">{{ . }}</a></li>
             {{ end }}
@@ -125,9 +124,11 @@
         {{ end }}
       {{ else }}
         <hr />
-        <strong>Candidate:</strong> {{ .CandidateName }}
         <p>
-          This role has not requested feedback yet.
+          No one has requested feedback for this role.
+        </p>
+        <p>
+          <a href="/feedback/request/{{ .ID }}">Click here to request feedback.</a>
         </p>
       {{ end }}
     </form>

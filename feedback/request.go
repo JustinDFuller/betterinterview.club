@@ -1,7 +1,6 @@
 package feedback
 
 import (
-	"fmt"
 	"html/template"
 	"io"
 	"log"
@@ -148,7 +147,7 @@ func RequestHandler(organizations *interview.Organizations) http.HandlerFunc {
 
 					opts := interview.EmailOptions{
 						To:      []string{email},
-						Subject: fmt.Sprintf("Your feedback is requested for the candidate %s", request.CandidateName),
+						Subject: "Feedback Requested",
 						HTML:    html.String(),
 					}
 					if err := interview.Email(opts); err != nil {

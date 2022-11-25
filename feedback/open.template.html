@@ -2,14 +2,14 @@
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>Better Interviews | Feedback</title>
+    <title>Better Interviews | Open Role</title>
     <style>
       {{ template "index.css" }}
     </style>
   </head>
   <body>
     <header>
-      <h1>Feedback</h1>
+      <h1>Better Interviews</h1>
       <nav>
         <a href="/organization/">My Organization</a>
         <a href="/auth/logout/">Log Out</a>
@@ -18,12 +18,12 @@
 
     <form action="/feedback/" method="post">
       <div class="form-group">
-        <label for="team">What team is this role for?</label>
+        <label for="team">What <strong>team</strong> is this role for?</label>
         <input autofocus name="team" type="text" placeholder="Authentication Platforms" required />
       </div>
 
       <div class="form-group">
-        <label for="role">What role is this feedback for?</label>
+        <label for="role">What <strong>role</strong> is this feedback for?</label>
         <input name="role" type="text" placeholder="Senior Software Engineer" required />
       </div>
 

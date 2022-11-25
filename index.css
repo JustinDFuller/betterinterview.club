@@ -12,11 +12,11 @@ body {
   min-width: 375px;
 }
 
-a, p, button , td, th, strong, span {
+a, p, button , td, th, strong, span, li {
   font-size: 18px;
 }
 
-input, input::placeholder {
+select, input, input::placeholder {
   font-size: 16px;
 }
 

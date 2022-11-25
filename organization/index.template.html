@@ -2,26 +2,22 @@
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>Better Interviews | Organization</title>
+    <title>Better Interviews</title>
     <style>
       {{ template "index.css" }}
     </style>
   </head>
   <body>
     <header>
-      <h1>Organization</h1>
+      <h1>Better Interviews</h1>
       <nav>
         <a href="/auth/logout/">Log Out</a>
       </nav>
     </header>
     
-
-    
     <h2>My Open Roles</h2>
-    
 
     {{ $userID := .UserID }}
-
     {{ if len .Feedback }}
       <div class="table-container nowrap">
         <table>

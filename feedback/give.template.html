@@ -2,14 +2,14 @@
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>Better Interviews | Feedback</title>
+    <title>Better Interviews | Give Feedback</title>
     <style>
       {{ template "index.css" }}
     </style>
   </head>
   <body>
     <header>
-      <h1>Give Feedback</h1>
+      <h1>Better Interviews</h1>
       <nav>
         <a href="/organization/">My Organization</a>
         <a href="/auth/logout/">Log Out</a>
@@ -18,11 +18,11 @@
 
     <p>
       {{ $email := UserEmail .CreatorID }}
-      You are leaving feedback for <strong>{{ .Candidate }}</strong> for the role <strong>{{ .Role }}</strong> on team <strong>{{ .Team }}</strong>. 
+      You are giving feedback for <strong>{{ .Candidate }}</strong> for the role <strong>{{ .Role }}</strong> on team <strong>{{ .Team }}</strong>. 
       <br />
     </p>
     <p>
-      Your feedback was requested by <a href="mailto:{{ $email }}">{{ $email }}</a> on {{ .CreatedAt.Format "January 2 2006" }}.
+      <a href="mailto:{{ $email }}">{{ $email }}</a> requested your feedback on {{ .CreatedAt.Format "January 2 2006" }}.
     </p>
 
     <form action="/feedback/give/{{ .FeedbackRequestID }}" method="post">
@@ -54,7 +54,7 @@
       </div>
 
       <div>
-        <button type="submit">Save Questions</button>
+        <button type="submit">Save Feedback</button>
       </div>
     </form>
   </body>

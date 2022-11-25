@@ -84,7 +84,7 @@ func LoginHandler(organizations *interview.Organizations) http.HandlerFunc {
 			go func() {
 				opts := interview.EmailOptions{
 					To:      []string{email.Address},
-					Subject: "Log in to Better Interviews",
+					Subject: "Log in",
 					HTML:    html.String(),
 				}
 				if err := interview.Email(opts); err != nil {

@@ -1,7 +1,6 @@
 package feedback
 
 import (
-	"fmt"
 	"html/template"
 	"io"
 	"log"
@@ -21,27 +20,27 @@ func GiveHandler(organizations *interview.Organizations) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		cookie, err := r.Cookie("__Host-UserUUID")
 		if err != nil {
-			log.Printf("Error parsing cookie for /feedback/give: %s", err)
+			log.Printf("Error parsing cookie for /feedback/give/: %s", err)
 			http.ServeFile(w, r, "./error/unauthenticated.html")
 			return
 		}
 
 		if cookie.Value == "" {
-			log.Printf("Error parsing cookie for /feedback/give: %s", err)
+			log.Printf("Error parsing cookie for /feedback/give/: %s", err)
 			http.ServeFile(w, r, "./error/unauthenticated.html")
 			return
 		}
 
 		userID, err := uuid.Parse(cookie.Value)
 		if err != nil {
-			log.Printf("Error parsing cookie for /feedback/give: %s", err)
+			log.Printf("Error parsing cookie for /feedback/give/: %s", err)
 			http.ServeFile(w, r, "./error/unauthenticated.html")
 			return
 		}
 
 		org, _, err := organizations.FindByUserID(cookie.Value)
 		if err != nil {
-			log.Printf("Error finding organization for /feedback/give: %s", err)
+			log.Printf("Error finding organization for /feedback/give/: %s", err)
 			http.ServeFile(w, r, "./error/index.html")
 			return
 		}
@@ -49,7 +48,7 @@ func GiveHandler(organizations *interview.Organizations) http.HandlerFunc {
 		paths := strings.Split(r.URL.Path, "/")
 
 		if len(paths) < 4 || paths[3] == "" {
-			log.Printf("No ID provided for /feedback/give: %s", err)
+			log.Printf("No ID provided for /feedback/give/: %s", err)
 			http.ServeFile(w, r, "./error/index.html")
 			return
 		}
@@ -104,7 +103,7 @@ func GiveHandler(organizations *interview.Organizations) http.HandlerFunc {
 		if r.Method == http.MethodPost {
 			body, err := io.ReadAll(r.Body)
 			if err != nil {
-				log.Printf("Error reading /feedback/give body: %s", err)
+				log.Printf("Error reading /feedback/give/ body: %s", err)
 				http.ServeFile(w, r, "./error/index.html")
 				return
 			}
@@ -112,7 +111,7 @@ func GiveHandler(organizations *interview.Organizations) http.HandlerFunc {
 
 			query, err := url.ParseQuery(string(body))
 			if err != nil {
-				log.Printf("Error parsing query from /feedback/give body: %s", err)
+				log.Printf("Error parsing query from /feedback/give/ body: %s", err)
 				http.ServeFile(w, r, "./error/index.html")
 				return
 			}
@@ -126,14 +125,14 @@ func GiveHandler(organizations *interview.Organizations) http.HandlerFunc {
 
 				b, err := strconv.ParseBool(query.Get(key))
 				if err != nil {
-					log.Printf("Error parsing Answer boolean in /feedback/give: %s", err)
+					log.Printf("Error parsing Answer boolean in /feedback/give/: %s", err)
 					http.ServeFile(w, r, "./error/index.html")
 					return
 				}
 
 				a, err := interview.NewAnswer(key, b)
 				if err != nil {
-					log.Printf("Error creating Answer in /feedback/give: %s", err)
+					log.Printf("Error creating Answer in /feedback/give/: %s", err)
 					http.ServeFile(w, r, "./error/index.html")
 					return
 				}
@@ -143,20 +142,20 @@ func GiveHandler(organizations *interview.Organizations) http.HandlerFunc {
 
 			recommend, err := strconv.ParseBool(query.Get("recommend"))
 			if err != nil {
-				log.Printf("Error parsing recommend boolean in /feedback/give: %s", err)
+				log.Printf("Error parsing recommend boolean in /feedback/give/: %s", err)
 				http.ServeFile(w, r, "./error/index.html")
 				return
 			}
 
 			given, err := interview.NewFeedbackResponse(userID, answers, recommend)
 			if err != nil {
-				log.Printf("Error creating FeedbackResponse in /feedback/give: %s", err)
+				log.Printf("Error creating FeedbackResponse in /feedback/give/: %s", err)
 				http.ServeFile(w, r, "./error/index.html")
 				return
 			}
 
 			if err := organizations.AddFeedbackResponse(org, request, given); err != nil {
-				log.Printf("Error adding feedback response in /feedback/give: %s", err)
+				log.Printf("Error adding feedback response in /feedback/give/: %s", err)
 				http.ServeFile(w, r, "./error/index.html")
 				return
 			}
@@ -173,7 +172,7 @@ func GiveHandler(organizations *interview.Organizations) http.HandlerFunc {
 				}
 				t, err := template.New("given-email.template.html").Funcs(funcs).ParseFiles("./feedback/given-email.template.html", "index.css")
 				if err != nil {
-					log.Printf("Error parsing invite template for /feedback/: %s", err)
+					log.Printf("Error parsing invite template for /feedback/give/: %s", err)
 					return
 				}
 
@@ -189,22 +188,22 @@ func GiveHandler(organizations *interview.Organizations) http.HandlerFunc {
 					"Candidate": request.CandidateName,
 				}
 				if err := t.Execute(&html, vars); err != nil {
-					log.Printf("Error executing invite template for /feedback/: %s", err)
+					log.Printf("Error executing invite template for /feedback/give/: %s", err)
 				}
 
 				user, err := org.FindUserByID(f.CreatorID.String())
 				if err != nil {
-					log.Printf("Error finding user for /feedback/: %s", err)
+					log.Printf("Error finding user for /feedback/give/: %s", err)
 					return
 				}
 
 				opts := interview.EmailOptions{
 					To:      []string{user.Email},
-					Subject: fmt.Sprintf("Feedback received for the role %s on team %s", f.Role, f.Team),
+					Subject: "Feedback Received",
 					HTML:    html.String(),
 				}
 				if err := interview.Email(opts); err != nil {
-					log.Printf("Error sending email from /feedback/give: %s", err)
+					log.Printf("Error sending email from /feedback/give/: %s", err)
 				}
 			}()
 
@@ -212,7 +211,7 @@ func GiveHandler(organizations *interview.Organizations) http.HandlerFunc {
 			return
 		}
 
-		log.Printf("Unexpected http Method '%s' for /feedback/give", r.Method)
+		log.Printf("Unexpected http Method '%s' for /feedback/give/", r.Method)
 		http.ServeFile(w, r, "./error/index.html")
 	}
 }

@@ -8,10 +8,6 @@
     </style>
   </head>
   <body>
-    <header>
-      <h1>Feedback Given</h1>
-    </header>
-
     {{ $email := UserEmail .GiverID }}
     <p>
       You received feedback for candidate <strong>{{ .Candidate }}</strong> for the role <strong>{{ .Role }}</strong> on team <strong>{{ .Team }}</strong>
