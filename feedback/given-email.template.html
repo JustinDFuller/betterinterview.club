@@ -13,9 +13,11 @@
     </header>
 
     {{ $email := UserEmail .GiverID }}
-    You received feedback for the role "<strong>{{ .Role }}</strong>" on team "<strong>{{ .Team }}</strong>"
-    <br />
-    from <a href="mailto:{{ $email }}">{{ $email }}</a> on {{ .Date.Format "January 2 2006" }}.
+    <p>
+      You received feedback for candidate <strong>{{ .Candidate }}</strong> for the role <strong>{{ .Role }}</strong> on team <strong>{{ .Team }}</strong>
+      <br />
+      from <a href="mailto:{{ $email }}">{{ $email }}</a> on {{ .Date.Format "January 2 2006" }}.
+    </p>
 
     {{ $responses := .Responses }}
     <table style="margin-top: 16px; width: auto; table-layout: fixed;">

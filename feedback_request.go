@@ -9,6 +9,7 @@ type FeedbackRequest struct {
 	ID                uuid.UUID
 	CandidateName     string
 	InterviewerEmails []string
+	Responses         []FeedbackResponse
 }
 
 func NewFeedbackRequest(candidate string, emails ...string) (FeedbackRequest, error) {

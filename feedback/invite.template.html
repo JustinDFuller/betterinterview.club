@@ -9,8 +9,22 @@
   </head>
   <body>
     <h1>Requesting your interview feedback</h1>
-    <a href="mailto:{{ .RequestedBy }}">{{ .RequestedBy }}</a> requests your feedback on the candidate "{{ .Candidate }}" for the role "{{ .Role }}" on team "{{ .Team }}".
-    <a href="{{ .Host }}auth/callback?id={{ .ID }}&redirect=/feedback/give/{{ .FeedbackRequestID }}">Click here to give feedback.</a>
-    <p>This link will automatically open Better Interviews and log you in. No password is required.</p>
+    <p>
+      <a href="mailto:{{ .RequestedBy }}">{{ .RequestedBy }}</a> 
+      requests your feedback on the candidate 
+      "<strong>{{ .Candidate }}</strong>" 
+      for the role 
+      "<strong>{{ .Role }}</strong>" 
+      on team 
+      "<strong>{{ .Team }}</strong>".
+    </p>
+    <p>
+      <a href="{{ .Host }}auth/callback?id={{ .ID }}&redirect=/feedback/give/{{ .FeedbackRequestID }}">
+        Click here to give feedback
+      </a>
+    </p>
+    <p>
+      This link will automatically open Better Interviews and log you in. No password is required.
+    </p>
   </body>
 </html>

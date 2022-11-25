@@ -12,6 +12,14 @@ body {
   min-width: 375px;
 }
 
+a, p, button , td, th, strong, span {
+  font-size: 18px;
+}
+
+input, input::placeholder {
+  font-size: 16px;
+}
+
 header {
   display: flex;
   align-items: center;
@@ -50,6 +58,10 @@ th, td {
   padding: 16px 8px;
   border: 0;
   margin: 0;
+}
+
+.nowrap th, .nowrap td {
+  white-space: nowrap;
 }
 
 select, input[type="text"], input[type="email"] {

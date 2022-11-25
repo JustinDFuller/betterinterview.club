@@ -31,7 +31,6 @@ type Feedback struct {
 	Role        string
 	Questions   []Question
 	Requests    []FeedbackRequest
-	Responses   []FeedbackResponse
 	Closed      bool
 	CloseReason string
 }

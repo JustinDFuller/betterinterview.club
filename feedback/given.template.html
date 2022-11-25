@@ -27,70 +27,107 @@
       </p>
 
 
-      {{ $responses := .Responses }}
-      {{ if len .Responses }}
-        <div class="table-container">
-          <table>
-            <tbody>
-              <tr>
-                <th>
-                  Submitted By 
-                </th>
-                {{ range .Responses }}
-                  <td>
-                    {{ $email := UserEmail .CreatorID }}
-                    {{ $email }}
-                  </td>
-                {{ end }}
-              </tr> 
-              <tr>
-                <th>
-                  Submitted On 
-                </th>
-                {{ range .Responses }}
-                  <td>
-                    {{ .CreatedAt.Format "January 2 2006" }}
-                  </td>
-                {{ end }}
-              </tr>
-                {{ range .Questions }} 
-                  <tr>
-                    <th>
-                      {{ .Text }} 
-                    </th> 
-                    {{ $questionID := .ID }}
-                    {{ range $responses }}
-                      {{ range .Answers }}
-                        {{ if eq .QuestionID $questionID }}
-                          <td>
-                            {{ if .Response }}  Yes {{ else }} No {{ end }}
-                          </td>
+      {{ $questions := .Questions }}
+
+      {{ range .Requests }}
+        {{ $responses := .Responses }}
+        <hr />
+        <strong>Candidate:</strong> {{ .CandidateName }}
+        {{ if len .Responses }}
+          <div class="table-container" style="margin-top: 16px;">
+            <table>
+              <tbody>
+                <tr>
+                  <th>
+                    Submitted By 
+                  </th>
+                  {{ range .Responses }}
+                    <td>
+                      {{ $email := UserEmail .CreatorID }}
+                      {{ $email }}
+                    </td>
+                  {{ end }}
+                </tr> 
+                <tr>
+                  <th>
+                    Submitted On 
+                  </th>
+                  {{ range .Responses }}
+                    <td>
+                      {{ .CreatedAt.Format "January 2 2006" }}
+                    </td>
+                  {{ end }}
+                </tr>
+                  {{ range $questions }} 
+                    <tr>
+                      <th>
+                        {{ .Text }} 
+                      </th> 
+                      {{ $questionID := .ID }}
+                      {{ range $responses }}
+                        {{ range .Answers }}
+                          {{ if eq .QuestionID $questionID }}
+                            <td>
+                              {{ if .Response }}  Yes {{ else }} No {{ end }}
+                            </td>
+                          {{ end }}
                         {{ end }}
                       {{ end }}
-                    {{ end }}
-                  </tr>
+                    </tr>
+                  {{ end }}
+                <tr>
+                  <th>
+                    Do you recommend this candidate for this position?
+                  </th>
+                  {{ range .Responses }}
+                    <td>
+                      {{ if .Recommend }}
+                        Yes
+                      {{ else }}
+                        No
+                      {{ end }}
+                    </td>
+                  {{ end }}
+                </tr> 
+              </tbody>
+            </table>
+          </div>
+          {{ if len .Responses 1 }}
+            <p>
+              Still waiting on feedback from 
+              {{ range .InterviewerEmails }}  
+                {{ $email := . }}
+                {{ $found := false }} 
+                {{ range $responses }}
+                  {{ $email2 := UserEmail .CreatorID }}
+                  {{ if eq $email $email2 }}
+                    {{ $found = true }}
+                  {{ end }}
                 {{ end }}
-              <tr>
-                <th>
-                  Do you recommend this candidate for this position?
-                </th>
-                {{ range .Responses }}
-                  <td>
-                    {{ if .Recommend }}
-                      Yes
-                    {{ else }}
-                      No
-                    {{ end }}
-                  </td>
+                {{ if not $found }}
+                  <a href="{{ . }}">{{ . }}</a>
                 {{ end }}
-              </tr> 
-
-            </tbody>
-          </table>
-        </div>
+              {{ end }}
+            </p>
+          {{ end }}
+        {{ else }}
+          <p>
+            This candidate has not received feedback yet.
+          </p>
+          <p>
+           Waiting on feedback from:
+          </p>
+          <ul>
+            {{ range .InterviewerEmails }} 
+            <li><a href="mailto:{{ . }}">{{ . }}</a></li>
+            {{ end }}
+          </ul>
+        {{ end }}
       {{ else }}
+        <hr />
+        <strong>Candidate:</strong> {{ .CandidateName }}
         <p>
-          This role has not received any feedback yet.
+          This role has not requested feedback yet.
         </p>
       {{ end }}
     </form>

@@ -155,7 +155,7 @@ func GiveHandler(organizations *interview.Organizations) http.HandlerFunc {
 				return
 			}
 
-			if err := organizations.AddFeedbackResponse(org, f, given); err != nil {
+			if err := organizations.AddFeedbackResponse(org, request, given); err != nil {
 				log.Printf("Error adding feedback response in /feedback/give: %s", err)
 				http.ServeFile(w, r, "./error/index.html")
 				return
@@ -186,6 +186,7 @@ func GiveHandler(organizations *interview.Organizations) http.HandlerFunc {
 					"Date":      time.Now(),
 					"Responses": []interview.FeedbackResponse{given},
 					"Recommend": given.Recommend,
+					"Candidate": request.CandidateName,
 				}
 				if err := t.Execute(&html, vars); err != nil {
 					log.Printf("Error executing invite template for /feedback/: %s", err)

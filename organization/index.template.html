@@ -23,7 +23,7 @@
     {{ $userID := .UserID }}
 
     {{ if len .Feedback }}
-      <div class="table-container">
+      <div class="table-container nowrap">
         <table>
           <thead>
             <tr>
@@ -36,7 +36,7 @@
               <th>
                 Opened By
               </th>
-              <th style="min-width: 200px;">
+              <th>
                 Opened On
               </th>
               <th>
@@ -53,10 +53,10 @@
           <tbody>
              {{ range .Feedback }}
               <tr>
-                <td style="min-width: 150px;">
+                <td>
                   {{ .Team }}
                 </td>
-                <td style="min-width: 250px;">
+                <td>
                   {{ .Role }}
                 </td>
                 <td>
@@ -66,12 +66,12 @@
                 <td>
                   {{ .CreatedAt.Format "January 2 2006" }}
                 </td>
-                <td style="min-width: 180px;">
+                <td>
                   <a href="/feedback/request/{{ .ID }}">Request Feedback</a>
                 </td>
                 {{ $creatorID := .CreatorID.String }}
                 {{ if eq $userID $creatorID }}
-                  <td style="min-width: 150px;">
+                  <td>
                     <a href="/feedback/given/{{ .ID }}">View Feedback</a>
                   </td>
                 {{ else }}
@@ -79,7 +79,7 @@
                 {{ end }}
                 {{ $creatorID := .CreatorID.String }}
                 {{ if eq $userID $creatorID }}
-                  <td style="min-width: 150px;">
+                  <td>
                     <a href="/feedback/close/{{ .ID }}">Close Role</a>
                   </td>
                 {{ else }}

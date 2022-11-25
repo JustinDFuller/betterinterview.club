@@ -237,7 +237,7 @@ func (orgs *Organizations) AddFeedbackRequest(org Organization, f Feedback, requ
 	return nil
 }
 
-func (orgs *Organizations) AddFeedbackResponse(org Organization, f Feedback, fr FeedbackResponse) error {
+func (orgs *Organizations) AddFeedbackResponse(org Organization, request FeedbackRequest, response FeedbackResponse) error {
 	orgs.mutex.Lock()
 	defer orgs.mutex.Unlock()
 
@@ -251,14 +251,16 @@ func (orgs *Organizations) AddFeedbackResponse(org Organization, f Feedback, fr 
 	}
 
 	for i, feedback := range org.Feedback {
-		if feedback.ID == f.ID {
-			org.Feedback[i].Responses = append(feedback.Responses, fr)
+		for j, feedbackRequest := range feedback.Requests {
+			if feedbackRequest.ID == request.ID {
+				org.Feedback[i].Requests[j].Responses = append(org.Feedback[i].Requests[j].Responses, response)
+				orgs.byDomain[org.Domain] = org
+				return nil
+			}
 		}
 	}
 
-	orgs.byDomain[org.Domain] = org
-
-	return nil
+	return errors.New("feedback request does not exist")
 }
 
 func (orgs *Organizations) SetFeedback(org Organization, f Feedback) error {
