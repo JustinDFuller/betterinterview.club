@@ -9,6 +9,7 @@ body {
   margin: auto;
   padding: 20px;
   line-height: 26px;
+  min-width: 375px;
 }
 
 header {
@@ -117,7 +118,7 @@ h4, h5, h6 {
   margin-bottom: 8px;
 }
 
-@media only screen and (min-width: 400px) {
+@media only screen and (min-width: 450px) {
   select, input[type="text"], input[type="email"] {
     padding: 8px;
     min-width: 300px;

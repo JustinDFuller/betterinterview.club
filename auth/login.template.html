@@ -7,16 +7,16 @@
       {{ template "index.css" }}
     </style>
   </head>
-  <body>
+  <body style="max-width: 500px;">
     <h1>Better Interviews</h1>
     <form action="/auth/login/" method="post">
       <div class="form-group">
         <label for="email">Log In with your company email</label>
-        <input id="email" name="email" type="email" placeholder="me@betterinterviews.com" required />
-        <button type="submit">Log In</button>
+        <input style="width: 100%;" id="email" name="email" type="email" placeholder="me@betterinterviews.com" required />
+        <button style="width: 100%;" type="submit">Log In</button>
       </div>
     </form>
-    <main style="max-width: 500px; text-align: justify; margin-top: 32px;">
+    <main style="text-align: justify; margin-top: 32px;">
       <h2>The Problem</h2> 
       <p>
         Let's be honest: 
@@ -84,7 +84,10 @@
         So, I hope you'll scroll back up, log in, and give it a try. I don't think you'll regret it. 
       </p>
       <p style="text-align: right;">
-      <span style="margin-right: 121px;">- Justin Fuller</span> 
+      <span style="margin-right: 2px;">
+        &dash; Justin Fuller
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      </span>
       <br />
       Creator of <strong>Better Interviews</strong>
       </p>
