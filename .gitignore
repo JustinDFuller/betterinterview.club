@@ -51,3 +51,7 @@ yarn-error.log*
 *.crt
 
 .secrets.env
+
+# Output of Go build
+/appengine
+/localhost

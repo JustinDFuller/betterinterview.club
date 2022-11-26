@@ -6,7 +6,7 @@ server-watch: ## Run the Go server and restart on changes.
 	@reflex -s -r '\.go' -R 'organizations.json' -- sh -c 'clear && $(MAKE) server';
 
 server:  ## Run the Go server.
-	@go run ./cmd/localhost;
+	@go run -race ./cmd/localhost;
 
 certificates: ## Generate SSL certificates for the HTTPS server.
 	@openssl req  -new  -newkey rsa:2048  -nodes  -keyout localhost.key  -out localhost.csr;
@@ -17,6 +17,3 @@ deploy: ## Build and deploy for app engine
 
 dispatch: ## Deploy routing rules for app engine
 	@cd ./cmd/appengine; gcloud app deploy dispatch.yaml;
-
-email: ## Send a test email
-	@go run ./cmd/mail;

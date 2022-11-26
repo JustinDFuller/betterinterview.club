@@ -42,7 +42,9 @@ func main() {
 		log.Fatalf("Error creating storage client: %s", err)
 	}
 
-	object := client.Bucket("betterinterviews").Object("organizations.json")
+	bucket := client.Bucket("betterinterviews")
+	object := bucket.Object("organizations.json")
+	backup := bucket.Object(fmt.Sprintf("%s-backup.json", os.Getenv("GAE_VERSION")))
 
 	rc, err := object.NewReader(ctx)
 	if err != nil {
@@ -61,13 +63,17 @@ func main() {
 
 	go func() {
 		write := func() {
-			file := object.NewWriter(ctx)
-			defer file.Close()
-
 			interview.DefaultOrganizations.Mutex.Lock()
 			defer interview.DefaultOrganizations.Mutex.Unlock()
 
-			enc := json.NewEncoder(file)
+			bw := backup.NewWriter(ctx)
+			defer bw.Close()
+
+			fw := object.NewWriter(ctx)
+			defer fw.Close()
+
+			w := io.MultiWriter(fw, bw)
+			enc := json.NewEncoder(w)
 			enc.SetIndent("", "  ")
 			if err := enc.Encode(&interview.DefaultOrganizations); err != nil {
 				log.Printf("Error encoding to gob: %s", err)
