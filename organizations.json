@@ -1,0 +1,147 @@
+{
+  "ByDomain": {
+    "gmail.com": {
+      "ID": "36e2979c-b302-4085-9311-df1f647ec302",
+      "Domain": "gmail.com",
+      "Users": [
+        {
+          "ID": "429bf3a3-5904-4d51-ac11-ffb3134f60d1",
+          "Email": "justindanielfuller@gmail.com",
+          "CallbackID": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "e716d775-fb9a-436a-95f4-a816b144503f",
+          "Email": "justindanielfuller+1@gmail.com",
+          "CallbackID": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "a23461ac-627a-4442-b8da-4b05cce081a2",
+          "Email": "justindanielfuller+2@gmail.com",
+          "CallbackID": "e210d96f-f0d4-4af6-b67f-4559194ee2d5"
+        }
+      ],
+      "Feedback": [
+        {
+          "ID": "8c71b49c-5628-4aa0-9163-9067d416cbf3",
+          "CreatorID": "429bf3a3-5904-4d51-ac11-ffb3134f60d1",
+          "CreatedAt": "2022-11-13T09:15:00Z",
+          "Team": "Authentication Platforms",
+          "Role": "Senior Software Engineer",
+          "Questions": [
+            {
+              "ID": "a03a484f-ae7a-421c-9a4a-8fee10c25ef1",
+              "Text": "Did they ask clarifying questions?"
+            },
+            {
+              "ID": "a03a484f-ae7a-421c-9a4a-8fee10c25ef2",
+              "Text": "Did they get a working solution?"
+            },
+            {
+              "ID": "a03a484f-ae7a-421c-9a4a-8fee10c25ef3",
+              "Text": "Did they add tests?"
+            },
+            {
+              "ID": "a03a484f-ae7a-421c-9a4a-8fee10c25ef4",
+              "Text": "Did they handle edge cases?"
+            },
+            {
+              "ID": "a03a484f-ae7a-421c-9a4a-8fee10c25ef5",
+              "Text": "Was their solution optimal space time complexity?"
+            }
+          ],
+          "Requests": [
+            {
+              "ID": "a13005b5-deea-4cac-82b4-f1810950594a",
+              "CreatedAt": "2022-11-25T20:15:35.308731143-05:00",
+              "CandidateName": "Max Fuller",
+              "InterviewerEmails": [
+                "justindanielfuller+1@gmail.com",
+                "justindanielfuller+2@gmail.com"
+              ],
+              "Responses": [
+                {
+                  "ID": "975a490d-5b6e-463f-b7a7-3e4ae13c7e32",
+                  "CreatorID": "e716d775-fb9a-436a-95f4-a816b144503f",
+                  "CreatedAt": "2022-11-25T20:17:00.608274508-05:00",
+                  "Answers": [
+                    {
+                      "ID": "b8a8fa4b-a485-4b8b-b973-467946b9f245",
+                      "QuestionID": "a03a484f-ae7a-421c-9a4a-8fee10c25ef1",
+                      "Response": true
+                    },
+                    {
+                      "ID": "d8e3ecee-2290-4f20-9a60-20d40473f091",
+                      "QuestionID": "a03a484f-ae7a-421c-9a4a-8fee10c25ef2",
+                      "Response": true
+                    },
+                    {
+                      "ID": "26165e20-cab8-4aa3-bcdf-3c407b121349",
+                      "QuestionID": "a03a484f-ae7a-421c-9a4a-8fee10c25ef3",
+                      "Response": true
+                    },
+                    {
+                      "ID": "fc5457ee-7538-41fd-a528-363c11ee1aa8",
+                      "QuestionID": "a03a484f-ae7a-421c-9a4a-8fee10c25ef4",
+                      "Response": false
+                    },
+                    {
+                      "ID": "fcb3eb8f-30ef-4e6e-9d78-0da2eb41d703",
+                      "QuestionID": "a03a484f-ae7a-421c-9a4a-8fee10c25ef5",
+                      "Response": false
+                    }
+                  ],
+                  "Recommend": true
+                }
+              ]
+            }
+          ],
+          "Closed": false,
+          "CloseReason": ""
+        },
+        {
+          "ID": "8c71b49c-5628-4aa0-9163-9067d416cbf3",
+          "CreatorID": "429bf3a3-5904-4d51-ac11-ffb3134f60d2",
+          "CreatedAt": "2022-11-13T09:15:00Z",
+          "Team": "Web Platforms",
+          "Role": "Staff Software Engineer",
+          "Questions": [
+            {
+              "ID": "a03a484f-ae7a-421c-9a4a-8fee10c25ef1",
+              "Text": "Did they ask clarifying questions?"
+            },
+            {
+              "ID": "a03a484f-ae7a-421c-9a4a-8fee10c25ef1",
+              "Text": "Did they get a working solution?"
+            },
+            {
+              "ID": "a03a484f-ae7a-421c-9a4a-8fee10c25ef1",
+              "Text": "Did they add tests?"
+            },
+            {
+              "ID": "a03a484f-ae7a-421c-9a4a-8fee10c25ef1",
+              "Text": "Did they handle edge cases?"
+            },
+            {
+              "ID": "a03a484f-ae7a-421c-9a4a-8fee10c25ef1",
+              "Text": "Was their solution optimal space time complexity?"
+            }
+          ],
+          "Requests": [
+            {
+              "ID": "a13005b5-deea-4cac-82b4-f1810950594a",
+              "CreatedAt": "2022-11-25T20:15:35.308731143-05:00",
+              "CandidateName": "Max Fuller",
+              "InterviewerEmails": [
+                "justindanielfuller+1@gmail.com",
+                "justindanielfuller+2@gmail.com"
+              ],
+              "Responses": null
+            }
+          ],
+          "Closed": false,
+          "CloseReason": ""
+        }
+      ]
+    }
+  }
+}
