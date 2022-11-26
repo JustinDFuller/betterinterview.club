@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Better Interviews | Your Invite</title>
+    <style>
+      {{ template "index.css" }}
+    </style>
+  </head>
+  <body>
+    <p><a href="mailto:{{ .Inviter }}">{{ .Inviter }}</a> invites you to join Better Interviews.</p>
+    <a href="{{ .Host }}auth/callback?id={{ .ID }}">Click here to log in.</a>
+    <p>This link will automatically open Better Interviews and log you in. No password is required.</p>
+  </body>
+</html>

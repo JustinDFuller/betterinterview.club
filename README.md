@@ -28,10 +28,10 @@ Let's make it easy to manage interviews.
 * [x] Send all emails async (don't wait to render page)
 * [x] Submit yes/no to recommend candidate.
 * [x] Open role and request feedback separately.
-* [ ] Do not allow double feedback responses.
+* [x] Section for managers, "My Open Roles"
 * [ ] Section for interviewers, "My Requested Feedback"
+* [ ] Do not allow double feedback responses.
 * [ ] Section for interviewers, "My Given Feedback"
-* [ ] Section for managers, "My Open Roles"
 * [ ] Section for managers, "My Closed Roles"
 * [ ] Section for Admins, "All Open Roles"
 

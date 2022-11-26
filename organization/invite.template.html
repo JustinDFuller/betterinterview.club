@@ -2,14 +2,29 @@
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>Better Interviews | Your Invite</title>
+    <title>Better Interviews | Invite</title>
     <style>
       {{ template "index.css" }}
     </style>
   </head>
   <body>
-    <p><a href="mailto:{{ .Inviter }}">{{ .Inviter }}</a> invites you to join Better Interviews.</p>
-    <a href="{{ .Host }}auth/callback?id={{ .ID }}">Click here to log in.</a>
-    <p>This link will automatically open Better Interviews and log you in. No password is required.</p>
+    <header>
+      <h1>Better Interviews</h1>
+      <nav>
+        <a href="/organization/">My Organization</a>
+        <a href="/auth/logout/">Log Out</a>
+      </nav>
+    </header>
+    
+    <form action="/organization/invite/" method="post">
+      <div>
+        <h2>Invite</h2>
+      </div>
+      <div class="form-group">
+        <label for="type">Type the email of the person you want to invite.</label>
+        <input name="email" type="email" placeholder="person@{{ .Domain }}" required />
+        <button type="submit">Invite</button>
+      </div>
+    </form>
   </body>
 </html>

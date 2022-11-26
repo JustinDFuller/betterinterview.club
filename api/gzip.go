@@ -25,10 +25,10 @@ func (grw gzipResponseWriter) Write(b []byte) (int, error) {
 
 func withGzip(handler func(http.ResponseWriter, *http.Request)) func(http.ResponseWriter, *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
-		writer := gzip.NewWriter(w)
-		defer writer.Close()
+		gw := gzip.NewWriter(w)
+		defer gw.Close()
 
-		gzr := gzipResponseWriter{w, writer}
+		gzr := gzipResponseWriter{w, gw}
 		w.Header().Set("Content-Encoding", "gzip")
 		handler(gzr, r)
 	}

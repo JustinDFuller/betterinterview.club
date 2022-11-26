@@ -37,69 +37,87 @@ func InviteHandler(organizations *interview.Organizations) http.HandlerFunc {
 			return
 		}
 
-		body, err := io.ReadAll(r.Body)
-		if err != nil {
-			log.Printf("Error reading /organization/member body: %s", err)
-			http.ServeFile(w, r, "./error/index.html")
-			return
-		}
-		defer r.Body.Close()
-
-		query, err := url.ParseQuery(string(body))
-		if err != nil {
-			log.Printf("Error parsing query from /organization/member body: %s", err)
-			http.ServeFile(w, r, "./error/index.html")
-			return
-		}
-
-		email, err := mail.ParseAddress(query.Get("email"))
-		if err != nil {
-			log.Printf("Error parsing email from /organization/member email parameter: %s", err)
-			http.ServeFile(w, r, "./error/index.html")
-			return
-		}
-
-		org, user, err := organizations.FindOrCreateByEmail(email.Address)
-		if err != nil {
-			log.Printf("Error finding or creating org for user in /auth/login: %s", err)
-			http.ServeFile(w, r, "./error/index.html")
-			return
-		}
-
-		cbID, err := organizations.AddEmailLoginCallback(org, user)
-		if err != nil {
-			log.Printf("Error adding email login callback in /auth/login: %s", err)
-			http.ServeFile(w, r, "./error/index.html")
-			return
-		}
-
-		go func() {
+		if r.Method == http.MethodGet {
 			t, err := template.New("invite.template.html").ParseFiles("./organization/invite.template.html", "index.css")
 			if err != nil {
-				log.Printf("Error parsing invite template for /organization/member/: %s", err)
+				log.Printf("Error parsing template for /organization: %s", err)
+				http.ServeFile(w, r, "./error/index.html")
 				return
 			}
 
-			var html strings.Builder
-			vars := map[string]string{
-				"ID":      cbID,
-				"Host":    os.Getenv("HOST"),
-				"Inviter": inviter.Email,
-			}
-			if err := t.Execute(&html, vars); err != nil {
-				log.Printf("Error executing invite template for /organization/member/: %s", err)
-			}
-
-			opts := interview.EmailOptions{
-				To:      []string{email.Address},
-				Subject: "Your invite",
-				HTML:    html.String(),
-			}
-			if err := interview.Email(opts); err != nil {
-				log.Printf("Error sending email from /auth/login: %s", err)
+			if err := t.Execute(w, org); err != nil {
+				log.Printf("Error executing template for /organization: %s", err)
 				return
 			}
-		}()
+
+			return
+		}
+
+		if r.Method == http.MethodPost {
+			body, err := io.ReadAll(r.Body)
+			if err != nil {
+				log.Printf("Error reading /organization/member body: %s", err)
+				http.ServeFile(w, r, "./error/index.html")
+				return
+			}
+			defer r.Body.Close()
+
+			query, err := url.ParseQuery(string(body))
+			if err != nil {
+				log.Printf("Error parsing query from /organization/member body: %s", err)
+				http.ServeFile(w, r, "./error/index.html")
+				return
+			}
+
+			email, err := mail.ParseAddress(query.Get("email"))
+			if err != nil {
+				log.Printf("Error parsing email from /organization/member email parameter: %s", err)
+				http.ServeFile(w, r, "./error/index.html")
+				return
+			}
+
+			org, user, err := organizations.FindOrCreateByEmail(email.Address)
+			if err != nil {
+				log.Printf("Error finding or creating org for user in /auth/login: %s", err)
+				http.ServeFile(w, r, "./error/index.html")
+				return
+			}
+
+			cbID, err := organizations.AddEmailLoginCallback(org, user)
+			if err != nil {
+				log.Printf("Error adding email login callback in /auth/login: %s", err)
+				http.ServeFile(w, r, "./error/index.html")
+				return
+			}
+
+			go func() {
+				t, err := template.New("invite-email.template.html").ParseFiles("./organization/invite-email.template.html", "index.css")
+				if err != nil {
+					log.Printf("Error parsing invite template for /organization/member/: %s", err)
+					return
+				}
+
+				var html strings.Builder
+				vars := map[string]string{
+					"ID":      cbID,
+					"Host":    os.Getenv("HOST"),
+					"Inviter": inviter.Email,
+				}
+				if err := t.Execute(&html, vars); err != nil {
+					log.Printf("Error executing invite template for /organization/member/: %s", err)
+				}
+
+				opts := interview.EmailOptions{
+					To:      []string{email.Address},
+					Subject: "Your invite",
+					HTML:    html.String(),
+				}
+				if err := interview.Email(opts); err != nil {
+					log.Printf("Error sending email from /auth/login: %s", err)
+					return
+				}
+			}()
+		}
 
 		http.Redirect(w, r, "/organization/", http.StatusSeeOther)
 	}

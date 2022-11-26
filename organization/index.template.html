@@ -11,6 +11,7 @@
     <header>
       <h1>Better Interviews</h1>
       <nav>
+        <a href="/organization/invite/">Invite</a>
         <a href="/auth/logout/">Log Out</a>
       </nav>
     </header>
@@ -28,9 +29,6 @@
               </th>
               <th>
                 Role
-              </th>
-              <th>
-                Opened By
               </th>
               <th>
                 Opened On
@@ -54,10 +52,6 @@
                 </td>
                 <td>
                   {{ .Role }}
-                </td>
-                <td>
-                  {{ $user := UserEmail .CreatorID }}
-                  {{ $user.Email }}
                 </td>
                 <td>
                   {{ .CreatedAt.Format "January 2 2006" }}
@@ -91,29 +85,5 @@
     <p>
       <a href="/feedback/">Open a New Role</a>
     </p>
-
-    <form action="/organization/invite/" method="post">
-      <div>
-        <h2>Invite</h2>
-      </div>
-      <div class="form-group">
-        <label for="type">Type the email of the person you want to invite.</label>
-        <input name="email" type="email" placeholder="person@{{ .Domain }}" required />
-        <button type="submit">Invite</button>
-      </div>
-    </form>
-
-    {{ if gt (len .Users) 1 }}
-      <h2>
-        Members
-      </h2>
-      <ul>
-        {{ range .Users }}
-        <li>
-          {{ .Email }}
-        </li>
-        {{ end }}
-      </ul>
-    {{ end }}
   </body>
 </html>
