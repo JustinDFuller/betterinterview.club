@@ -48,6 +48,8 @@ Let's make it easy to manage interviews.
 * [x] Gzip responses
 * [ ] Use correct time zones instead of UTC.
 * [ ] Minify responses
+* [x] Persist data locally
+* [ ] Persist data in production
 
 ## Live Screenshot
 
