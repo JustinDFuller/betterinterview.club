@@ -49,7 +49,7 @@ Let's make it easy to manage interviews.
 * [ ] Use correct time zones instead of UTC.
 * [ ] Minify responses
 * [x] Persist data locally
-* [ ] Persist data in production
+* [x] Persist data in production
 
 ## Live Screenshot
 
