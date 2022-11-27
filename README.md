@@ -29,7 +29,7 @@ Let's make it easy to manage interviews.
 * [x] Submit yes/no to recommend candidate.
 * [x] Open role and request feedback separately.
 * [x] Section for managers, "My Open Roles"
-* [ ] Section for interviewers, "My Requested Feedback"
+* [x] Section for interviewers, "My Requested Feedback"
 * [ ] Do not allow double feedback responses.
 * [ ] Section for interviewers, "My Given Feedback"
 * [ ] Section for managers, "My Closed Roles"
