@@ -1,4 +1,4 @@
-From: Better Interview Club <{{ .From }}>
+From: Better Interviews <{{ .From }}>
 To: {{ .To }}
 Subject: {{ .Subject }} | Better Interviews
 MIME-version: 1.0;
