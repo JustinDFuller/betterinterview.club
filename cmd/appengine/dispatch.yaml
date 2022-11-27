@@ -4,3 +4,9 @@ dispatch:
 
   - url: "interviews.justindfuller.com/*"
     service: interviews
+
+  - url: "betterinterview.club/*"
+    service: interviews
+
+  - url: "www.betterinterview.club/*"
+    service: interviews

@@ -13,11 +13,14 @@ type EmailOptions struct {
 	To      []string
 	Subject string
 	HTML    string
+	From    string
 }
 
 func Email(opts EmailOptions) error {
 	email := os.Getenv("EMAIL")
 	password := os.Getenv("PASSWORD")
+
+	opts.From = email
 
 	auth := smtp.PlainAuth("", email, password, "smtp.gmail.com")
 
