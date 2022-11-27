@@ -42,6 +42,7 @@ Let's make it easy to manage interviews.
   * Why would someone want to use this tool?
   * Why only yes/no questions?
   * Why the additional recommend yes/no?
+* [ ] Favicon
 
 ### Technical
 
@@ -50,6 +51,12 @@ Let's make it easy to manage interviews.
 * [ ] Minify responses
 * [x] Persist data locally
 * [x] Persist data in production
+
+### Security
+
+* [ ] Block common domains (gmail, yahoo, etc.)
+* [ ] Can't send emails to other domains
+* [ ] Rate limit email sends
 
 ## Live Screenshot
 

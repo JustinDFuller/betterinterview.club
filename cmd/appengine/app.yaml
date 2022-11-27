@@ -9,6 +9,51 @@ automatic_scaling:
   max_idle_instances: 1
 
 handlers:
+  - url: /apple-touch-icon.png
+    static_files: public/apple-touch-icon.png
+    upload: public/apple-touch-icon.png
+    secure: always
+
+  - url: /favicon-32x32.png
+    static_files: public/favicon-32x32.png
+    upload: public/favicon-32x32.png
+    secure: always
+
+  - url: /favicon-16x16.png
+    static_files: public/favicon-16x16.png
+    upload: public/favicon-16x16.png
+    secure: always
+
+  - url: /site.webmanifest
+    static_files: public/site.webmanifest
+    upload: public/site.webmanifest
+    secure: always
+
+  - url: /site.webmanifest
+    static_files: public/site.webmanifest
+    upload: public/site.webmanifest
+    secure: always
+
+  - url: /screenshot.png
+    static_files: public/screenshot.png
+    upload: public/screenshot.png
+    secure: always
+
+  - url: /service-worker.js
+    static_files: public/service-worker.js
+    upload: public/service-worker.js
+    secure: always
+
+  - url: /android-chrome-192x192.png
+    static_files: public/android-chrome-192x192.png
+    upload: public/android-chrome-192x192.png
+    secure: always
+
+  - url: /android-chrome-512x512.png
+    static_files: public/android-chrome-512x512.png
+    upload: public/android-chrome-512x512.png
+    secure: always
+
   - url: /.*
     script: auto
     secure: always
