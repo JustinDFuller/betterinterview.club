@@ -15,6 +15,44 @@
         <a href="/auth/logout/">Log Out</a>
       </nav>
     </header>
+
+
+    {{ if len .Requests }}
+      <h2>My Feedback Requested</h2>
+      <div class="table-container nowrap" style="margin-bottom: 32px;">
+        <table>
+          <thead>
+            <tr>
+              <th>
+                Candidate
+              </th>
+              <th>
+                Opened On
+              </th>
+              <th>
+                <!-- Give feedback -->
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+             {{ range .Requests }}
+              <tr>
+                <td>
+                  {{ .CandidateName }}
+                </td>
+                <td>
+                  {{ .CreatedAt.Format "January 2 2006" }}
+                </td>
+                <td>
+                  <a href="/feedback/give/{{ .ID }}">Give Feedback</a>
+                </td>
+              </tr>
+            {{ end }}
+          </tbody>
+        </table>
+      </div>
+    {{ end }}
+
     
     <h2>My Open Roles</h2>
 
@@ -80,10 +118,15 @@
           </tbody>
         </table>
       </div>
+      <p>
+        <a href="/feedback/">Open a New Role</a>
+      </p>
+    {{ else }}
+    <p>
+        You don't have any open roles. Get started by <a href="/feedback/">opening a role</a>.
+    </p>
     {{ end }}
 
-    <p>
-      <a href="/feedback/">Open a New Role</a>
-    </p>
+    
   </body>
 </html>

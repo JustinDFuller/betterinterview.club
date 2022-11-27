@@ -53,9 +53,45 @@ func Handler(organizations *interview.Organizations) http.HandlerFunc {
 			}
 		}
 
+		var requests []interview.FeedbackRequest
+		for _, f := range org.Feedback {
+			if f.Closed {
+				continue
+			}
+
+			for _, request := range f.Requests {
+				var emailMatch bool
+
+				for _, email := range request.InterviewerEmails {
+					if email == user.Email {
+						emailMatch = true
+					}
+				}
+
+				if !emailMatch {
+					continue
+				}
+
+				var requestComplete bool
+
+				for _, response := range request.Responses {
+					if response.CreatorID == user.ID {
+						requestComplete = true
+					}
+				}
+
+				if requestComplete {
+					continue
+				}
+
+				requests = append(requests, request)
+			}
+		}
+
 		vars := map[string]interface{}{
 			"UserID":   user.ID.String(),
 			"Feedback": feedback,
+			"Requests": requests,
 			"Users":    org.Users,
 			"Domain":   org.Domain,
 		}
