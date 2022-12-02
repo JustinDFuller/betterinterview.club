@@ -20,6 +20,17 @@ select, input, input::placeholder {
   font-size: 16px;
 }
 
+input[type="checkbox"] + label {
+  display: inline-block;
+  width: auto;
+}
+
+input[type="checkbox"] {
+  transform: scale(1.5);
+  padding: 10px;
+  display: inline-block;
+}
+
 p {
   line-height: 26px;
   margin-top: 16px;

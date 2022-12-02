@@ -96,7 +96,8 @@
                   ],
                   "Recommend": true
                 }
-              ]
+              ],
+              "ExplanationsRequired": false
             },
             {
               "ID": "826d0334-bb3b-49e7-8b74-61d4832f846e",
@@ -145,7 +146,8 @@
                   ],
                   "Recommend": false
                 }
-              ]
+              ],
+              "ExplanationsRequired": false
             },
             {
               "ID": "cbc8cde0-4ae3-419e-aa01-4e47ad6893f5",
@@ -193,7 +195,8 @@
                   ],
                   "Recommend": false
                 }
-              ]
+              ],
+              "ExplanationsRequired": false
             }
           ],
           "Closed": true,
@@ -274,7 +277,8 @@
                   ],
                   "Recommend": true
                 }
-              ]
+              ],
+              "ExplanationsRequired": false
             },
             {
               "ID": "58697030-0735-4bba-8b69-330c06a97898",
@@ -322,7 +326,8 @@
                   ],
                   "Recommend": true
                 }
-              ]
+              ],
+              "ExplanationsRequired": false
             }
           ],
           "Closed": false,
@@ -403,7 +408,8 @@
                   ],
                   "Recommend": true
                 }
-              ]
+              ],
+              "ExplanationsRequired": false
             },
             {
               "ID": "993b3129-3c42-43c9-accc-0538c10b585e",
@@ -451,7 +457,8 @@
                   ],
                   "Recommend": false
                 }
-              ]
+              ],
+              "ExplanationsRequired": false
             }
           ],
           "Closed": false,

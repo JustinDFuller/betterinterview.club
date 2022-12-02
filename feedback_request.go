@@ -9,14 +9,15 @@ import (
 )
 
 type FeedbackRequest struct {
-	ID                uuid.UUID
-	CreatedAt         time.Time
-	CandidateName     string
-	InterviewerEmails []string
-	Responses         []FeedbackResponse
+	ID                   uuid.UUID
+	CreatedAt            time.Time
+	CandidateName        string
+	InterviewerEmails    []string
+	Responses            []FeedbackResponse
+	ExplanationsRequired bool
 }
 
-func NewFeedbackRequest(candidate string, emails ...string) (FeedbackRequest, error) {
+func NewFeedbackRequest(candidate string, explanationsRequired bool, emails ...string) (FeedbackRequest, error) {
 	id, err := uuid.NewRandom()
 	if err != nil {
 		return FeedbackRequest{}, errors.Wrap(err, "error creating ID for FeedbackRequest")
@@ -44,9 +45,10 @@ func NewFeedbackRequest(candidate string, emails ...string) (FeedbackRequest, er
 	}
 
 	return FeedbackRequest{
-		ID:                id,
-		CreatedAt:         time.Now(),
-		CandidateName:     candidate,
-		InterviewerEmails: interviewerEmails,
+		ID:                   id,
+		CreatedAt:            time.Now(),
+		CandidateName:        candidate,
+		InterviewerEmails:    interviewerEmails,
+		ExplanationsRequired: explanationsRequired,
 	}, nil
 }
