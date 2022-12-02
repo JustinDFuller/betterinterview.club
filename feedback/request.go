@@ -7,7 +7,6 @@ import (
 	"net/http"
 	"net/url"
 	"os"
-	"strconv"
 	"strings"
 
 	"github.com/google/uuid"
@@ -95,12 +94,7 @@ func RequestHandler(organizations *interview.Organizations) http.HandlerFunc {
 				return
 			}
 
-			explanationsRequired, err := strconv.ParseBool(query.Get("explanationsRequired"))
-			if err != nil {
-				log.Printf("Error parsing explanationsRequired boolean in /feedback/request/: %s", err)
-				http.ServeFile(w, r, "./error/index.html")
-				return
-			}
+			explanationsRequired := query.Get("explanationsRequired") == "on"
 
 			request, err := interview.NewFeedbackRequest(query.Get("candidate"), explanationsRequired, query.Get("email1"), query.Get("email2"))
 			if err != nil {
