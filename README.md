@@ -30,7 +30,7 @@ Let's make it easy to manage interviews.
 * [x] Open role and request feedback separately.
 * [x] Section for managers, "My Open Roles"
 * [x] Section for interviewers, "My Requested Feedback"
-* [ ] Do not allow double feedback responses.
+* [ ] Explain feedback answers
 * [ ] Section for interviewers, "My Given Feedback"
 * [ ] Section for managers, "My Closed Roles"
 * [ ] Section for Admins, "All Open Roles"
@@ -42,7 +42,7 @@ Let's make it easy to manage interviews.
   * Why would someone want to use this tool?
   * Why only yes/no questions?
   * Why the additional recommend yes/no?
-* [ ] Favicon
+* [x] Favicon
 
 ### Technical
 
@@ -57,6 +57,7 @@ Let's make it easy to manage interviews.
 * [ ] Block common domains (gmail, yahoo, etc.)
 * [ ] Can't send emails to other domains
 * [ ] Rate limit email sends
+* [ ] Do not allow double feedback responses.
 
 ## Live Screenshot
 

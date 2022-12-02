@@ -10,7 +10,7 @@ import (
 )
 
 type EmailOptions struct {
-	To      []string
+	To      string
 	Subject string
 	HTML    string
 	From    string
@@ -34,7 +34,7 @@ func Email(opts EmailOptions) error {
 		return errors.Wrap(err, "error executing email.template")
 	}
 
-	if err := smtp.SendMail("smtp.gmail.com:587", auth, email, opts.To, b.Bytes()); err != nil {
+	if err := smtp.SendMail("smtp.gmail.com:587", auth, email, []string{opts.To}, b.Bytes()); err != nil {
 		return errors.Wrap(err, "error sending email")
 	}
 

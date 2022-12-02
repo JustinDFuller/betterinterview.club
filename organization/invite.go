@@ -108,7 +108,7 @@ func InviteHandler(organizations *interview.Organizations) http.HandlerFunc {
 				}
 
 				opts := interview.EmailOptions{
-					To:      []string{email.Address},
+					To:      email.Address,
 					Subject: "Your invite",
 					HTML:    html.String(),
 				}

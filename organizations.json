@@ -7,7 +7,7 @@
         {
           "ID": "429bf3a3-5904-4d51-ac11-ffb3134f60d1",
           "Email": "justindanielfuller@gmail.com",
-          "CallbackID": "00000000-0000-0000-0000-000000000000"
+          "CallbackID": "e400d08d-0953-4bcc-bf7b-bdfc64a1aad9"
         },
         {
           "ID": "e716d775-fb9a-436a-95f4-a816b144503f",
@@ -255,6 +255,91 @@
                   "Recommend": true
                 }
               ]
+            }
+          ],
+          "Closed": false,
+          "CloseReason": ""
+        },
+        {
+          "ID": "3d2bfda4-f028-4edf-8217-e872156c1a3e",
+          "CreatorID": "429bf3a3-5904-4d51-ac11-ffb3134f60d1",
+          "CreatedAt": "2022-12-01T19:00:46.201483547-05:00",
+          "Team": "\u003cscript\u003ealert('test')\u003c/script\u003e",
+          "Role": "\u003ch1\u003eTEST\u003c/h1\u003e",
+          "Questions": [
+            {
+              "ID": "59ba0209-dfb0-468b-aa50-c1675412270f",
+              "Text": "\"\u003cscript\u003ealert('pwned')\u003c/script\u003e"
+            },
+            {
+              "ID": "ae08d0b9-49df-44c5-8db6-ac6ab93a4087",
+              "Text": "Did they add tests?"
+            },
+            {
+              "ID": "9291fee4-8d1e-4eab-8404-3221788839e6",
+              "Text": "Did they think of edge cases?"
+            },
+            {
+              "ID": "0c047eaf-2e66-4296-9632-89687d689f16",
+              "Text": "This is a REALLY long question (#1) that goes on and on and on.This is a REALLY long question (#1) that goes on and on and on.This is a REALLY long question (#1) that goes on and on and on.This is a REALLY long question (#1) that goes on and on and on.This is a REALLY long question (#1) that goes on and on and on."
+            },
+            {
+              "ID": "16d5f881-7d05-4c24-ae52-c106b2806309",
+              "Text": "This is a REALLY long question (#1) that goes on and on and on.This is a REALLY long question (#1) that goes on and on and on.This is a REALLY long question (#1) that goes on and on and on.This is a REALLY long question (#1) that goes on and on and on."
+            }
+          ],
+          "Requests": [
+            {
+              "ID": "9a07f805-5b0c-4b81-8117-eae4ee3c9bf8",
+              "CreatedAt": "2022-12-01T19:01:19.149812686-05:00",
+              "CandidateName": "\u003cscript\u003ealert('test')\u003c/script\u003e\u003ch1\u003efoobar\u003c/h1\u003e",
+              "InterviewerEmails": [
+                "justindanielfuller@gmail.com"
+              ],
+              "Responses": [
+                {
+                  "ID": "8de8fe96-77bf-4a8a-93ef-20992c0b3b44",
+                  "CreatorID": "429bf3a3-5904-4d51-ac11-ffb3134f60d1",
+                  "CreatedAt": "2022-12-01T19:01:45.606908788-05:00",
+                  "Answers": [
+                    {
+                      "ID": "29432d3d-8020-4630-a6ed-0949c7a497ce",
+                      "QuestionID": "16d5f881-7d05-4c24-ae52-c106b2806309",
+                      "Response": true
+                    },
+                    {
+                      "ID": "33d0e374-85f2-4083-b6ed-6f1649b8027e",
+                      "QuestionID": "59ba0209-dfb0-468b-aa50-c1675412270f",
+                      "Response": true
+                    },
+                    {
+                      "ID": "ee5e4745-b601-4b0c-943c-5d90243e88b9",
+                      "QuestionID": "ae08d0b9-49df-44c5-8db6-ac6ab93a4087",
+                      "Response": true
+                    },
+                    {
+                      "ID": "60a8d3af-e309-45db-846c-0979da2ce6a5",
+                      "QuestionID": "9291fee4-8d1e-4eab-8404-3221788839e6",
+                      "Response": false
+                    },
+                    {
+                      "ID": "7c63292e-b48d-4a0b-86d7-01ae63a99162",
+                      "QuestionID": "0c047eaf-2e66-4296-9632-89687d689f16",
+                      "Response": false
+                    }
+                  ],
+                  "Recommend": true
+                }
+              ]
+            },
+            {
+              "ID": "993b3129-3c42-43c9-accc-0538c10b585e",
+              "CreatedAt": "2022-12-01T19:03:54.572582757-05:00",
+              "CandidateName": "Max Fuller",
+              "InterviewerEmails": [
+                "justindanielfuller@gmail.com"
+              ],
+              "Responses": null
             }
           ],
           "Closed": false,

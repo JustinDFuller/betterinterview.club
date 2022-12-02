@@ -198,7 +198,7 @@ func GiveHandler(organizations *interview.Organizations) http.HandlerFunc {
 				}
 
 				opts := interview.EmailOptions{
-					To:      []string{user.Email},
+					To:      user.Email,
 					Subject: "Feedback Received",
 					HTML:    html.String(),
 				}

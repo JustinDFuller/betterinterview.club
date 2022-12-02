@@ -146,7 +146,7 @@ func RequestHandler(organizations *interview.Organizations) http.HandlerFunc {
 					}
 
 					opts := interview.EmailOptions{
-						To:      []string{email},
+						To:      email,
 						Subject: "Feedback Requested",
 						HTML:    html.String(),
 					}
