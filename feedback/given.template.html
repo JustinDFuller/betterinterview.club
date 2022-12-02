@@ -77,7 +77,8 @@
                         {{ range .Answers }}
                           {{ if eq .QuestionID $questionID }}
                             <td>
-                              {{ if .Response }}  Yes {{ else }} No {{ end }}
+                              <strong>{{ if .Response }}  Yes {{ else }} No {{ end }}</strong> <br />
+                              {{ .Explanation }}
                             </td>
                           {{ end }}
                         {{ end }}

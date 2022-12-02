@@ -5,7 +5,7 @@ import (
 	"github.com/pkg/errors"
 )
 
-func NewAnswer(questionID string, response bool) (Answer, error) {
+func NewAnswer(questionID string, response bool, explanation string) (Answer, error) {
 	id, err := uuid.NewRandom()
 	if err != nil {
 		return Answer{}, errors.Wrap(err, "error creating ID for Answer")
@@ -17,14 +17,16 @@ func NewAnswer(questionID string, response bool) (Answer, error) {
 	}
 
 	return Answer{
-		ID:         id,
-		QuestionID: qID,
-		Response:   response,
+		ID:          id,
+		QuestionID:  qID,
+		Response:    response,
+		Explanation: explanation,
 	}, nil
 }
 
 type Answer struct {
-	ID         uuid.UUID
-	QuestionID uuid.UUID
-	Response   bool
+	ID          uuid.UUID
+	QuestionID  uuid.UUID
+	Response    bool
+	Explanation string
 }

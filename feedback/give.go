@@ -119,7 +119,7 @@ func GiveHandler(organizations *interview.Organizations) http.HandlerFunc {
 			var answers []interview.Answer
 
 			for key := range query {
-				if key == "recommend" {
+				if key == "recommend" || strings.HasSuffix(key, "-explain") {
 					continue
 				}
 
@@ -130,7 +130,7 @@ func GiveHandler(organizations *interview.Organizations) http.HandlerFunc {
 					return
 				}
 
-				a, err := interview.NewAnswer(key, b)
+				a, err := interview.NewAnswer(key, b, query.Get(key+"-explain"))
 				if err != nil {
 					log.Printf("Error creating Answer in /feedback/give/: %s", err)
 					http.ServeFile(w, r, "./error/index.html")

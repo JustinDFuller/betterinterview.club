@@ -35,7 +35,8 @@
                 {{ range .Answers }}
                   {{ if eq .QuestionID $questionID }}
                     <td style="max-width: 50%; min-width: 100px;">
-                      {{ if .Response }}  Yes {{ else }} No {{ end }}
+                      <strong>{{ if .Response }}  Yes {{ else }} No {{ end }}</strong> <br />
+                      {{ .Explanation }}
                     </td>
                   {{ end }}
                 {{ end }}

@@ -7,7 +7,7 @@
         {
           "ID": "429bf3a3-5904-4d51-ac11-ffb3134f60d1",
           "Email": "justindanielfuller@gmail.com",
-          "CallbackID": "e400d08d-0953-4bcc-bf7b-bdfc64a1aad9"
+          "CallbackID": "b714ad72-291a-40e0-a521-49e2882b07ce"
         },
         {
           "ID": "e716d775-fb9a-436a-95f4-a816b144503f",
@@ -66,27 +66,32 @@
                     {
                       "ID": "2d210e0f-fee1-4e30-8ed9-65df694319a0",
                       "QuestionID": "85d6c58b-91ae-4b17-8556-dcf34c3d85b6",
-                      "Response": true
+                      "Response": true,
+                      "Explanation": ""
                     },
                     {
                       "ID": "9d239411-a1d6-4183-8811-f8b2a73f1840",
                       "QuestionID": "b656653a-e6ad-4426-857b-76ede80a36bc",
-                      "Response": true
+                      "Response": true,
+                      "Explanation": ""
                     },
                     {
                       "ID": "64ae3424-8966-4af4-bf70-b1dca88a1f19",
                       "QuestionID": "ce10f024-5d9e-474f-899c-4a0f87d55f87",
-                      "Response": true
+                      "Response": true,
+                      "Explanation": ""
                     },
                     {
                       "ID": "c6cee37d-fc26-4448-ada1-ff35349f9e22",
                       "QuestionID": "b4d93d21-e275-45ff-b66f-63dc92e24bd4",
-                      "Response": true
+                      "Response": true,
+                      "Explanation": ""
                     },
                     {
                       "ID": "8aed96b6-02db-4aa6-910a-e11151911a04",
                       "QuestionID": "0ea2337c-cb55-4aee-b653-43468f254ff0",
-                      "Response": true
+                      "Response": true,
+                      "Explanation": ""
                     }
                   ],
                   "Recommend": true
@@ -110,27 +115,32 @@
                     {
                       "ID": "f015ae88-48c3-42a3-b631-3ee5fee286b0",
                       "QuestionID": "0ea2337c-cb55-4aee-b653-43468f254ff0",
-                      "Response": false
+                      "Response": false,
+                      "Explanation": ""
                     },
                     {
                       "ID": "61944f4e-2492-469c-9410-d8d1fc9017d0",
                       "QuestionID": "85d6c58b-91ae-4b17-8556-dcf34c3d85b6",
-                      "Response": false
+                      "Response": false,
+                      "Explanation": ""
                     },
                     {
                       "ID": "c71eaf5c-8bb0-4399-b0a3-ea970bdbe7ad",
                       "QuestionID": "b656653a-e6ad-4426-857b-76ede80a36bc",
-                      "Response": false
+                      "Response": false,
+                      "Explanation": ""
                     },
                     {
                       "ID": "5bf74ef1-12a3-4667-bf08-2822e5a072d3",
                       "QuestionID": "ce10f024-5d9e-474f-899c-4a0f87d55f87",
-                      "Response": false
+                      "Response": false,
+                      "Explanation": ""
                     },
                     {
                       "ID": "0c5cfd6b-2627-40d1-84e5-5556ffd159ae",
                       "QuestionID": "b4d93d21-e275-45ff-b66f-63dc92e24bd4",
-                      "Response": false
+                      "Response": false,
+                      "Explanation": ""
                     }
                   ],
                   "Recommend": false
@@ -153,27 +163,32 @@
                     {
                       "ID": "ba38b0c6-8229-452d-9633-35798aade560",
                       "QuestionID": "0ea2337c-cb55-4aee-b653-43468f254ff0",
-                      "Response": true
+                      "Response": true,
+                      "Explanation": ""
                     },
                     {
                       "ID": "537fa151-dca4-414b-9ed0-ad992a864793",
                       "QuestionID": "85d6c58b-91ae-4b17-8556-dcf34c3d85b6",
-                      "Response": false
+                      "Response": false,
+                      "Explanation": ""
                     },
                     {
                       "ID": "e985c4bc-1a88-4546-bea5-626cac1e1f67",
                       "QuestionID": "b656653a-e6ad-4426-857b-76ede80a36bc",
-                      "Response": true
+                      "Response": true,
+                      "Explanation": ""
                     },
                     {
                       "ID": "3562f0a2-799f-4d47-8cbb-9e8a60968dae",
                       "QuestionID": "ce10f024-5d9e-474f-899c-4a0f87d55f87",
-                      "Response": false
+                      "Response": false,
+                      "Explanation": ""
                     },
                     {
                       "ID": "1c6b7bf2-3fe2-4109-9b2c-6e707f33d923",
                       "QuestionID": "b4d93d21-e275-45ff-b66f-63dc92e24bd4",
-                      "Response": true
+                      "Response": true,
+                      "Explanation": ""
                     }
                   ],
                   "Recommend": false
@@ -229,27 +244,80 @@
                     {
                       "ID": "64993f9c-d203-4212-a419-4fc7c06c3101",
                       "QuestionID": "0a98fba8-056e-4433-820d-12c5b3e6cf07",
-                      "Response": false
+                      "Response": false,
+                      "Explanation": ""
                     },
                     {
                       "ID": "0e8bba8a-79c5-4350-9d6d-82015ac433f9",
                       "QuestionID": "4121a237-4b8b-443c-ac1d-8ffb561e1ea0",
-                      "Response": true
+                      "Response": true,
+                      "Explanation": ""
                     },
                     {
                       "ID": "88d4ac75-1aeb-48f7-9b5f-6c243c6ff161",
                       "QuestionID": "c1696b09-e1f2-4523-a91c-a67d370b6b5b",
-                      "Response": true
+                      "Response": true,
+                      "Explanation": ""
                     },
                     {
                       "ID": "1856481e-ae97-4186-8ba6-047f349fe65c",
                       "QuestionID": "13ca9c4e-59dc-4520-abd5-c81c34f1ab1a",
-                      "Response": true
+                      "Response": true,
+                      "Explanation": ""
                     },
                     {
                       "ID": "f49e587d-8d4e-4099-be82-73b90060c2a4",
                       "QuestionID": "efad032f-2056-45f7-b929-eaf0f1073d00",
-                      "Response": false
+                      "Response": false,
+                      "Explanation": ""
+                    }
+                  ],
+                  "Recommend": true
+                }
+              ]
+            },
+            {
+              "ID": "58697030-0735-4bba-8b69-330c06a97898",
+              "CreatedAt": "2022-12-02T16:15:31.977622017-05:00",
+              "CandidateName": "Thea Fuller",
+              "InterviewerEmails": [
+                "justindanielfuller@gmail.com"
+              ],
+              "Responses": [
+                {
+                  "ID": "b22b8b36-d639-4e04-b90c-428515013579",
+                  "CreatorID": "429bf3a3-5904-4d51-ac11-ffb3134f60d1",
+                  "CreatedAt": "2022-12-02T16:35:48.85097228-05:00",
+                  "Answers": [
+                    {
+                      "ID": "63867fd0-7b94-4c7c-9533-9cd532d70210",
+                      "QuestionID": "0a98fba8-056e-4433-820d-12c5b3e6cf07",
+                      "Response": true,
+                      "Explanation": "Yes, it ran in linear time."
+                    },
+                    {
+                      "ID": "59dd412a-6d50-4956-85eb-47c6bf7fa8eb",
+                      "QuestionID": "4121a237-4b8b-443c-ac1d-8ffb561e1ea0",
+                      "Response": true,
+                      "Explanation": "Yes, they started by asking several clarifying questions."
+                    },
+                    {
+                      "ID": "2b855f5d-a753-477f-bc7e-7658e158211a",
+                      "QuestionID": "c1696b09-e1f2-4523-a91c-a67d370b6b5b",
+                      "Response": true,
+                      "Explanation": "They did!"
+                    },
+                    {
+                      "ID": "4ce19892-36d5-43d2-9258-1629908d206a",
+                      "QuestionID": "13ca9c4e-59dc-4520-abd5-c81c34f1ab1a",
+                      "Response": true,
+                      "Explanation": "Proactively added tests"
+                    },
+                    {
+                      "ID": "3208385e-8e5d-456a-b309-3a2c3f33ad9e",
+                      "QuestionID": "efad032f-2056-45f7-b929-eaf0f1073d00",
+                      "Response": false,
+                      "Explanation": "No, we ran out of time to cover edge cases."
                     }
                   ],
                   "Recommend": true
@@ -305,27 +373,32 @@
                     {
                       "ID": "29432d3d-8020-4630-a6ed-0949c7a497ce",
                       "QuestionID": "16d5f881-7d05-4c24-ae52-c106b2806309",
-                      "Response": true
+                      "Response": true,
+                      "Explanation": ""
                     },
                     {
                       "ID": "33d0e374-85f2-4083-b6ed-6f1649b8027e",
                       "QuestionID": "59ba0209-dfb0-468b-aa50-c1675412270f",
-                      "Response": true
+                      "Response": true,
+                      "Explanation": ""
                     },
                     {
                       "ID": "ee5e4745-b601-4b0c-943c-5d90243e88b9",
                       "QuestionID": "ae08d0b9-49df-44c5-8db6-ac6ab93a4087",
-                      "Response": true
+                      "Response": true,
+                      "Explanation": ""
                     },
                     {
                       "ID": "60a8d3af-e309-45db-846c-0979da2ce6a5",
                       "QuestionID": "9291fee4-8d1e-4eab-8404-3221788839e6",
-                      "Response": false
+                      "Response": false,
+                      "Explanation": ""
                     },
                     {
                       "ID": "7c63292e-b48d-4a0b-86d7-01ae63a99162",
                       "QuestionID": "0c047eaf-2e66-4296-9632-89687d689f16",
-                      "Response": false
+                      "Response": false,
+                      "Explanation": ""
                     }
                   ],
                   "Recommend": true
@@ -339,7 +412,46 @@
               "InterviewerEmails": [
                 "justindanielfuller@gmail.com"
               ],
-              "Responses": null
+              "Responses": [
+                {
+                  "ID": "019236c7-86e6-4f39-a047-7275755bf060",
+                  "CreatorID": "429bf3a3-5904-4d51-ac11-ffb3134f60d1",
+                  "CreatedAt": "2022-12-02T16:38:03.73585382-05:00",
+                  "Answers": [
+                    {
+                      "ID": "ac9f4533-76cc-4705-af91-a5608890d9dc",
+                      "QuestionID": "0c047eaf-2e66-4296-9632-89687d689f16",
+                      "Response": false,
+                      "Explanation": "I skipped the last explanation"
+                    },
+                    {
+                      "ID": "9a6cf93e-f19b-4460-97e1-cd740af57f3e",
+                      "QuestionID": "16d5f881-7d05-4c24-ae52-c106b2806309",
+                      "Response": true,
+                      "Explanation": "This is a REALLY long question (#1) that goes on and on and on.This is a REALLY long question (#1) that goes on and on and on.This is a REALLY long question (#1) that goes on and on and on.This is a REALLY long question (#1) that goes on and on and on.\r\n"
+                    },
+                    {
+                      "ID": "31f239a7-33d9-456a-9490-1a9375b8ddba",
+                      "QuestionID": "ae08d0b9-49df-44c5-8db6-ac6ab93a4087",
+                      "Response": true,
+                      "Explanation": "I will skip the next explanation"
+                    },
+                    {
+                      "ID": "8672f3eb-5a50-4b0a-851a-2d23f77c3bc7",
+                      "QuestionID": "9291fee4-8d1e-4eab-8404-3221788839e6",
+                      "Response": true,
+                      "Explanation": ""
+                    },
+                    {
+                      "ID": "f8a70ebd-6de4-4d26-af78-4a734c46abd7",
+                      "QuestionID": "59ba0209-dfb0-468b-aa50-c1675412270f",
+                      "Response": true,
+                      "Explanation": "This is an example explanation"
+                    }
+                  ],
+                  "Recommend": false
+                }
+              ]
             }
           ],
           "Closed": false,
