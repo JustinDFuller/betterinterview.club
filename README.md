@@ -64,5 +64,5 @@
 
 ## Live Screenshot
 
-![Screenshot](https://image.thum.io/get/maxAge/12/width/1000/https://interviews.justindfuller.com "Screenshot")
+![Screenshot](https://image.thum.io/get/maxAge/12/width/1000/https://www.betterinterview.club "Screenshot")
 
