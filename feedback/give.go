@@ -85,13 +85,14 @@ func GiveHandler(organizations *interview.Organizations) http.HandlerFunc {
 			}
 
 			vars := map[string]interface{}{
-				"FeedbackRequestID": request.ID,
-				"Candidate":         request.CandidateName,
-				"CreatorID":         f.CreatorID,
-				"CreatedAt":         f.CreatedAt,
-				"Role":              f.Role,
-				"Team":              f.Team,
-				"Questions":         f.Questions,
+				"FeedbackRequestID":    request.ID,
+				"Candidate":            request.CandidateName,
+				"ExplanationsRequired": request.ExplanationsRequired,
+				"CreatorID":            f.CreatorID,
+				"CreatedAt":            f.CreatedAt,
+				"Role":                 f.Role,
+				"Team":                 f.Team,
+				"Questions":            f.Questions,
 			}
 			if err := t.Execute(w, vars); err != nil {
 				log.Printf("Error executing template for /feedback/give/%s: %s", id, err)

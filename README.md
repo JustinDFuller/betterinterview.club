@@ -30,7 +30,7 @@ Let's make it easy to manage interviews.
 * [x] Open role and request feedback separately.
 * [x] Section for managers, "My Open Roles"
 * [x] Section for interviewers, "My Requested Feedback"
-* [ ] Explain feedback answers
+* [x] Explain feedback answers
 * [ ] Section for interviewers, "My Given Feedback"
 * [ ] Section for managers, "My Closed Roles"
 * [ ] Section for Admins, "All Open Roles"

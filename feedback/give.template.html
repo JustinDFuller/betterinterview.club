@@ -15,7 +15,7 @@
     </style>
   </head>
   <body>
-    {{ $explanationRequired := .ExplanationRequired }}
+    {{ $explanationsRequired := .ExplanationsRequired }}
 
     <header>
       <h1>Better Interviews</h1>
@@ -47,7 +47,14 @@
           <input name="{{ .ID }}" id="{{ .ID }}-no" type="radio" value="false" required />
           <label for="{{ .ID }}-no">No</label>
         </div>
-        <textarea placeholder="Please Explain" name="{{ .ID }}-explain" id="{{ .ID }}-explain" style="margin-bottom: 24px; margin-top: 8px;" autocomplete="off" {{ if $explanationRequired }}required{{ end }}></textarea>
+        <textarea 
+          placeholder="Please Explain" 
+          name="{{ .ID }}-explain" 
+          id="{{ .ID }}-explain" 
+          style="margin-bottom: 24px; margin-top: 8px;" 
+          autocomplete="off" 
+          {{ if $explanationsRequired }}required{{ end }}
+        ></textarea>
       </div>
       {{ end }}
 
