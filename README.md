@@ -51,6 +51,8 @@ Let's make it easy to manage interviews.
 * [ ] Minify responses
 * [x] Persist data locally
 * [x] Persist data in production
+* [x] HTML Lang attribute for accessibility
+* [ ] Reusable components
 
 ### Security
 
