@@ -15,6 +15,20 @@ import (
 
 const LoginPath = "/auth/login/"
 
+var commonEmails = []string{
+	"gmail.com",
+	"yahoo.com",
+	"ymail.com",
+	"hotmail.com",
+	"msn.com",
+	"live.com",
+	"outlook.com",
+	"verizon.net",
+	"icloud.com",
+	"att.net",
+	"mac.com",
+}
+
 func LoginHandler(organizations *interview.Organizations) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == http.MethodGet {
@@ -53,6 +67,33 @@ func LoginHandler(organizations *interview.Organizations) http.HandlerFunc {
 				log.Printf("Error parsing email from /auth/login email parameter: %s", err)
 				http.ServeFile(w, r, "./error/index.html")
 				return
+			}
+
+			split := strings.Split(email.Address, "@")
+			if len(split) != 2 {
+				log.Printf("Invalid email address: incorrect number of parts: %s", email.Address)
+				http.ServeFile(w, r, "./error/index.html")
+				return
+			}
+
+			domain := strings.ToLower(split[1])
+
+			for _, common := range commonEmails {
+				if domain == common {
+					t, err := template.New("login.template.html").ParseFiles("./auth/login.template.html", "index.css")
+					if err != nil {
+						log.Printf("Error parsing template for /auth/login/: %s", err)
+						http.ServeFile(w, r, "./error/index.html")
+						return
+					}
+
+					vars := map[string]interface{}{
+						"Error": "Public email domains are not allowed.",
+					}
+					if err := t.Execute(w, vars); err != nil {
+						log.Printf("Error executing template for /auth/login: %s", err)
+					}
+				}
 			}
 
 			org, user, err := organizations.FindOrCreateByEmail(email.Address)

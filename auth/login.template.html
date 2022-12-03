@@ -25,6 +25,9 @@
         <label for="email">Get started for free with your company email.</label>
         <input style="width: 100%;" id="email" name="email" type="email" placeholder="me@betterinterview.club" required />
         <button style="width: 100%;" type="submit">Log In</button>
+        {{ if .Error }}
+          <p style="color: #c22020;">{{ .Error }}</p>
+        {{ end }}
       </div>
     </form>
     <main style="text-align: justify; margin-top: 32px;">

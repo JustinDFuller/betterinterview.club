@@ -54,7 +54,7 @@ Let's make it easy to manage interviews.
 
 ### Security
 
-* [ ] Block common domains (gmail, yahoo, etc.)
+* [x] Block common domains (gmail, yahoo, etc.)
 * [ ] Can't send emails to other domains
 * [ ] Rate limit email sends
 * [ ] Do not allow double feedback responses.
