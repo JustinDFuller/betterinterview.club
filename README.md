@@ -1,6 +1,6 @@
 <img src="https://repository-images.githubusercontent.com/393375822/f196bfe1-d84f-4ede-9df9-1d33dc095b02" />
 
-Let's make it easy to manage interviews.
+[www.betterinterview.club](https://www.betterinterview.club) makes it easy to manage interviews.
 
 ## Workflow
 
