@@ -1,5 +1,66 @@
 {
   "ByDomain": {
+    "betterinterview.club": {
+      "ID": "b2bf4fd6-61dd-49d9-b454-c330d8ba79c7",
+      "Domain": "betterinterview.club",
+      "Users": [
+        {
+          "ID": "33fa4050-6261-4b6e-bccb-5d9375ad0faf",
+          "Email": "justin@betterinterview.club",
+          "CallbackID": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "082ac8d2-96a4-4560-b2e2-8fcfe004a662",
+          "Email": "justin+1@betterinterview.club",
+          "CallbackID": "bff9aa19-af2f-48fe-b940-14fb6c5eb144"
+        }
+      ],
+      "Feedback": [
+        {
+          "ID": "aa9fa481-e847-4afa-b889-077e52300045",
+          "CreatorID": "33fa4050-6261-4b6e-bccb-5d9375ad0faf",
+          "CreatedAt": "2022-12-03T07:26:40.565259012-05:00",
+          "Team": "Auth Team",
+          "Role": "Senior Software Engineer",
+          "Questions": [
+            {
+              "ID": "761f837f-ae89-4fdd-a9f7-e16cb0e7cf5f",
+              "Text": "Did they get a working solution?"
+            },
+            {
+              "ID": "1cec52ff-e16a-4863-9a4c-80b900238b59",
+              "Text": "Did they add tests?"
+            },
+            {
+              "ID": "af0023bc-c36f-4696-a117-0bee5c9508d3",
+              "Text": "Did they think of edge cases?"
+            },
+            {
+              "ID": "c0f883af-b505-4e73-bc6d-b136237c5699",
+              "Text": "Was their solution optimal space time complexity?"
+            },
+            {
+              "ID": "4f58fd15-b8ce-4a32-a4db-1ef58a1c27a0",
+              "Text": "Did they ask questions before writing code?"
+            }
+          ],
+          "Requests": [
+            {
+              "ID": "1e2a87c7-6c7a-408b-a8e5-69681627c6d6",
+              "CreatedAt": "2022-12-03T07:26:59.519523631-05:00",
+              "CandidateName": "Max Fuller",
+              "InterviewerEmails": [
+                "justin+1@betterinterview.club"
+              ],
+              "Responses": null,
+              "ExplanationsRequired": true
+            }
+          ],
+          "Closed": false,
+          "CloseReason": ""
+        }
+      ]
+    },
     "gmail.com": {
       "ID": "36e2979c-b302-4085-9311-df1f647ec302",
       "Domain": "gmail.com",
@@ -7,7 +68,7 @@
         {
           "ID": "429bf3a3-5904-4d51-ac11-ffb3134f60d1",
           "Email": "justindanielfuller@gmail.com",
-          "CallbackID": "ee9d7e75-0fad-4a4d-b4e6-c5a25ceecb1e"
+          "CallbackID": "00000000-0000-0000-0000-000000000000"
         },
         {
           "ID": "e716d775-fb9a-436a-95f4-a816b144503f",
