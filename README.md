@@ -52,12 +52,13 @@ Let's make it easy to manage interviews.
 * [x] Persist data locally
 * [x] Persist data in production
 * [x] HTML Lang attribute for accessibility
+* [x] Content Security Policy
 * [ ] Reusable components
 
 ### Security
 
 * [x] Block common domains (gmail, yahoo, etc.)
-* [ ] Can't send emails to other domains
+* [x] Can't send emails to other domains
 * [ ] Rate limit email sends
 * [ ] Do not allow double feedback responses.
 

@@ -1,6 +1,8 @@
 package interview
 
 import (
+	"strings"
+
 	"github.com/google/uuid"
 	"github.com/pkg/errors"
 )
@@ -52,6 +54,25 @@ func (org *Organization) FindUserByID(id string) (User, error) {
 	}
 
 	return User{}, errors.Errorf("User not found for user ID: %s", id)
+}
+
+func (org *Organization) IsDifferentDomain(email string) (bool, error) {
+	if len(email) == 0 {
+		return false, errors.New("invalid email")
+	}
+
+	split := strings.Split(email, "@")
+
+	if len(split) != 2 {
+		return false, errors.New("invalid email")
+	}
+
+	domain := strings.TrimSpace(strings.ToLower(split[1]))
+	if len(domain) == 0 {
+		return false, errors.New("invalid email")
+	}
+
+	return domain != strings.TrimSpace(strings.ToLower(org.Domain)), nil
 }
 
 func NewOrganization(domain string) (Organization, error) {

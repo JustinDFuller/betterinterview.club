@@ -2,6 +2,7 @@ package interview
 
 import (
 	"bytes"
+	"log"
 	"net/smtp"
 	"os"
 	"text/template"
@@ -16,10 +17,22 @@ type EmailOptions struct {
 	From    string
 }
 
-func Email(opts EmailOptions) error {
+var ErrCrossDomainEmail = errors.New("cannot send cross-domain emails")
+
+func Email(opts EmailOptions, org Organization) error {
 	email := os.Getenv("EMAIL")
 	password := os.Getenv("PASSWORD")
 
+	isDifferentDomain, err := org.IsDifferentDomain(opts.To)
+	log.Printf("Domain: %s, To: %s, IsDifferent: %v, Err: %s", org.Domain, opts.To, isDifferentDomain, err)
+	if err != nil {
+		return errors.Wrap(err, "error validating email domain")
+	}
+	if isDifferentDomain {
+		return ErrCrossDomainEmail
+	}
+
+	// Adding to opts so that it appears in the template.
 	opts.From = email
 
 	auth := smtp.PlainAuth("", email, password, "smtp.gmail.com")

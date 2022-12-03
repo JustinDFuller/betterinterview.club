@@ -29,7 +29,7 @@
         <input style="width: 100%;" id="email" name="email" type="email" placeholder="me@betterinterview.club" required />
         <button style="width: 100%;" type="submit">Log In</button>
         {{ if .Error }}
-          <p style="color: #c22020;">{{ .Error }}</p>
+          <p class="error">{{ .Error }}</p>
         {{ end }}
       </div>
     </form>

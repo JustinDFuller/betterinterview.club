@@ -68,8 +68,12 @@ func RequestHandler(organizations *interview.Organizations) http.HandlerFunc {
 			}
 
 			vars := map[string]interface{}{
-				"Feedback": f,
-				"Domain":   org.Domain,
+				"Feedback":             f,
+				"Domain":               org.Domain,
+				"CandidateName":        "",
+				"Email1":               "",
+				"Email2":               "",
+				"ExplanationsRequired": false,
 			}
 			if err := t.Execute(w, vars); err != nil {
 				log.Printf("Error executing template for /organization: %s", err)
@@ -103,14 +107,39 @@ func RequestHandler(organizations *interview.Organizations) http.HandlerFunc {
 				return
 			}
 
-			if err := organizations.AddFeedbackRequest(org, f, request); err != nil {
-				log.Printf("Error adding feedback to organization: %s", err)
-				http.ServeFile(w, r, "./error/index.html")
-				return
-			}
-
 			for _, email := range request.InterviewerEmails {
 				email := email
+
+				isDifferentDomain, err := org.IsDifferentDomain(email)
+				if err != nil {
+					log.Printf("Error verifying domain of emails: %s", err)
+					http.ServeFile(w, r, "./error/index.html")
+					return
+				}
+
+				if isDifferentDomain {
+					t, err := template.New("request.template.html").ParseFiles("feedback/request.template.html", "index.css")
+					if err != nil {
+						log.Printf("Error parsing template for /: %s", err)
+						http.ServeFile(w, r, "./error/index.html")
+						return
+					}
+
+					vars := map[string]interface{}{
+						"Feedback":             f,
+						"Domain":               org.Domain,
+						"Error":                "You cannot send requests to emails on another domain.",
+						"CandidateName":        request.CandidateName,
+						"Email1":               query.Get("email1"),
+						"Email2":               query.Get("email2"),
+						"ExplanationsRequired": explanationsRequired,
+					}
+					if err := t.Execute(w, vars); err != nil {
+						log.Printf("Error executing template for /organization: %s", err)
+					}
+
+					return
+				}
 
 				go func() {
 					org, user, err := organizations.FindOrCreateByEmail(email)
@@ -152,10 +181,16 @@ func RequestHandler(organizations *interview.Organizations) http.HandlerFunc {
 						Subject: "Feedback Requested",
 						HTML:    html.String(),
 					}
-					if err := interview.Email(opts); err != nil {
+					if err := interview.Email(opts, org); err != nil {
 						log.Printf("Error sending email from /auth/login: %s", err)
 					}
 				}()
+			}
+
+			if err := organizations.AddFeedbackRequest(org, f, request); err != nil {
+				log.Printf("Error adding feedback to organization: %s", err)
+				http.ServeFile(w, r, "./error/index.html")
+				return
 			}
 
 			log.Printf("New Feedback: %s %s", org.Domain, f)

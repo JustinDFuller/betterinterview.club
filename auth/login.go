@@ -128,7 +128,7 @@ func LoginHandler(organizations *interview.Organizations) http.HandlerFunc {
 					Subject: "Log in",
 					HTML:    html.String(),
 				}
-				if err := interview.Email(opts); err != nil {
+				if err := interview.Email(opts, org); err != nil {
 					log.Printf("Error sending email from /auth/login: %s", err)
 				}
 			}()

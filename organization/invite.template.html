@@ -30,9 +30,12 @@
       <div>
         <h2>Invite</h2>
       </div>
+      {{ if .Error }}
+        <p class="error">{{ .Error }}</p>
+      {{ end }}
       <div class="form-group">
         <label for="type">Type the email of the person you want to invite.</label>
-        <input name="email" type="email" placeholder="person@{{ .Domain }}" required />
+        <input name="email" type="email" placeholder="person@{{ .Domain }}" required value="{{ .Email }}" />
         <button type="submit">Invite</button>
       </div>
     </form>

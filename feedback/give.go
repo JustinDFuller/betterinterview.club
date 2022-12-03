@@ -203,7 +203,7 @@ func GiveHandler(organizations *interview.Organizations) http.HandlerFunc {
 					Subject: "Feedback Received",
 					HTML:    html.String(),
 				}
-				if err := interview.Email(opts); err != nil {
+				if err := interview.Email(opts, org); err != nil {
 					log.Printf("Error sending email from /feedback/give/: %s", err)
 				}
 			}()
