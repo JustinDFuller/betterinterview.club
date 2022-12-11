@@ -3,7 +3,7 @@ SHELL := /bin/bash
 export HOST=https://localhost:8443/
 
 server-watch: ## Run the Go server and restart on changes.
-	@reflex -s -r '\.go' -R 'organizations.json' -- sh -c 'clear && $(MAKE) server';
+	@reflex -s -d "fancy" -r '\.(go|html)' -R 'organizations.json' -- sh -c 'clear && $(MAKE) server';
 
 server:  ## Run the Go server.
 	@go run -race ./cmd/localhost;

@@ -7,6 +7,7 @@ import (
 	"github.com/pkg/errors"
 )
 
+// Test
 type Organization struct {
 	ID       uuid.UUID
 	Domain   string

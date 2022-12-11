@@ -92,6 +92,14 @@ func main() {
 		MaxHeaderBytes: http.DefaultMaxHeaderBytes,
 	} */
 
+	http.HandleFunc("/service-worker.js", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "./public/service-worker.js")
+	})
+
+	http.HandleFunc("/site.webmanifest", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "./public/site.webmanifest")
+	})
+
 	log.Print("Listening at https://localhost:8443/")
 	log.Fatal(http.ListenAndServeTLS(":8443", "./cmd/localhost/server.crt", "./cmd/localhost/server.key", nil))
 }
