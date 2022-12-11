@@ -54,6 +54,8 @@
 * [x] HTML Lang attribute for accessibility
 * [x] Content Security Policy
 * [ ] Reusable components
+* [ ] Ensure one data query / lock per endpoint
+* [ ] Load templates on application startup
 
 ### Security
 

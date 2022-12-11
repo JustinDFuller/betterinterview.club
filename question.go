@@ -11,6 +11,10 @@ func NewQuestion(text string) (Question, error) {
 		return Question{}, errors.Wrap(err, "error creating ID for Question")
 	}
 
+	if len(text) > 250 {
+		text = text[:250] + "..."
+	}
+
 	return Question{
 		ID:   id,
 		Text: text,

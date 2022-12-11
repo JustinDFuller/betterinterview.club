@@ -16,6 +16,10 @@ func NewAnswer(questionID string, response bool, explanation string) (Answer, er
 		return Answer{}, errors.Wrap(err, "error creating QuestionID for Answer")
 	}
 
+	if len(explanation) > 250 {
+		explanation = explanation[:250] + "..."
+	}
+
 	return Answer{
 		ID:          id,
 		QuestionID:  qID,

@@ -155,7 +155,7 @@ h4, h5, h6 {
 }
 
 @media only screen and (min-width: 450px) {
-  select, textarea, input[type="text"], input[type="email"] {
+  select, input[type="text"], input[type="email"] {
     padding: 8px;
     min-width: 300px;
     width: auto;
