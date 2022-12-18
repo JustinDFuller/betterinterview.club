@@ -26,7 +26,7 @@
     <form action="/auth/login/" method="post">
       <div class="form-group">
         <label for="email">Get started for free with your company email.</label>
-        <input style="width: 100%;" id="email" name="email" type="email" placeholder="me@betterinterview.club" required />
+        <input style="width: 100%;" id="email" name="email" type="email" placeholder="me@betterinterview.club" required maxlength="320" />
         <button style="width: 100%;" type="submit">Log In</button>
         {{ if .Error }}
           <p class="error">{{ .Error }}</p>

@@ -33,18 +33,18 @@
     <form action="/feedback/request/{{ .Feedback.ID }}" method="post">
       <div class="form-group">
         <label for="candidate">What is the candidate's first and last name?</label>
-        <input autofocus name="candidate" type="text" required value="{{ .CandidateName }}" />
+        <input autofocus name="candidate" type="text" required value="{{ .CandidateName }}" maxlength="250" />
       </div>
 
       <p>You may request feedback from one or two people. They will receive an email with a link to answer the questions created for this role.</p>
       <div class="form-group">
         <label for="email1">Request Feedback From Email (Required)</label>
-        <input name="email1" type="email" placeholder="interviewer1@{{ .Domain }}" required value="{{ .Email1 }}"/>
+        <input name="email1" type="email" placeholder="interviewer1@{{ .Domain }}" required value="{{ .Email1 }}" maxlength="320" />
       </div>
 
       <div class="form-group">
         <label for="email2">Request Feedback From Email (Optional)</label>
-        <input name="email2" type="email" value="{{ .Email2 }}" />
+        <input name="email2" type="email" value="{{ .Email2 }}" maxlength="320" />
       </div>
 
       <div class="form-group">

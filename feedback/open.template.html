@@ -29,52 +29,39 @@
     <form action="/feedback/" method="post" style="margin-top: 16px;">
       <div class="form-group">
         <label for="team">What <strong>team</strong> is this role for?</label>
-        <input autofocus name="team" type="text" placeholder="Authentication Platforms" required />
+        <input autofocus name="team" type="text" placeholder="Authentication Platforms" required maxlength="250" />
       </div>
 
       <div class="form-group">
         <label for="role">What <strong>role</strong> is this feedback for?</label>
-        <input name="role" type="text" placeholder="Senior Software Engineer" required />
+        <input name="role" type="text" placeholder="Senior Software Engineer" required maxlength="250" />
       </div>
 
       <p>You may add up to five questions. The only answer choices will be "yes" or "no".</p>
       <div class="form-group">
         <label for="question1">Question One</label>
-        <input name="question1" type="text" placeholder="Did the candidate arrive at a working solution?" required />
+        <input name="question1" type="text" placeholder="Did the candidate arrive at a working solution?" required maxlength="250" />
       </div>
 
       <div class="form-group">
         <label for="question2">Question Two</label>
-        <input name="question2" type="text" required />
+        <input name="question2" type="text" required maxlength="250" />
       </div>
 
       <div class="form-group">
         <label for="question3">Question Three</label>
-        <input name="question3" type="text" required />
+        <input name="question3" type="text" required maxlength="250" />
       </div>
 
       <div class="form-group">
         <label for="question4">Question Four</label>
-        <input name="question4" type="text" required />
+        <input name="question4" type="text" required maxlength="250" />
       </div>
 
       <div class="form-group">
         <label for="question5">Question Five</label>
-        <input name="question5" type="text" required />
+        <input name="question5" type="text" required maxlength="250" />
       </div>
-
-      <!--
-      <p>You may request feedback from one or two people. They will receive an email with a link to answer the questions you created above..</p>
-      <div class="form-group">
-        <label for="email1">Request Feedback From Email (Required)</label>
-        <input name="email1" type="email" placeholder="interviewer1@{{ .Domain }}" required />
-      </div>
-
-      <div class="form-group">
-        <label for="email2">Request Feedback From Email (Optional)</label>
-        <input name="email2" type="email" />
-      </div>
-      -->
 
       <div>
         <button type="submit">Save Questions</button>

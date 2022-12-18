@@ -35,7 +35,7 @@
       {{ end }}
       <div class="form-group">
         <label for="type">Type the email of the person you want to invite.</label>
-        <input name="email" type="email" placeholder="person@{{ .Domain }}" required value="{{ .Email }}" />
+        <input name="email" type="email" placeholder="person@{{ .Domain }}" required value="{{ .Email }}" maxlength="320" />
         <button type="submit">Invite</button>
       </div>
     </form>
