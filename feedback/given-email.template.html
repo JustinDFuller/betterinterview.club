@@ -1,18 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; connect-src 'self'; img-src 'self'; style-src 'unsafe-inline'; form-action 'self'; manifest-src 'self'; script-src 'sha256-VWOnSpeIkG13JIN2OIfeXnFKA8ZAQ4hW5fE7riIA1Qs='; worker-src 'self'" />
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; connect-src 'self'; img-src 'self'; style-src 'unsafe-inline'; form-action 'self'; manifest-src 'self'; script-src 'sha256-VWOnSpeIkG13JIN2OIfeXnFKA8ZAQ4hW5fE7riIA1Qs='; worker-src 'self'"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Better Interviews | Feedback Given</title>
-    <meta name="description" content="Better Interviews helps you get better feedback on your interviews.">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
-    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#ffffff">
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="theme-color" content="#ffffff">
+    <meta
+      name="description"
+      content="Better Interviews helps you get better feedback on your interviews."
+    />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#ffffff" />
+    <meta name="msapplication-TileColor" content="#ffffff" />
+    <meta name="theme-color" content="#ffffff" />
     <style>
       {{ template "index.css" }}
     </style>
@@ -20,44 +26,35 @@
   <body>
     {{ $email := UserEmail .GiverID }}
     <p>
-      You received feedback for candidate <strong>{{ .Candidate }}</strong> for the role <strong>{{ .Role }}</strong> on team <strong>{{ .Team }}</strong>
+      You received feedback for candidate <strong>{{ .Candidate }}</strong> for
+      the role <strong>{{ .Role }}</strong> on team <strong>{{ .Team }}</strong>
       <br />
-      from <a href="mailto:{{ $email }}">{{ $email }}</a> on {{ .Date.Format "January 2 2006" }}.
+      from <a href="mailto:{{ $email }}">{{ $email }}</a> on {{ .Date.Format
+      "January 2 2006" }}.
     </p>
 
     {{ $responses := .Responses }}
-    <table style="margin-top: 16px; width: auto; table-layout: fixed;">
+    <table style="margin-top: 16px; width: auto; table-layout: fixed">
       <tbody>
-          {{ range .Questions }} 
-            <tr>
-              <th style="max-width: 50%; min-width: 200px;">
-                {{ .Text }} 
-              </th> 
-              {{ $questionID := .ID }}
-              {{ range $responses }}
-                {{ range .Answers }}
-                  {{ if eq .QuestionID $questionID }}
-                    <td style="max-width: 50%; min-width: 100px;">
-                      <strong>{{ if .Response }}  Yes {{ else }} No {{ end }}</strong> <br />
-                      {{ .Explanation }}
-                    </td>
-                  {{ end }}
-                {{ end }}
-              {{ end }}
-            </tr>
-          {{ end }}
+        {{ range .Questions }}
+        <tr>
+          <th style="max-width: 50%; min-width: 200px">{{ .Text }}</th>
+          {{ $questionID := .ID }} {{ range $responses }} {{ range .Answers }}
+          {{ if eq .QuestionID $questionID }}
+          <td style="max-width: 50%; min-width: 100px">
+            <strong>{{ if .Response }} Yes {{ else }} No {{ end }}</strong>
+            <br />
+            {{ .Explanation }}
+          </td>
+          {{ end }} {{ end }} {{ end }}
+        </tr>
+        {{ end }}
       </tbody>
     </table>
 
     <p>
       They
-      <strong>
-      {{ if .Recommend }} 
-        do
-      {{ else }}
-        do not
-      {{ end }}
-      </strong>
+      <strong> {{ if .Recommend }} do {{ else }} do not {{ end }} </strong>
       recommend this candidate for this position.
     </p>
   </body>

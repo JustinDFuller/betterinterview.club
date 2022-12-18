@@ -1,18 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; connect-src 'self'; img-src 'self'; style-src 'unsafe-inline'; form-action 'self'; manifest-src 'self'; script-src 'sha256-VWOnSpeIkG13JIN2OIfeXnFKA8ZAQ4hW5fE7riIA1Qs='; worker-src 'self'" />
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; connect-src 'self'; img-src 'self'; style-src 'unsafe-inline'; form-action 'self'; manifest-src 'self'; script-src 'sha256-VWOnSpeIkG13JIN2OIfeXnFKA8ZAQ4hW5fE7riIA1Qs='; worker-src 'self'"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Better Interviews | Open Role</title>
-    <meta name="description" content="Better Interviews helps you get better feedback on your interviews.">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
-    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#ffffff">
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="theme-color" content="#ffffff">
+    <meta
+      name="description"
+      content="Better Interviews helps you get better feedback on your interviews."
+    />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#ffffff" />
+    <meta name="msapplication-TileColor" content="#ffffff" />
+    <meta name="theme-color" content="#ffffff" />
     <style>
       {{ template "index.css" }}
     </style>
@@ -26,21 +32,45 @@
       </nav>
     </header>
 
-    <form action="/feedback/" method="post" style="margin-top: 16px;">
+    <form action="/feedback/" method="post" style="margin-top: 16px">
       <div class="form-group">
         <label for="team">What <strong>team</strong> is this role for?</label>
-        <input autofocus name="team" type="text" placeholder="Authentication Platforms" required maxlength="250" />
+        <input
+          autofocus
+          name="team"
+          type="text"
+          placeholder="Authentication Platforms"
+          required
+          maxlength="250"
+        />
       </div>
 
       <div class="form-group">
-        <label for="role">What <strong>role</strong> is this feedback for?</label>
-        <input name="role" type="text" placeholder="Senior Software Engineer" required maxlength="250" />
+        <label for="role"
+          >What <strong>role</strong> is this feedback for?</label
+        >
+        <input
+          name="role"
+          type="text"
+          placeholder="Senior Software Engineer"
+          required
+          maxlength="250"
+        />
       </div>
 
-      <p>You may add up to five questions. The only answer choices will be "yes" or "no".</p>
+      <p>
+        You may add up to five questions. The only answer choices will be "yes"
+        or "no".
+      </p>
       <div class="form-group">
         <label for="question1">Question One</label>
-        <input name="question1" type="text" placeholder="Did the candidate arrive at a working solution?" required maxlength="250" />
+        <input
+          name="question1"
+          type="text"
+          placeholder="Did the candidate arrive at a working solution?"
+          required
+          maxlength="250"
+        />
       </div>
 
       <div class="form-group">
@@ -69,11 +99,11 @@
     </form>
 
     <script>
-      window.addEventListener('load', () => {
-        if ('serviceWorker' in navigator) {
-          navigator.serviceWorker.register('/service-worker.js')
+      window.addEventListener("load", () => {
+        if ("serviceWorker" in navigator) {
+          navigator.serviceWorker.register("/service-worker.js");
         }
-      })
+      });
     </script>
   </body>
 </html>

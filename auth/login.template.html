@@ -1,18 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; connect-src 'self'; img-src 'self'; style-src 'unsafe-inline'; form-action 'self'; manifest-src 'self'; script-src 'sha256-VWOnSpeIkG13JIN2OIfeXnFKA8ZAQ4hW5fE7riIA1Qs='; worker-src 'self'" />
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; connect-src 'self'; img-src 'self'; style-src 'unsafe-inline'; form-action 'self'; manifest-src 'self'; script-src 'sha256-VWOnSpeIkG13JIN2OIfeXnFKA8ZAQ4hW5fE7riIA1Qs='; worker-src 'self'"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Better Interviews</title>
-    <meta name="description" content="Better Interviews helps you get better feedback on your interviews.">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
-    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#ffffff">
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="theme-color" content="#ffffff">
+    <meta
+      name="description"
+      content="Better Interviews helps you get better feedback on your interviews."
+    />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#ffffff" />
+    <meta name="msapplication-TileColor" content="#ffffff" />
+    <meta name="theme-color" content="#ffffff" />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="/public/screenshot.png" />
     <meta property="twitter:card" content="summary_large_image" />
@@ -21,78 +27,82 @@
       {{ template "index.css" }}
     </style>
   </head>
-  <body style="max-width: 500px;">
+  <body style="max-width: 500px">
     <h1>Better Interviews</h1>
     <form action="/auth/login/" method="post">
       <div class="form-group">
         <label for="email">Get started for free with your company email.</label>
-        <input style="width: 100%;" id="email" name="email" type="email" placeholder="me@betterinterview.club" required maxlength="320" />
-        <button style="width: 100%;" type="submit">Log In</button>
+        <input
+          style="width: 100%"
+          id="email"
+          name="email"
+          type="email"
+          placeholder="me@betterinterview.club"
+          required
+          maxlength="320"
+        />
+        <button style="width: 100%" type="submit">Log In</button>
         {{ if .Error }}
-          <p class="error">{{ .Error }}</p>
+        <p class="error">{{ .Error }}</p>
         {{ end }}
       </div>
     </form>
-    <main style="text-align: justify; margin-top: 32px;">
-      <h2>The Problem</h2> 
+    <main style="text-align: justify; margin-top: 32px">
+      <h2>The Problem</h2>
       <p>
-        I've spent years interviewing candidates of all types and levels. 
-        But it never seemed to get easier.
-        I struggled to compare candidates to each other.
-        I never felt I had a clear signal that a candidate was right for the role.
+        I've spent years interviewing candidates of all types and levels. But it
+        never seemed to get easier. I struggled to compare candidates to each
+        other. I never felt I had a clear signal that a candidate was right for
+        the role.
       </p>
       <p>
-        Eventually, I realized I lacked a consistent, structured way to evaluate candidates.
+        Eventually, I realized I lacked a consistent, structured way to evaluate
+        candidates.
       </p>
-      <p>
-        That's when I created Better Interviews.
-      </p>
+      <p>That's when I created Better Interviews.</p>
       <h2>How It Works</h2>
       <p>
-        First, a hiring manager opens a role. For each role, they create five binary (yes-or-no) questions. 
+        First, a hiring manager opens a role. For each role, they create five
+        binary (yes-or-no) questions.
       </p>
       <p>
-        For each candidate, the interviewer receives a feedback request. After the interview, they select "yes" or "no" for the questions.
+        For each candidate, the interviewer receives a feedback request. After
+        the interview, they select "yes" or "no" for the questions.
       </p>
       <p>
-        There is an additional question, asking if the interviewer recommends the candidate. 
+        There is an additional question, asking if the interviewer recommends
+        the candidate.
       </p>
-      <p>
-        The hiring manager receives a summary of each submitted feedback. 
-      </p>
+      <p>The hiring manager receives a summary of each submitted feedback.</p>
       <h2>Why you should care</h2>
+      <p>Does writing candidate feedback take too long?</p>
+      <p>Have you been struggling to compare candidates against each other?</p>
       <p>
-        Does writing candidate feedback take too long? 
+        Are you not getting a good signal on your candidates, but you're not
+        quite sure what's missing?
       </p>
       <p>
-        Have you been struggling to compare candidates against each other?
+        This tool has drastically simplified my interview process. It saves me
+        time as an interviewer and it gives my hiring managers consistent
+        feedback for each candidate.
       </p>
-      <p>
-        Are you not getting a good signal on your candidates, but you're not quite sure what's missing? 
-      </p>
-      <p>
-        This tool has drastically simplified my interview process.
-        It saves me time as an interviewer and it gives my hiring managers consistent feedback for each candidate. 
-      </p>
-      <p>
-        I hope you'll scroll back up, log in, and give it a try.
-      </p>
-      <p style="text-align: right;">
-      <span style="margin-right: 2px;">
-        &dash; Justin Fuller
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      </span>
-      <br />
-      Creator of <strong>Better Interviews</strong>
+      <p>I hope you'll scroll back up, log in, and give it a try.</p>
+      <p style="text-align: right">
+        <span style="margin-right: 2px">
+          &dash; Justin Fuller
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </span>
+        <br />
+        Creator of <strong>Better Interviews</strong>
       </p>
     </main>
-  
+
     <script>
-      window.addEventListener('load', () => {
-        if ('serviceWorker' in navigator) {
-          navigator.serviceWorker.register('/service-worker.js')
+      window.addEventListener("load", () => {
+        if ("serviceWorker" in navigator) {
+          navigator.serviceWorker.register("/service-worker.js");
         }
-      })
+      });
     </script>
   </body>
 </html>

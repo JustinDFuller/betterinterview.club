@@ -1,18 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; connect-src 'self'; img-src 'self'; style-src 'unsafe-inline'; form-action 'self'; manifest-src 'self'; script-src 'sha256-VWOnSpeIkG13JIN2OIfeXnFKA8ZAQ4hW5fE7riIA1Qs='; worker-src 'self'" />
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; connect-src 'self'; img-src 'self'; style-src 'unsafe-inline'; form-action 'self'; manifest-src 'self'; script-src 'sha256-VWOnSpeIkG13JIN2OIfeXnFKA8ZAQ4hW5fE7riIA1Qs='; worker-src 'self'"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Better Interviews | Close Role</title>
-    <meta name="description" content="Better Interviews helps you get better feedback on your interviews.">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
-    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#ffffff">
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="theme-color" content="#ffffff">
+    <meta
+      name="description"
+      content="Better Interviews helps you get better feedback on your interviews."
+    />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#ffffff" />
+    <meta name="msapplication-TileColor" content="#ffffff" />
+    <meta name="theme-color" content="#ffffff" />
     <style>
       {{ template "index.css" }}
     </style>
@@ -27,33 +33,38 @@
     </header>
 
     <p>
-      You are about to close the role <strong>{{ .Role }}</strong> for team <strong>{{ .Team }}</strong>. 
+      You are about to close the role <strong>{{ .Role }}</strong> for team
+      <strong>{{ .Team }}</strong>.
       <br />
-      This role was opened by by <a href="mailto:{{ .Email }}">{{ .Email }}</a> on {{ .CreatedAt }}.
+      This role was opened by by
+      <a href="mailto:{{ .Email }}">{{ .Email }}</a> on {{ .CreatedAt }}.
     </p>
 
     <form action="/feedback/close/{{ .ID }}" method="post">
-
       <div class="form-group">
         <label for="reason">Why are you closing this role?</label>
         <select name="reason" id="reason" required>
           <option selected disabled value="">Please select a reason.</option>
-          <option value="filled">We hired a candidate for this position.</option>
-          <option value="canceled">We no longer need to hire for this position.</option>
+          <option value="filled">
+            We hired a candidate for this position.
+          </option>
+          <option value="canceled">
+            We no longer need to hire for this position.
+          </option>
         </select>
       </div>
-        
+
       <div>
         <button type="submit">Close Role</button>
       </div>
     </form>
-  
+
     <script>
-      window.addEventListener('load', () => {
-        if ('serviceWorker' in navigator) {
-          navigator.serviceWorker.register('/service-worker.js')
+      window.addEventListener("load", () => {
+        if ("serviceWorker" in navigator) {
+          navigator.serviceWorker.register("/service-worker.js");
         }
-      })
+      });
     </script>
   </body>
 </html>

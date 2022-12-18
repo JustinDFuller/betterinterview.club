@@ -17,3 +17,6 @@ deploy: ## Build and deploy for app engine
 
 dispatch: ## Deploy routing rules for app engine
 	@cd ./cmd/appengine; gcloud app deploy dispatch.yaml;
+
+format:
+	@npx prettier -w ./**/*.html ./**/*.css;

@@ -1,18 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; connect-src 'self'; img-src 'self'; style-src 'unsafe-inline'; form-action 'self'; manifest-src 'self'; script-src 'sha256-VWOnSpeIkG13JIN2OIfeXnFKA8ZAQ4hW5fE7riIA1Qs='; worker-src 'self'" />
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; connect-src 'self'; img-src 'self'; style-src 'unsafe-inline'; form-action 'self'; manifest-src 'self'; script-src 'sha256-VWOnSpeIkG13JIN2OIfeXnFKA8ZAQ4hW5fE7riIA1Qs='; worker-src 'self'"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Better Interviews | Feedback Given</title>
-    <meta name="description" content="Better Interviews helps you get better feedback on your interviews.">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
-    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#ffffff">
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="theme-color" content="#ffffff">
+    <meta
+      name="description"
+      content="Better Interviews helps you get better feedback on your interviews."
+    />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#ffffff" />
+    <meta name="msapplication-TileColor" content="#ffffff" />
+    <meta name="theme-color" content="#ffffff" />
     <style>
       {{ template "index.css" }}
     </style>
@@ -27,129 +33,95 @@
     </header>
 
     <p>
-      Viewing feedback for role <strong>{{ .Role }}</strong> on team <strong>{{ .Team }}</strong>.
+      Viewing feedback for role <strong>{{ .Role }}</strong> on team
+      <strong>{{ .Team }}</strong>.
     </p>
 
     {{ $email := UserEmail .CreatorID }}
     <p>
-      Opened by <a href="mailto:{{ $email }}">{{ $email }}</a> on {{ .CreatedAt.Format "January 2 2006" }}.
+      Opened by <a href="mailto:{{ $email }}">{{ $email }}</a> on {{
+      .CreatedAt.Format "January 2 2006" }}.
     </p>
 
     <form action="/feedback/give/{{ .ID }}" method="post">
-      {{ $questions := .Questions }}
-
-      {{ range .Requests }}
-        {{ $responses := .Responses }}
-        <hr style="margin-bottom: 18px; display: block;" />
-        <p>
-          <strong>Candidate:</strong> {{ .CandidateName }} <br />
-          Requested on {{ .CreatedAt.Format "January 2 2006" }}.
-        </p>
-        {{ if len .Responses }}
-          <div class="table-container" style="margin-top: 16px;">
-            <table>
-              <tbody>
-                <tr>
-                  <th>
-                    Submitted By 
-                  </th>
-                  {{ range .Responses }}
-                    <td>
-                      {{ $email := UserEmail .CreatorID }}
-                      {{ $email }}
-                    </td>
-                  {{ end }}
-                </tr> 
-                <tr>
-                  <th>
-                    Submitted On 
-                  </th>
-                  {{ range .Responses }}
-                    <td>
-                      {{ .CreatedAt.Format "January 2 2006" }}
-                    </td>
-                  {{ end }}
-                </tr>
-                  {{ range $questions }} 
-                    <tr>
-                      <th>
-                        {{ .Text }} 
-                      </th> 
-                      {{ $questionID := .ID }}
-                      {{ range $responses }}
-                        {{ range .Answers }}
-                          {{ if eq .QuestionID $questionID }}
-                            <td>
-                              <strong>{{ if .Response }}  Yes {{ else }} No {{ end }}</strong> <br />
-                              {{ .Explanation }}
-                            </td>
-                          {{ end }}
-                        {{ end }}
-                      {{ end }}
-                    </tr>
-                  {{ end }}
-                <tr>
-                  <th>
-                    Do you recommend this candidate for this position?
-                  </th>
-                  {{ range .Responses }}
-                    <td>
-                      {{ if .Recommend }}
-                        Yes
-                      {{ else }}
-                        No
-                      {{ end }}
-                    </td>
-                  {{ end }}
-                </tr> 
-              </tbody>
-            </table>
-          </div>
-          {{ if lt (len .Responses) (len .InterviewerEmails) }}
-            <p>
-              Still waiting on feedback from 
-              {{ range .InterviewerEmails }}  
-                {{ $email := . }}
-                {{ $found := false }} 
-                {{ range $responses }}
-                  {{ $email2 := UserEmail .CreatorID }}
-                  {{ if eq $email $email2 }}
-                    {{ $found = true }}
-                  {{ end }}
-                {{ end }}
-                {{ if not $found }}
-                  <a href="{{ . }}">{{ . }}</a>
-                {{ end }}
+      {{ $questions := .Questions }} {{ range .Requests }} {{ $responses :=
+      .Responses }}
+      <hr style="margin-bottom: 18px; display: block" />
+      <p>
+        <strong>Candidate:</strong> {{ .CandidateName }} <br />
+        Requested on {{ .CreatedAt.Format "January 2 2006" }}.
+      </p>
+      {{ if len .Responses }}
+      <div class="table-container" style="margin-top: 16px">
+        <table>
+          <tbody>
+            <tr>
+              <th>Submitted By</th>
+              {{ range .Responses }}
+              <td>{{ $email := UserEmail .CreatorID }} {{ $email }}</td>
               {{ end }}
-            </p>
-          {{ end }}
-        {{ else }}
-          <p>
-            This candidate has not received feedback yet. Still waiting on:
-          </p>
-          <ul style="margin-top: -8px;">
-            {{ range .InterviewerEmails }} 
-            <li><a href="mailto:{{ . }}">{{ . }}</a></li>
+            </tr>
+            <tr>
+              <th>Submitted On</th>
+              {{ range .Responses }}
+              <td>{{ .CreatedAt.Format "January 2 2006" }}</td>
+              {{ end }}
+            </tr>
+            {{ range $questions }}
+            <tr>
+              <th>{{ .Text }}</th>
+              {{ $questionID := .ID }} {{ range $responses }} {{ range .Answers
+              }} {{ if eq .QuestionID $questionID }}
+              <td>
+                <strong>{{ if .Response }} Yes {{ else }} No {{ end }}</strong>
+                <br />
+                {{ .Explanation }}
+              </td>
+              {{ end }} {{ end }} {{ end }}
+            </tr>
             {{ end }}
-          </ul>
+            <tr>
+              <th>Do you recommend this candidate for this position?</th>
+              {{ range .Responses }}
+              <td>{{ if .Recommend }} Yes {{ else }} No {{ end }}</td>
+              {{ end }}
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      {{ if lt (len .Responses) (len .InterviewerEmails) }}
+      <p>
+        Still waiting on feedback from {{ range .InterviewerEmails }} {{ $email
+        := . }} {{ $found := false }} {{ range $responses }} {{ $email2 :=
+        UserEmail .CreatorID }} {{ if eq $email $email2 }} {{ $found = true }}
+        {{ end }} {{ end }} {{ if not $found }}
+        <a href="{{ . }}">{{ . }}</a>
+        {{ end }} {{ end }}
+      </p>
+      {{ end }} {{ else }}
+      <p>This candidate has not received feedback yet. Still waiting on:</p>
+      <ul style="margin-top: -8px">
+        {{ range .InterviewerEmails }}
+        <li><a href="mailto:{{ . }}">{{ . }}</a></li>
         {{ end }}
-      {{ else }}
-        <hr />
-        <p>
-          No one has requested feedback for this role.
-        </p>
-        <p>
-          <a href="/feedback/request/{{ .ID }}">Click here to request feedback.</a>
-        </p>
+      </ul>
+      {{ end }} {{ else }}
+      <hr />
+      <p>No one has requested feedback for this role.</p>
+      <p>
+        <a href="/feedback/request/{{ .ID }}"
+          >Click here to request feedback.</a
+        >
+      </p>
       {{ end }}
     </form>
-  
+
     <script>
-      window.addEventListener('load', () => {
-        if ('serviceWorker' in navigator) {
-          navigator.serviceWorker.register('/service-worker.js')
+      window.addEventListener("load", () => {
+        if ("serviceWorker" in navigator) {
+          navigator.serviceWorker.register("/service-worker.js");
         }
-      })
+      });
     </script>
   </body>
 </html>

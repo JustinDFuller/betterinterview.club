@@ -1,18 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; connect-src 'self'; img-src 'self'; style-src 'unsafe-inline'; form-action 'self'; manifest-src 'self'; script-src 'sha256-VWOnSpeIkG13JIN2OIfeXnFKA8ZAQ4hW5fE7riIA1Qs='; worker-src 'self'" />
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; connect-src 'self'; img-src 'self'; style-src 'unsafe-inline'; form-action 'self'; manifest-src 'self'; script-src 'sha256-VWOnSpeIkG13JIN2OIfeXnFKA8ZAQ4hW5fE7riIA1Qs='; worker-src 'self'"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Better Interviews | Give Feedback</title>
-    <meta name="description" content="Better Interviews helps you get better feedback on your interviews.">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
-    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#ffffff">
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="theme-color" content="#ffffff">
+    <meta
+      name="description"
+      content="Better Interviews helps you get better feedback on your interviews."
+    />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#ffffff" />
+    <meta name="msapplication-TileColor" content="#ffffff" />
+    <meta name="theme-color" content="#ffffff" />
     <style>
       {{ template "index.css" }}
     </style>
@@ -29,35 +35,53 @@
     </header>
 
     <p>
-      {{ $email := UserEmail .CreatorID }}
-      You are giving feedback for <strong>{{ .Candidate }}</strong> for the role <strong>{{ .Role }}</strong> on team <strong>{{ .Team }}</strong>. 
+      {{ $email := UserEmail .CreatorID }} You are giving feedback for
+      <strong>{{ .Candidate }}</strong> for the role
+      <strong>{{ .Role }}</strong> on team <strong>{{ .Team }}</strong>.
       <br />
     </p>
     <p>
-      <a href="mailto:{{ $email }}">{{ $email }}</a> requested your feedback on {{ .CreatedAt.Format "January 2 2006" }}.
+      <a href="mailto:{{ $email }}">{{ $email }}</a> requested your feedback on
+      {{ .CreatedAt.Format "January 2 2006" }}.
     </p>
 
     <form action="/feedback/give/{{ .FeedbackRequestID }}" method="post">
-
       {{ range .Questions }}
       <div class="form-group">
         {{ .Text }}
         <div>
-          <input name="{{ .ID }}" id="{{ .ID }}-yes" type="radio" value="true" required />
+          <input
+            name="{{ .ID }}"
+            id="{{ .ID }}-yes"
+            type="radio"
+            value="true"
+            required
+          />
           <label for="{{ .ID }}-yes">Yes</label>
         </div>
         <div>
-          <input name="{{ .ID }}" id="{{ .ID }}-no" type="radio" value="false" required />
+          <input
+            name="{{ .ID }}"
+            id="{{ .ID }}-no"
+            type="radio"
+            value="false"
+            required
+          />
           <label for="{{ .ID }}-no">No</label>
         </div>
-        <textarea 
-          placeholder="Please Explain" 
-          name="{{ .ID }}-explain" 
-          id="{{ .ID }}-explain" 
-          style="margin-bottom: 24px; margin-top: 8px;" 
-          autocomplete="off" 
+        <textarea
+          placeholder="Please Explain"
+          name="{{ .ID }}-explain"
+          id="{{ .ID }}-explain"
+          style="margin-bottom: 24px; margin-top: 8px"
+          autocomplete="off"
           maxlength="250"
-          {{ if $explanationsRequired }}required{{ end }}
+          {{
+          if
+          $explanationsRequired
+          }}required{{
+          end
+          }}
         ></textarea>
       </div>
       {{ end }}
@@ -65,11 +89,23 @@
       <div class="form-group">
         <strong>Do you recommend this candidate for this position?</strong>
         <div>
-          <input name="recommend" id="recommend-yes" type="radio" value="true" required />
+          <input
+            name="recommend"
+            id="recommend-yes"
+            type="radio"
+            value="true"
+            required
+          />
           <label for="recommend-yes">Yes</label>
         </div>
         <div>
-          <input name="recommend" id="recommend-no" type="radio" value="false" required />
+          <input
+            name="recommend"
+            id="recommend-no"
+            type="radio"
+            value="false"
+            required
+          />
           <label for="recommend-no">No</label>
         </div>
       </div>
@@ -78,13 +114,13 @@
         <button type="submit">Save Feedback</button>
       </div>
     </form>
-  
+
     <script>
-      window.addEventListener('load', () => {
-        if ('serviceWorker' in navigator) {
-          navigator.serviceWorker.register('/service-worker.js')
+      window.addEventListener("load", () => {
+        if ("serviceWorker" in navigator) {
+          navigator.serviceWorker.register("/service-worker.js");
         }
-      })
+      });
     </script>
   </body>
 </html>

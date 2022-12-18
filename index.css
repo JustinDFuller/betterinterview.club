@@ -3,7 +3,9 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui,
+    helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial,
+    sans-serif;
   font-size: 18px;
   max-width: 900px;
   margin: auto;
@@ -12,11 +14,20 @@ body {
   min-width: 375px;
 }
 
-a, p, button , td, th, strong, span, li {
+a,
+p,
+button,
+td,
+th,
+strong,
+span,
+li {
   font-size: 18px;
 }
 
-select, input, input::placeholder {
+select,
+input,
+input::placeholder {
   font-size: 16px;
 }
 
@@ -57,31 +68,36 @@ nav > a {
 }
 
 table {
-  border: 2px solid #E8E9EB;
+  border: 2px solid #e8e9eb;
   width: 100%;
   text-align: left;
   border-collapse: collapse;
 }
 
 tr {
-  border-top: 3px solid #E8E9EB;
+  border-top: 3px solid #e8e9eb;
 }
 
 th {
-  background: #E8E9EB;
+  background: #e8e9eb;
 }
 
-th, td {
+th,
+td {
   padding: 16px 8px;
   border: 0;
   margin: 0;
 }
 
-.nowrap th, .nowrap td {
+.nowrap th,
+.nowrap td {
   white-space: nowrap;
 }
 
-select, input[type="text"], input[type="email"], textarea {
+select,
+input[type="text"],
+input[type="email"],
+textarea {
   padding: 8px;
   width: 100%;
 }
@@ -140,12 +156,16 @@ main h2 + p {
   min-width: 900px;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   margin-top: 16px;
   margin-bottom: 16px;
 }
 
-h4, h5, h6 {
+h4,
+h5,
+h6 {
   margin-top: 8px;
   margin-bottom: 8px;
 }
@@ -155,7 +175,9 @@ h4, h5, h6 {
 }
 
 @media only screen and (min-width: 450px) {
-  select, input[type="text"], input[type="email"] {
+  select,
+  input[type="text"],
+  input[type="email"] {
     padding: 8px;
     min-width: 300px;
     width: auto;
@@ -168,7 +190,7 @@ h4, h5, h6 {
   header {
     flex-direction: row;
   }
-  
+
   nav > a {
     width: auto;
     display: inline-block;
