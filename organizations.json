@@ -67,7 +67,46 @@
               "InterviewerEmails": [
                 "justin+1@betterinterview.club"
               ],
-              "Responses": null,
+              "Responses": [
+                {
+                  "ID": "58e2012f-5584-4f02-8750-ad00755ebae8",
+                  "CreatorID": "082ac8d2-96a4-4560-b2e2-8fcfe004a662",
+                  "CreatedAt": "2022-12-18T12:20:52.07115511-05:00",
+                  "Answers": [
+                    {
+                      "ID": "a4f0f4eb-c626-4b00-a0d8-28c6fe1912ff",
+                      "QuestionID": "af0023bc-c36f-4696-a117-0bee5c9508d3",
+                      "Response": true,
+                      "Explanation": "test"
+                    },
+                    {
+                      "ID": "43547e16-0ab0-4e6c-b754-d50fd461f70a",
+                      "QuestionID": "c0f883af-b505-4e73-bc6d-b136237c5699",
+                      "Response": true,
+                      "Explanation": "test"
+                    },
+                    {
+                      "ID": "63cb8e72-6dcb-4d8c-8dfd-6913b66ffd1b",
+                      "QuestionID": "761f837f-ae89-4fdd-a9f7-e16cb0e7cf5f",
+                      "Response": true,
+                      "Explanation": "test"
+                    },
+                    {
+                      "ID": "d93f3e3f-2c5a-4d93-a779-d30d630dc90a",
+                      "QuestionID": "1cec52ff-e16a-4863-9a4c-80b900238b59",
+                      "Response": true,
+                      "Explanation": "test"
+                    },
+                    {
+                      "ID": "60b2a2d2-802a-4ab3-858f-7c940113cbb4",
+                      "QuestionID": "4f58fd15-b8ce-4a32-a4db-1ef58a1c27a0",
+                      "Response": true,
+                      "Explanation": "test"
+                    }
+                  ],
+                  "Recommend": true
+                }
+              ],
               "ExplanationsRequired": true
             },
             {

@@ -197,3 +197,11 @@ h6 {
     margin-left: 8px;
   }
 }
+
+a:active,
+a:focus,
+button:active,
+button:focus {
+  opacity: 0.5;
+  cursor: wait;
+}
