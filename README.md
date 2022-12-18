@@ -68,3 +68,41 @@
 
 ![Screenshot](https://image.thum.io/get/maxAge/12/width/1000/https://www.betterinterview.club "Screenshot")
 
+## Workflow
+
+### 1. Sign Up with your email
+
+![betterinterviews1](https://user-images.githubusercontent.com/11914897/208248226-0369c8f7-cd2e-4b5f-a97f-e3b59ef2ba6a.png)
+
+### 2 Head over to your email
+![betterinterviews2](https://user-images.githubusercontent.com/11914897/208248225-1214a7fe-2863-4df2-b48b-b1a9a4350809.png)
+
+### 3. Click the login link
+![betterinterviews3](https://user-images.githubusercontent.com/11914897/208248223-7810cced-127e-4c6c-8691-5eaa198e5c14.png)
+
+### 4. Open a new role
+![betterinterviews4](https://user-images.githubusercontent.com/11914897/208248222-2ffd4b88-72ae-44fa-be64-b2395bc178d5.png)
+
+### 5. Choose your interview signals
+![betterinterviews5](https://user-images.githubusercontent.com/11914897/208248221-f35d4494-6616-40fd-a763-a929f90349a8.png)
+
+### 6. Request Feedback
+![betterinterviews6](https://user-images.githubusercontent.com/11914897/208248220-1091b9c8-014e-44a5-bf2b-38b55c9b6d2c.png)
+
+### 7. Enter the candidate name and interviewer emails
+![betterinterviews7](https://user-images.githubusercontent.com/11914897/208248219-3525ec1d-d4c1-4308-b5ac-a8c9a8cfd5c3.png)
+
+### 8. Interviewers receive feedback requests
+![betterinterviews8](https://user-images.githubusercontent.com/11914897/208248218-edad11f9-f614-4c9a-815c-070edcc922d8.png)
+
+### 9. Interviewers answer questions
+![betterinterviews9](https://user-images.githubusercontent.com/11914897/208248217-1b2e5e6f-1ffc-4a4a-8418-374d864f0b3e.png)
+
+### 10. Hiring manager receives feedback via email
+![betterinterviews10](https://user-images.githubusercontent.com/11914897/208248216-5e21a88b-0df8-499b-97e9-1a12cd042a19.png)
+
+### 11. Feedback is also viewable on the website
+![betterinterviews11](https://user-images.githubusercontent.com/11914897/208248213-b52cf95a-55fa-4973-bb44-c1abc40d4032.png)
+
+### 12. Close the role once you make a hire!
+![betterinterviews12](https://user-images.githubusercontent.com/11914897/208248211-345df5f1-ed41-4aeb-9cb2-9238b905d1b1.png)
