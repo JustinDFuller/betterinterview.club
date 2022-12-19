@@ -12,19 +12,19 @@ import (
 func Handlers() {
 	organizations := interview.DefaultOrganizations
 
-	http.HandleFunc(auth.LoginPath, withGzip(auth.LoginHandler(organizations)))
-	http.HandleFunc(auth.CallbackPath, withGzip(auth.CallbackHandler(organizations)))
-	http.HandleFunc(auth.LogoutPath, withGzip(auth.LogoutHandler))
-	http.HandleFunc(auth.EmailPath, withGzip(auth.EmailHandler(organizations)))
-	http.HandleFunc(feedback.RequestPath, withGzip(feedback.RequestHandler(organizations)))
-	http.HandleFunc(feedback.GivenPath, withGzip(feedback.GivenHandler(organizations)))
-	http.HandleFunc(feedback.GivePath, withGzip(feedback.GiveHandler(organizations)))
-	http.HandleFunc(feedback.ClosePath, withGzip(feedback.CloseHandler(organizations)))
-	http.HandleFunc(feedback.OpenPath, withGzip(feedback.OpenHandler(organizations)))
-	http.HandleFunc(organization.InvitePath, withGzip(organization.InviteHandler(organizations)))
-	http.HandleFunc(organization.Path, withGzip(organization.Handler(organizations)))
+	http.HandleFunc(auth.LoginPath, middleware(auth.LoginHandler(organizations)))
+	http.HandleFunc(auth.CallbackPath, middleware(auth.CallbackHandler(organizations)))
+	http.HandleFunc(auth.LogoutPath, middleware(auth.LogoutHandler))
+	http.HandleFunc(auth.EmailPath, middleware(auth.EmailHandler(organizations)))
+	http.HandleFunc(feedback.RequestPath, middleware(feedback.RequestHandler(organizations)))
+	http.HandleFunc(feedback.GivenPath, middleware(feedback.GivenHandler(organizations)))
+	http.HandleFunc(feedback.GivePath, middleware(feedback.GiveHandler(organizations)))
+	http.HandleFunc(feedback.ClosePath, middleware(feedback.CloseHandler(organizations)))
+	http.HandleFunc(feedback.OpenPath, middleware(feedback.OpenHandler(organizations)))
+	http.HandleFunc(organization.InvitePath, middleware(organization.InviteHandler(organizations)))
+	http.HandleFunc(organization.Path, middleware(organization.Handler(organizations)))
 
-	http.HandleFunc("/", withGzip(func(w http.ResponseWriter, r *http.Request) {
+	http.HandleFunc("/", middleware(func(w http.ResponseWriter, r *http.Request) {
 		cookie, err := r.Cookie("__Host-UserUUID")
 		if err != nil || cookie == nil || cookie.Value == "" {
 			auth.LoginHandler(organizations)(w, r)
