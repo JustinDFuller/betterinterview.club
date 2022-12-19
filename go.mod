@@ -1,6 +1,6 @@
 module github.com/justindfuller/interviews
 
-go 1.15
+go 1.19
 
 require (
 	cloud.google.com/go/storage v1.28.0
