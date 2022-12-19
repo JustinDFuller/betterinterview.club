@@ -19,6 +19,8 @@ type EmailOptions struct {
 
 var ErrCrossDomainEmail = errors.New("cannot send cross-domain emails")
 
+var emailTemplate = template.Must(template.New("email.template.txt").ParseFiles("./email.template.txt"))
+
 func Email(opts EmailOptions, org Organization) error {
 	email := os.Getenv("EMAIL")
 	password := os.Getenv("PASSWORD")
@@ -37,13 +39,8 @@ func Email(opts EmailOptions, org Organization) error {
 
 	auth := smtp.PlainAuth("", email, password, "smtp.gmail.com")
 
-	t, err := template.New("email.template.txt").ParseFiles("./email.template.txt")
-	if err != nil {
-		return errors.Wrap(err, "error parsing emplate.template")
-	}
-
 	var b bytes.Buffer
-	if err := t.Execute(&b, opts); err != nil {
+	if err := emailTemplate.Execute(&b, opts); err != nil {
 		return errors.Wrap(err, "error executing email.template")
 	}
 

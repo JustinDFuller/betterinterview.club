@@ -6,7 +6,7 @@ server-watch: ## Run the Go server and restart on changes.
 	@reflex -s -d "fancy" -r '\.(go|html)' -R 'organizations.json' -- sh -c 'clear && $(MAKE) server';
 
 server:  ## Run the Go server.
-	@go run -race ./cmd/localhost;
+	@go run ./cmd/localhost;
 
 certificates: ## Generate SSL certificates for the HTTPS server.
 	@openssl req  -new  -newkey rsa:2048  -nodes  -keyout localhost.key  -out localhost.csr;

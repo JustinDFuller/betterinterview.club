@@ -15,6 +15,11 @@ import (
 
 const InvitePath = "/organization/invite/"
 
+var (
+	inviteTemplate      = template.Must(template.New("invite.template.html").ParseFiles("./organization/invite.template.html", "index.css"))
+	inviteEmailTemplate = template.Must(template.New("invite-email.template.html").ParseFiles("./organization/invite-email.template.html", "index.css"))
+)
+
 func InviteHandler(organizations *interview.Organizations) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		cookie, err := r.Cookie("__Host-UserUUID")
@@ -38,19 +43,12 @@ func InviteHandler(organizations *interview.Organizations) http.HandlerFunc {
 		}
 
 		if r.Method == http.MethodGet {
-			t, err := template.New("invite.template.html").ParseFiles("./organization/invite.template.html", "index.css")
-			if err != nil {
-				log.Printf("Error parsing template for /organization: %s", err)
-				http.ServeFile(w, r, "./error/index.html")
-				return
-			}
-
 			vars := map[string]interface{}{
 				"Domain": org.Domain,
 				"Error":  "",
 				"Email":  "",
 			}
-			if err := t.Execute(w, vars); err != nil {
+			if err := inviteTemplate.Execute(w, vars); err != nil {
 				log.Printf("Error executing template for /organization: %s", err)
 				return
 			}
@@ -88,19 +86,12 @@ func InviteHandler(organizations *interview.Organizations) http.HandlerFunc {
 				return
 			}
 			if isDifferentDomain {
-				t, err := template.New("invite.template.html").ParseFiles("./organization/invite.template.html", "index.css")
-				if err != nil {
-					log.Printf("Error parsing template for /organization: %s", err)
-					http.ServeFile(w, r, "./error/index.html")
-					return
-				}
-
 				vars := map[string]interface{}{
 					"Domain": org.Domain,
 					"Error":  "You cannot invite members from another domain.",
 					"Email":  email.Address,
 				}
-				if err := t.Execute(w, vars); err != nil {
+				if err := inviteTemplate.Execute(w, vars); err != nil {
 					log.Printf("Error executing template for /organization: %s", err)
 					return
 				}
@@ -123,19 +114,13 @@ func InviteHandler(organizations *interview.Organizations) http.HandlerFunc {
 			}
 
 			go func() {
-				t, err := template.New("invite-email.template.html").ParseFiles("./organization/invite-email.template.html", "index.css")
-				if err != nil {
-					log.Printf("Error parsing invite template for /organization/invite/: %s", err)
-					return
-				}
-
 				var html strings.Builder
 				vars := map[string]string{
 					"ID":      cbID,
 					"Host":    os.Getenv("HOST"),
 					"Inviter": inviter.Email,
 				}
-				if err := t.Execute(&html, vars); err != nil {
+				if err := inviteEmailTemplate.Execute(&html, vars); err != nil {
 					log.Printf("Error executing invite template for /organization/invite/: %s", err)
 				}
 

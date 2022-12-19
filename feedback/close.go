@@ -14,6 +14,10 @@ import (
 
 const ClosePath = "/feedback/close/"
 
+var (
+	closeTemplate = template.Must(template.New("close.template.html").ParseFiles("./feedback/close.template.html", "index.css"))
+)
+
 func CloseHandler(organizations *interview.Organizations) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		cookie, err := r.Cookie("__Host-UserUUID")
@@ -28,13 +32,6 @@ func CloseHandler(organizations *interview.Organizations) http.HandlerFunc {
 			http.ServeFile(w, r, "./error/unauthenticated.html")
 			return
 		}
-
-		/*userID, err := uuid.Parse(cookie.Value)
-		if err != nil {
-			log.Printf("Error parsing cookie for /feedback/close: %s", err)
-			http.ServeFile(w, r, "./error/unauthenticated.html")
-			return
-		}*/
 
 		org, closer, err := organizations.FindByUserID(cookie.Value)
 		if err != nil {
@@ -71,13 +68,6 @@ func CloseHandler(organizations *interview.Organizations) http.HandlerFunc {
 		}
 
 		if r.Method == http.MethodGet {
-			t, err := template.New("close.template.html").ParseFiles("./feedback/close.template.html", "index.css")
-			if err != nil {
-				log.Printf("Error parsing template for /feedback/close/%s: %s", id, err)
-				http.ServeFile(w, r, "./error/index.html")
-				return
-			}
-
 			vars := map[string]string{
 				"ID":        f.ID.String(),
 				"Role":      f.Role,
@@ -85,7 +75,7 @@ func CloseHandler(organizations *interview.Organizations) http.HandlerFunc {
 				"Email":     closer.Email,
 				"CreatedAt": f.CreatedAt.Format("January 2 2006"),
 			}
-			if err := t.Execute(w, vars); err != nil {
+			if err := closeTemplate.Execute(w, vars); err != nil {
 				log.Printf("Error executing template for /feedback/close/%s: %s", id, err)
 			}
 

@@ -10,6 +10,8 @@ import (
 
 const EmailPath = "/auth/email/"
 
+var emailTemplate = template.Must(template.New("email.template.html").ParseFiles("./auth/email.template.html", "index.css"))
+
 func EmailHandler(organizations *interview.Organizations) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		cookie, err := r.Cookie("__Host-UserUUID")
@@ -20,14 +22,7 @@ func EmailHandler(organizations *interview.Organizations) http.HandlerFunc {
 			}
 		}
 
-		t, err := template.New("email.template.html").ParseFiles("./auth/email.template.html", "index.css")
-		if err != nil {
-			log.Printf("Error parsing template for /auth/email/: %s", err)
-			http.ServeFile(w, r, "./error/index.html")
-			return
-		}
-
-		if err := t.Execute(w, nil); err != nil {
+		if err := emailTemplate.Execute(w, nil); err != nil {
 			log.Printf("Error executing template for /auth/email: %s", err)
 		}
 	}

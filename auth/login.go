@@ -29,17 +29,15 @@ var commonEmails = []string{
 	"mac.com",
 }
 
+var (
+	loginTemplate      = template.Must(template.New("login.template.html").ParseFiles("./auth/login.template.html", "index.css"))
+	loginEmailTemplate = template.Must(template.New("login-email.template.html").ParseFiles("./auth/login-email.template.html", "index.css"))
+)
+
 func LoginHandler(organizations *interview.Organizations) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == http.MethodGet {
-			t, err := template.New("login.template.html").ParseFiles("./auth/login.template.html", "index.css")
-			if err != nil {
-				log.Printf("Error parsing template for /auth/login/: %s", err)
-				http.ServeFile(w, r, "./error/index.html")
-				return
-			}
-
-			if err := t.Execute(w, nil); err != nil {
+			if err := loginTemplate.Execute(w, nil); err != nil {
 				log.Printf("Error executing template for /auth/login: %s", err)
 			}
 
@@ -80,19 +78,13 @@ func LoginHandler(organizations *interview.Organizations) http.HandlerFunc {
 
 			for _, common := range commonEmails {
 				if domain == common {
-					t, err := template.New("login.template.html").ParseFiles("./auth/login.template.html", "index.css")
-					if err != nil {
-						log.Printf("Error parsing template for /auth/login/: %s", err)
-						http.ServeFile(w, r, "./error/index.html")
-						return
-					}
-
 					vars := map[string]interface{}{
 						"Error": "Public email domains are not allowed.",
 					}
-					if err := t.Execute(w, vars); err != nil {
+					if err := loginTemplate.Execute(w, vars); err != nil {
 						log.Printf("Error executing template for /auth/login: %s", err)
 					}
+					return
 				}
 			}
 
@@ -110,15 +102,8 @@ func LoginHandler(organizations *interview.Organizations) http.HandlerFunc {
 				return
 			}
 
-			t, err := template.New("login-email.template.html").ParseFiles("./auth/login-email.template.html", "index.css")
-			if err != nil {
-				log.Printf("Error parsing template for /auth/login/: %s", err)
-				http.ServeFile(w, r, "./error/index.html")
-				return
-			}
-
 			var html strings.Builder
-			if err := t.Execute(&html, map[string]string{"ID": cbID, "Host": os.Getenv("HOST")}); err != nil {
+			if err := loginEmailTemplate.Execute(&html, map[string]string{"ID": cbID, "Host": os.Getenv("HOST")}); err != nil {
 				log.Printf("Error executing template for /auth/login: %s", err)
 			}
 

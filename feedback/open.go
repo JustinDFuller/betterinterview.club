@@ -13,6 +13,8 @@ import (
 
 const OpenPath = "/feedback/"
 
+var openTemplate = template.Must(template.New("open.template.html").ParseFiles("feedback/open.template.html", "index.css"))
+
 func OpenHandler(organizations *interview.Organizations) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		cookie, err := r.Cookie("__Host-UserUUID")
@@ -43,14 +45,7 @@ func OpenHandler(organizations *interview.Organizations) http.HandlerFunc {
 		}
 
 		if r.Method == http.MethodGet {
-			t, err := template.New("open.template.html").ParseFiles("feedback/open.template.html", "index.css")
-			if err != nil {
-				log.Printf("Error parsing template for /: %s", err)
-				http.ServeFile(w, r, "./error/index.html")
-				return
-			}
-
-			if err := t.Execute(w, org); err != nil {
+			if err := openTemplate.Execute(w, org); err != nil {
 				log.Printf("Error executing template for /organization: %s", err)
 			}
 
